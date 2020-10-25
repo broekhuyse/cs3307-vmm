@@ -22,10 +22,10 @@ Login::Login(LoginCollection loginCollection)
 *         password: password of the new user (to be encoded)
 * Return: 0 on success, -1 on failure (username already exists)
 */
-int Login::createAccount(std::string username, std::string password)
+int Login::createAccount(std::string username, std::string password, std::string fname, std::string lname, bool isAdmin, std::string membershipType)
 {
     // Directly add user to login collection (update to encrypt password)
-    return loginCollection.addUser(username, password);
+    return loginCollection.addMember(username, password, fname, lname, isAdmin, membershipType);
 }
 
 /*
@@ -35,10 +35,10 @@ int Login::createAccount(std::string username, std::string password)
 *         password: password of the new user (to be encoded)
 * Return: 0 on success, -1 on failure (username already exists)
 */
-int Login::checkLogin(std::string username, std::string password)
+const Member *Login::checkLogin(std::string username, std::string password)
 {
     // Directly add user to login collection (update to encrypt password)
-    return loginCollection.findUser(username, password);
+    return loginCollection.findMember(username, password);
 }
 
 void Login::setLoginCollection(LoginCollection collection)

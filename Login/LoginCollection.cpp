@@ -3,52 +3,84 @@
 
 LoginCollection::LoginCollection()
 {
+    currentHighestMemberID = 0;
 }
 
 /*
-* Name: addUser
+* Name: addMember
 * Description: Adds a user to the collection of logins with their username and password
 * Params: username: username of the new user
 *         password: password of the new user (encoded)
-* Return: 0 on success, -1 on failure (username already exists)
+*         fname: first name of new user
+*         lname: last name of new user
+*         isAdmin: admin status of new user
+*         membershipType: membership type of new user
+* Return: 0 on success, -1 on failure (username already exists), -2 if password is not secure enough
 */
-int LoginCollection::addUser(std::string username, std::string password)
+int LoginCollection::addMember(std::string username, std::string password, std::string fname, std::string lname, bool isAdmin, std::string membershipType)
 {
     if (loginCollection.find(username) != loginCollection.end())
     {
         // username already exists
         return -1;
     }
+
+    // check if password is secure enough
+    bool digit, upper, lower, special;
+    digit = upper = lower = special = false;
+    int length = password.length();
+    if (length < 8)
+    {
+        return -2;
+    }
+    for (int i = 0; i < length; i++)
+    {
+        if (islower(password[i])){
+            lower = true;
+        }
+        else if (isupper(password[i])){
+            upper = true;
+        }
+
+        if (isdigit(password[i])){
+            digit = true;
+        }
+        if (!isalpha(password[i]) && !isdigit(password[i])){
+            special = true;
+        }
+    }
+    if (!lower || !upper || !digit || !special){
+        return -2;
+    }
+
+    // check if name is correct formatting
+
     // add user to the collection
-    loginCollection[username] = password;
+    loginCollection[username].first = password;
+    loginCollection[username].second = Member(fname, lname, isAdmin, currentHighestMemberID += 1, membershipType);
     return 0;
 }
 
 /*
-* Name: findUser
+* Name: findMember
 * Description: Adds a user to the collection of logins with their username and password
 * Params: username: username of the user
 *         password: password of the user (encoded)
-* Return: 0 on success, -1 if username doesnt exist, -2 if password does not match
-* ################### MAYBE CHANGE TO RETURN THE MEMBER AND HAVE THE COLLECTION STORE THE MEMBER INSTEAD OF JUST LOGIN INFO (WHERE IS MEMBER INFO BEING SAVED CURRENTLY?)
+* Return: NULL if username doesnt exist or password does not match
+*         const Member* if the member exists
 */
-int LoginCollection::findUser(std::string username, std::string password)
+const Member *LoginCollection::findMember(std::string username, std::string password)
 {
-    std::unordered_map<std::string, std::string>::const_iterator search = loginCollection.find(username);
-    if (search == loginCollection.end())
+    std::unordered_map<std::string, std::pair<std::string, Member>>::const_iterator search = loginCollection.find(username);
+    if (search == loginCollection.end() || search->second.first != password)
     {
-        // username does not exist in the system
-        return -1;
-    }
-    else if (search->second != password)
-    {
-        // password does not match
-        return -2;
+        // username does not exist in the system or password does not match
+        return NULL;
     }
     else
     {
         // username and password match entry
-        return 0;
+        return &search->second.second;
     }
 }
 
@@ -57,17 +89,21 @@ int LoginCollection::findUser(std::string username, std::string password)
 * Description: Changes the password of an existing user in the database
 * Params: username: username of the user to be deleted
 *         password: password of the user to be deleted(encoded)
-* Return: 0 on success, -1 if username doesnt exist, -2 if password does not match (same as finduser)
+* Return: 0 on success, -1 if username doesnt exist or password does not match
 */
 int LoginCollection::deleteUser(std::string username, std::string password)
 {
-    int result = findUser(username, password);
-
-    if(result == 0){
-        // username and password match
-        loginCollection.erase(username);
+    const Member *membercheck = findMember(username, password);
+    if (membercheck == NULL)
+    {
+        return -1;
     }
-    return result;
+    else
+    {
+        // Member exists and password is correct
+        loginCollection.erase(username);
+        return 0;
+    }
 }
 
 /*
@@ -76,25 +112,19 @@ int LoginCollection::deleteUser(std::string username, std::string password)
 * Params: username: username of the user
 *         oldPassword: oldPassword of the user (encoded)
 *         newPassword: newPassword of the user (encoded)
-* Return: 0 on success, -1 if username does not exist, -2 if oldPassword is incorrect for username
+* Return: 0 on success, -1 if username does not exist or if oldPassword is incorrect for username
 */
 int LoginCollection::changePassword(std::string username, std::string oldPassword, std::string newPassword)
 {
-    std::unordered_map<std::string, std::string>::const_iterator search = loginCollection.find(username);
-    if (search == loginCollection.end())
+    const Member *membercheck = findMember(username, oldPassword);
+    if (membercheck == NULL)
     {
-        // username does not exist in the system 
         return -1;
-    }
-    else if (search->second != oldPassword)
-    {
-        // password does not match
-        return -2;
     }
     else
     {
-        // username and password match entry
-        loginCollection[username] = newPassword;
+        // Member exists and password is correct
+        loginCollection[username].first = newPassword;
         return 0;
     }
 }
