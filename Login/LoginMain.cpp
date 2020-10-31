@@ -11,7 +11,7 @@ int main()
     Login login(collection);
     LoginInterface interface(login);
 
-    for (int i = 0; i < 3; i++)
+    for (int i = 0; i < 1; i++)
     {
         cout << "----------------- Account Creation -----------------" << endl;
         interface.createAccountPrompt();

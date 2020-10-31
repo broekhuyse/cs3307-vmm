@@ -1,6 +1,7 @@
 #include <iostream>
 #include "LoginInterface.h"
 #include "Member.h"
+#include "CreditCardCompany.h"
 
 using namespace std;
 
@@ -19,7 +20,7 @@ void LoginInterface::createAccountPrompt()
     while (result < 0)
     {
         string username, password, fname, lname;
-        
+
         cout << "Username: " << endl;
         getline(cin, username);
 
@@ -37,7 +38,8 @@ void LoginInterface::createAccountPrompt()
         {
             cout << "Username already exists, please try again." << endl;
         }
-        else if (result == -2){
+        else if (result == -2)
+        {
             cout << "Password is not secure enough, please try again." << endl;
         }
         else
@@ -47,9 +49,9 @@ void LoginInterface::createAccountPrompt()
     }
 }
 
-void LoginInterface::loginPrompt()
+Member *LoginInterface::loginPrompt()
 {
-    const Member *result = NULL;
+    Member *result = NULL;
     string username, password;
     while (result == NULL)
     {
@@ -66,7 +68,6 @@ void LoginInterface::loginPrompt()
         }
         else
         {
-            // Set current user in system to the resulting member
             cout << "Logging in..." << endl;
         }
     }
@@ -75,4 +76,62 @@ void LoginInterface::loginPrompt()
     cout << "ID: " << result->getID() << endl;
     cout << "Name: " << result->getName().first << " " << result->getName().second << endl;
     cout << "Currency: " << result->getCurrency() << endl;
+
+    // test adding currency to account without checks
+    cout << "---------- Add Currency ----------" << endl;
+    float quant;
+    int month, year;
+    CreditCardCompany company;
+    string number, name, securityCode, temp;
+
+    cout << "Quantity: " << endl;
+    getline(cin, temp);
+    quant = stof(temp);
+
+    cout << "Number: " << endl;
+    getline(cin, number);
+
+    cout << "Name: " << endl;
+    getline(cin, name);
+
+    cout << "Security Code: " << endl;
+    getline(cin, securityCode);
+
+    cout << "Expiration Month: " << endl;
+    getline(cin, temp);
+    month = stoi(temp);
+
+    cout << "Expiration Year: " << endl;
+    getline(cin, temp);
+    year = stoi(temp);
+
+    cout << "Credit card company: " << endl;
+    cout << "Input 1 for Visa" << endl;
+    cout << "Input 2 for American Express" << endl;
+    cout << "Input 3 for Master Card" << endl;
+    getline(cin, temp);
+    int choice = stoi(temp);
+    switch (choice)
+    {
+    case 1:
+        company = visa;
+        break;
+    case 2:
+        company = americanExpress;
+        break;
+    case 3:
+        company = masterCard;
+        break;
+    default:
+        break;
+    }
+
+    result->addCurrency(quant, number, month, year, name, securityCode, company);
+    // Temp debugging print for member information
+    cout << "ID: " << result->getID() << endl;
+    cout << "Name: " << result->getName().first << " " << result->getName().second << endl;
+    cout << "Currency: " << result->getCurrency() << endl;
+
+    // return the currently logged in member
+    return result;
 }

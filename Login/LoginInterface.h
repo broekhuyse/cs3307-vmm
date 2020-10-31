@@ -15,7 +15,7 @@ public:
     LoginInterface();
     LoginInterface(Login login);
     void createAccountPrompt();
-    void loginPrompt();
+    Member *loginPrompt();
 };
 
 #endif

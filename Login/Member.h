@@ -2,6 +2,7 @@
 #define MEMBER_H
 
 #include <string>
+#include "CreditCardCompany.h"
 
 class Member
 {
@@ -12,13 +13,15 @@ private:
     std::string lname;
     bool isAdmin;
     int memberID;
+
+    bool validateCreditCard(std::string number, int month, int year, std::string name, std::string securityCode, CreditCardCompany company);
     //purchasehistory
     //lastlogin
 
 public:
     Member();
     Member(std::string fname, std::string lname, bool isAdmin, int memberID, std::string membershipType);
-    //void addCurrency(float quantity credit card info);
+    void addCurrency(float quantity, std::string number, int month, int year, std::string name, std::string securityCode, CreditCardCompany company);
     void setMembershipType(std::string membershipType);
     float getCurrency() const;
     std::pair<std::string, std::string> getName() const;

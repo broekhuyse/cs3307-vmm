@@ -67,11 +67,11 @@ int LoginCollection::addMember(std::string username, std::string password, std::
 * Params: username: username of the user
 *         password: password of the user (encoded)
 * Return: NULL if username doesnt exist or password does not match
-*         const Member* if the member exists
+*         Member* if the member exists
 */
-const Member *LoginCollection::findMember(std::string username, std::string password)
+Member *LoginCollection::findMember(std::string username, std::string password)
 {
-    std::unordered_map<std::string, std::pair<std::string, Member>>::const_iterator search = loginCollection.find(username);
+    std::unordered_map<std::string, std::pair<std::string, Member>>::iterator search = loginCollection.find(username);
     if (search == loginCollection.end() || search->second.first != password)
     {
         // username does not exist in the system or password does not match

@@ -13,7 +13,7 @@ public:
     Login();
     Login(LoginCollection loginCollection);
     int createAccount(std::string username, std::string password, std::string fname, std::string lname, bool isAdmin, std::string membershipType);
-    const Member *checkLogin(std::string username, std::string password);
+    Member *checkLogin(std::string username, std::string password);
 
     void setLoginCollection(LoginCollection collection);
 };

@@ -14,7 +14,7 @@ private:
 public:
     LoginCollection();
     int addMember(std::string username, std::string password, std::string fname, std::string lname, bool isAdmin, std::string membershipType);
-    const Member *findMember(std::string username, std::string password);
+    Member *findMember(std::string username, std::string password);
 
     int deleteUser(std::string username, std::string password);
     int changePassword(std::string username, std::string oldPassword, std::string newPassword);
