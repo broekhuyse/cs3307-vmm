@@ -9,7 +9,7 @@ LoginInterface::LoginInterface()
 {
 }
 
-LoginInterface::LoginInterface(Login login)
+LoginInterface::LoginInterface(Login *login)
 {
     this->login = login;
 }
@@ -24,7 +24,7 @@ void LoginInterface::createAccountPrompt()
         cout << "Username: " << endl;
         getline(cin, username);
 
-        cout << "Password (must be longer than 8 characters and contain uppercase, lowercase, and a special symbol): " << endl;
+        cout << "Password (must be longer than 8 characters and contain uppercase, lowercase, a number and a special symbol): " << endl;
         getline(cin, password);
 
         cout << "First name: " << endl;
@@ -33,7 +33,7 @@ void LoginInterface::createAccountPrompt()
         cout << "Last name: " << endl;
         getline(cin, lname);
 
-        result = login.createAccount(username, password, fname, lname, false, "temp");
+        result = login->createAccount(username, password, fname, lname, false, "temp");
         if (result == -1)
         {
             cout << "Username already exists, please try again." << endl;
@@ -61,7 +61,7 @@ Member *LoginInterface::loginPrompt()
         cout << "Password: " << endl;
         getline(cin, password);
 
-        result = login.checkLogin(username, password);
+        result = login->checkLogin(username, password);
         if (result == NULL)
         {
             cout << "Username does not exist or password does not match, please try again." << endl;

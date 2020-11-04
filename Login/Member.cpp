@@ -10,7 +10,7 @@ Member::Member()
 
 /*
 * Name: Member
-* Description: Constructor for Member class to set the data
+* Description: Constructor for Member class to initialize new member
 * Params: name: Name of the new member
 *         isAdmin: Admin status of the member
 *         memberID: ID of the member
@@ -25,6 +25,25 @@ Member::Member(std::string fname, std::string lname, bool isAdmin, int memberID,
     this->memberID = memberID;
     this->membershipType = membershipType;
     currency = 0;
+}
+/*
+* Name: Member
+* Description: Constructor for Member class to add user from DB to collection
+* Params: name: Name of the new member
+*         isAdmin: Admin status of the member
+*         memberID: ID of the member
+*         membershipType: membership type of the new member
+*		  currency: amount of currency on member account
+* Return: none
+*/
+Member::Member(std::string fname, std::string lname, bool isAdmin, int memberID, std::string membershipType, float currency)
+{
+	this->fname = fname;
+	this->lname = lname;
+	this->isAdmin = isAdmin;
+	this->memberID = memberID;
+	this->membershipType = membershipType;
+	this->currency = currency;
 }
 
 /*
@@ -147,4 +166,23 @@ int Member::getID() const
 float Member::getCurrency() const
 {
     return currency;
+}
+std::string Member::getfname() const 
+{
+	return fname;
+}
+std::string Member::getlname() const 
+{
+	return lname;
+}
+bool Member::getisadmin() const 
+{
+	return isAdmin;
+}
+std::string Member::getMembershipType() const 
+{
+	return membershipType;
+}
+void Member::setMembershipType(std::string membershipType) {
+	this->membershipType = membershipType;
 }

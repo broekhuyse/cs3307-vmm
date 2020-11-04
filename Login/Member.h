@@ -21,11 +21,16 @@ private:
 public:
     Member();
     Member(std::string fname, std::string lname, bool isAdmin, int memberID, std::string membershipType);
+	Member(std::string fname, std::string lname, bool isAdmin, int memberID, std::string membershipType, float currency);
     void addCurrency(float quantity, std::string number, int month, int year, std::string name, std::string securityCode, CreditCardCompany company);
     void setMembershipType(std::string membershipType);
     float getCurrency() const;
     std::pair<std::string, std::string> getName() const;
     int getID() const;
+	std::string getfname() const; 
+	std::string getlname() const;
+	bool getisadmin() const;
+	std::string getMembershipType() const;
 };
 
 #endif

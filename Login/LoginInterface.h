@@ -9,11 +9,11 @@
 class LoginInterface
 {
 private:
-    Login login;
+    Login *login;
 
 public:
     LoginInterface();
-    LoginInterface(Login login);
+    LoginInterface(Login *login);
     void createAccountPrompt();
     Member *loginPrompt();
 };

@@ -15,7 +15,8 @@ public:
     int createAccount(std::string username, std::string password, std::string fname, std::string lname, bool isAdmin, std::string membershipType);
     Member *checkLogin(std::string username, std::string password);
 
-    void setLoginCollection(LoginCollection collection);
+    void setLoginCollection(LoginCollection *collection);
+	LoginCollection getLoginCollection();
 };
 
 #endif

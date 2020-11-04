@@ -1,5 +1,7 @@
 
 #include "LoginCollection.h"
+#include <iostream>
+#include <string>
 
 LoginCollection::LoginCollection()
 {
@@ -55,10 +57,19 @@ int LoginCollection::addMember(std::string username, std::string password, std::
 
     // check if name is correct formatting
 
-    // add user to the collection
-    loginCollection[username].first = password;
-    loginCollection[username].second = Member(fname, lname, isAdmin, currentHighestMemberID += 1, membershipType);
+    //alternate way to insert
+	auto test = std::make_pair(password, Member(fname, lname, isAdmin, currentHighestMemberID += 1, membershipType,0.0));
+	auto insert = std::make_pair(username, test);
+	this->loginCollection.insert(insert);
+	
+	return 0;
+
+	// add user to the collection
+	/*
+   loginCollection[username].first = password;
+   loginCollection[username].second = Member(fname, lname, isAdmin, currentHighestMemberID += 1, membershipType);
     return 0;
+	*/
 }
 
 /*
@@ -71,17 +82,17 @@ int LoginCollection::addMember(std::string username, std::string password, std::
 */
 Member *LoginCollection::findMember(std::string username, std::string password)
 {
-    std::unordered_map<std::string, std::pair<std::string, Member>>::iterator search = loginCollection.find(username);
-    if (search == loginCollection.end() || search->second.first != password)
-    {
-        // username does not exist in the system or password does not match
-        return NULL;
-    }
-    else
-    {
-        // username and password match entry
-        return &search->second.second;
-    }
+	std::unordered_map<std::string, std::pair<std::string, Member>>::iterator search = loginCollection.find(username);
+	if (search == loginCollection.end() || search->second.first != password)
+	{
+		// username does not exist in the system or password does not match
+		return NULL;
+	}
+	else
+	{
+		// username and password match entry
+		return &search->second.second;
+	}
 }
 
 /*
@@ -128,3 +139,15 @@ int LoginCollection::changePassword(std::string username, std::string oldPasswor
         return 0;
     }
 }
+
+std::unordered_map<std::string, std::pair<std::string, Member>> LoginCollection::getMap() 
+{
+	
+	return this->loginCollection;
+
+}
+void LoginCollection::setCollection(std::unordered_map<std::string, std::pair<std::string, Member>> map) 
+{
+	loginCollection = map;
+}
+

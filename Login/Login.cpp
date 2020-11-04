@@ -41,7 +41,10 @@ Member *Login::checkLogin(std::string username, std::string password)
     return loginCollection.findMember(username, password);
 }
 
-void Login::setLoginCollection(LoginCollection collection)
+void Login::setLoginCollection(LoginCollection *collection)
 {
-    loginCollection = collection;
+    loginCollection = *collection;
+}
+LoginCollection Login::getLoginCollection() {
+	return loginCollection;
 }
