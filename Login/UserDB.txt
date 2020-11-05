@@ -3,4 +3,3 @@ Matt,Mombourquette,1,13,Type1,500,mmombou,testpassword
 mark,mellows,0,2,temp,0,testuser13,testPass#42 
 Donald,Trump,1,60,type1,600000,donaldj,maga2020 
 Joe,Biden,1,77,type1,55555,jbiddy,ridinwithbiden 
-
