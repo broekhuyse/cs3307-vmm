@@ -33,7 +33,53 @@ void LoginInterface::createAccountPrompt()
         cout << "Last name: " << endl;
         getline(cin, lname);
 
-        result = login->createAccount(username, password, fname, lname, false, "temp");
+        string input = "";
+        while (input != "y" && input != "n")
+        {
+            cout << "Create an admin account? (Y/N)" << endl;
+            getline(cin, input);
+            input = tolower(input[0]);
+
+            if (input.length() != 1 || (input != "y" && input != "n")){
+                cout << "Invalid input" << endl;
+                continue;
+            }            
+        }
+
+        bool admin = false;
+        if (input == "y")
+        {
+            // Prompt for admin login
+            Member *result = NULL;
+            string username, password;
+            while (result == NULL)
+            {
+                cout << "----------Admin Login----------" << endl;
+                cout << "Username: " << endl;
+                getline(cin, username);
+
+                cout << "Password: " << endl;
+                getline(cin, password);
+
+                result = login->checkLogin(username, password);
+                if (result == NULL)
+                {
+                    cout << "Username does not exist or password does not match, please try again." << endl;
+                }
+                else
+                {
+                    if (result->getisadmin()){
+                        admin = true;
+                    }
+                    else{
+                        cout << "This user is not an admin" << endl;
+                        result = NULL;
+                    }
+                }
+            }
+        }
+
+        result = login->createAccount(username, password, fname, lname, admin, "temp");
         if (result == -1)
         {
             cout << "Username already exists, please try again." << endl;

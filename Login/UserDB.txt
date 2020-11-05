@@ -1,6 +1,8 @@
-billy,Bob,0,12,Type2,12,bobbyboy,testpass2 
 Matt,Mombourquette,1,13,Type1,500,mmombou,testpassword 
-mark,mellows,0,2,temp,0,testuser13,testPass#42 
+e,w,0,1,temp,3,a,asdfAsdf1! 
 Donald,Trump,1,60,type1,600000,donaldj,maga2020 
 Joe,Biden,1,77,type1,55555,jbiddy,ridinwithbiden 
-
+e,r,1,1,temp,802.33,asdf,asdfAsdf1! 
+e,r,1,1,temp,0,eee,asdfAsdf1! 
+mark,mellows,0,2,temp,0,testuser13,testPass#42 
+billy,Bob,0,12,Type2,12,bobbyboy,testpass2 

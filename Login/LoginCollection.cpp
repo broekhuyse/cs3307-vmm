@@ -37,35 +37,40 @@ int LoginCollection::addMember(std::string username, std::string password, std::
     }
     for (int i = 0; i < length; i++)
     {
-        if (islower(password[i])){
+        if (islower(password[i]))
+        {
             lower = true;
         }
-        else if (isupper(password[i])){
+        else if (isupper(password[i]))
+        {
             upper = true;
         }
 
-        if (isdigit(password[i])){
+        if (isdigit(password[i]))
+        {
             digit = true;
         }
-        if (!isalpha(password[i]) && !isdigit(password[i])){
+        if (!isalpha(password[i]) && !isdigit(password[i]))
+        {
             special = true;
         }
     }
-    if (!lower || !upper || !digit || !special){
+    if (!lower || !upper || !digit || !special)
+    {
         return -2;
     }
 
     // check if name is correct formatting
 
     //alternate way to insert
-	auto test = std::make_pair(password, Member(fname, lname, isAdmin, currentHighestMemberID += 1, membershipType,0.0));
-	auto insert = std::make_pair(username, test);
-	this->loginCollection.insert(insert);
-	
-	return 0;
+    auto test = std::make_pair(password, Member(fname, lname, isAdmin, currentHighestMemberID += 1, membershipType, 0.0));
+    auto insert = std::make_pair(username, test);
+    this->loginCollection.insert(insert);
 
-	// add user to the collection
-	/*
+    return 0;
+
+    // add user to the collection
+    /*
    loginCollection[username].first = password;
    loginCollection[username].second = Member(fname, lname, isAdmin, currentHighestMemberID += 1, membershipType);
     return 0;
@@ -82,17 +87,21 @@ int LoginCollection::addMember(std::string username, std::string password, std::
 */
 Member *LoginCollection::findMember(std::string username, std::string password)
 {
-	std::unordered_map<std::string, std::pair<std::string, Member>>::iterator search = loginCollection.find(username);
-	if (search == loginCollection.end() || search->second.first != password)
-	{
-		// username does not exist in the system or password does not match
-		return NULL;
-	}
-	else
-	{
-		// username and password match entry
-		return &search->second.second;
-	}
+    std::unordered_map<std::string, std::pair<std::string, Member>>::iterator search = loginCollection.find(username);
+    if (search == loginCollection.end() || search->second.first != password)
+    {
+        // username does not exist in the system or password does not match
+
+        // debugging to see if password mismatch or usename not in collection
+        // std::cout << "Found password: " << (search->second.first)  << " Input password: " << password << std::endl;
+        // std::cout << (search == loginCollection.end()) << (search->second.first != password);
+        return NULL;
+    }
+    else
+    {
+        // username and password match entry
+        return &search->second.second;
+    }
 }
 
 /*
@@ -140,14 +149,12 @@ int LoginCollection::changePassword(std::string username, std::string oldPasswor
     }
 }
 
-std::unordered_map<std::string, std::pair<std::string, Member>> LoginCollection::getMap() 
+std::unordered_map<std::string, std::pair<std::string, Member>> LoginCollection::getMap()
 {
-	
-	return this->loginCollection;
 
+    return this->loginCollection;
 }
-void LoginCollection::setCollection(std::unordered_map<std::string, std::pair<std::string, Member>> map) 
+void LoginCollection::setCollection(std::unordered_map<std::string, std::pair<std::string, Member>> map)
 {
-	loginCollection = map;
+    loginCollection = map;
 }
-
