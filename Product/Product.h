@@ -2,21 +2,28 @@
 #ifndef PRODUCT_H
 #define PRODUCT_H
 #include <string>
+#include <iostream>
 
 class Product {
     private:
         std::string id;
         std::string productName;
         std::string category;
-        float discount;
         float price; 
         int quantity; 
+
+        float bulkModifier;
+        float globalDiscount;
+
     public:
         Product();
-        Product(std::string, std::string, std::string, float, float, int);
+
+        Product(std::string productName, std::string category, std::string id, float price, int quantity, float bulkModifier, float globalDiscount);
+        Product(std::string productName, std::string category, std::string id, float price, int quantity);
+
         ~Product();
         
-        std::string getID();
+        std::string getID() const;
         std::string getName();
         std::string getCategory();
         float getDiscount();
@@ -27,6 +34,11 @@ class Product {
         void setCategory(std::string category);
         void setPrice(float price);
         void setQuantity(int quantity);
+
+        void addQuantity(int quantity);
+        bool operator == (const Product& other);
+        friend std::ostream& operator<<(std::ostream& os, const Product& prod);
+
 };
 
 #endif

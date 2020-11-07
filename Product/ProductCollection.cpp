@@ -9,9 +9,11 @@
 #include "ProductCollection.h"
 using namespace std; 
 
-std::vector<Product> productList;
+
 
 ProductCollection::ProductCollection() {
+    std::vector<Product> temp;
+    this->productList = temp;
     ifstream input;
     string fileName;
     input.open("products.csv");
@@ -66,7 +68,7 @@ void ProductCollection::removeProduct(string id) {
     ofstream output;
     output.open("products.csv");
     for(int i = 0; i < productList.size(); i++) {
-        if (productList[i].getID() == product.getID()) {
+        if (productList[i].getID() == id) {
             productList.erase(productList.begin() + i);
         }
     }
@@ -82,4 +84,76 @@ Product ProductCollection::findProduct(Product product) {
             return product;
         }
     }
+}
+
+void ProductCollection::restockInventory(Product product, int quantity) {
+    bool found = false;
+    for (int i = 0; i < productList.size(); i++) {
+        if (productList.at(i) == product) {
+            found = true;
+            cout << "Previous Quantity For " << productList.at(i).getName() << " Was " << productList.at(i).getQuantity() << endl;
+            productList.at(i).addQuantity(quantity);
+            cout << "New Quantity For " << productList.at(i).getName() << " Is " << productList.at(i).getQuantity() << endl;
+            break;
+        }
+    }
+    if (!found) {
+        cout << "Product was not found in the collection" << endl;
+    }
+}
+
+void ProductCollection::sortByPrice(string order) {
+    if (order == "increasing") {
+        sort(productList.begin(), productList.end(), [](Product& lhs, Product& rhs) {
+            return lhs.getPrice() < rhs.getPrice();
+            });
+    }
+    else if (order == "decreasing") {
+        sort(productList.begin(), productList.end(), [](Product& lhs, Product& rhs) {
+            return lhs.getPrice() > rhs.getPrice();
+            });
+    }
+
+}
+
+void ProductCollection::sortByCategory(string order) {
+    if (order == "increasing") {
+        sort(productList.begin(), productList.end(), [](Product& lhs, Product& rhs) {
+            return lhs.getCategory() < rhs.getCategory();
+            });
+    }
+    else if (order == "decreasing") {
+        sort(productList.begin(), productList.end(), [](Product& lhs, Product& rhs) {
+            return lhs.getCategory() > rhs.getCategory();
+            });
+    }
+
+}
+
+int ProductCollection::size() {
+    return productList.size();
+}
+
+Product ProductCollection::at(int index) {
+    return productList[index];
+}
+
+void ProductCollection::changePrice(Product product, float newPrice) {
+    bool found = false;
+    for (int i = 0; i < productList.size(); i++) {
+        if (productList.at(i) == product) {
+            found = true;
+            cout << "Previous Price For " << productList.at(i).getName() << " Was " << productList.at(i).getPrice() << endl;
+            productList.at(i).setPrice(newPrice);
+            cout << "New Price For " << productList.at(i).getName() << " Is " << productList.at(i).getPrice() << endl;
+            break;
+        }
+    }
+    if (!found) {
+        cout << "Product was not found in the collection" << endl;
+    }
+}
+
+std::vector<Product> ProductCollection::getProductList(){
+    return productList;
 }
