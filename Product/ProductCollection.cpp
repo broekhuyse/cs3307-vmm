@@ -50,6 +50,7 @@ void ProductCollection::addProduct(Product newProduct) {
     ofstream output;
     output.open("products.csv", std::ios_base::app);
     output << newProduct.getID() << "," << newProduct.getName() << "," << newProduct.getCategory() << "," << newProduct.getPrice() << "," << newProduct.getDiscount() << "," << newProduct.getQuantity() << '\n'; // Outputs to .CSV
+    output.close();
 
 }
 void ProductCollection::changeInventory(Product product, int quantity) {
@@ -62,12 +63,17 @@ void ProductCollection::changeInventory(Product product, int quantity) {
 }
 void ProductCollection::removeProduct(string id) {
     // Removes product and updates product list
-    // Still have to figure out how to remove from CSV file
+    ofstream output;
+    output.open("products.csv");
     for(int i = 0; i < productList.size(); i++) {
         if (productList[i].getID() == product.getID()) {
             productList.erase(productList.begin() + i);
         }
     }
+    for(int i = 0; i < productList.size(); i++) {
+        output << productList[i].getID() << "," << productList[i].getName() << "," << productList[i].getCategory() << "," << productList[i].getPrice() << "," << productList[i].getDiscount() << "," << productList[i].getQuantity() << '\n';
+    }
+    output.close();
 }
 Product ProductCollection::findProduct(Product product) {
     // Finds product based on product object, not entirely sure what the point of the function is
