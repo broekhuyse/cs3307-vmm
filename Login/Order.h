@@ -1,7 +1,7 @@
 #ifndef ORDER_H
 #define ORDER_H
 
-#include "Product.h"
+#include "../Product/Product.h"
 
 class Order {
 	private:
