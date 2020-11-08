@@ -1,5 +1,6 @@
 //#include <iostream> // TEMP FOR DEBUGGING
 #include <ctime>
+#include <math.h>
 #include "Member.h"
 
 using namespace std;
@@ -38,12 +39,12 @@ Member::Member(std::string fname, std::string lname, bool isAdmin, int memberID,
 */
 Member::Member(std::string fname, std::string lname, bool isAdmin, int memberID, std::string membershipType, float currency)
 {
-	this->fname = fname;
-	this->lname = lname;
-	this->isAdmin = isAdmin;
-	this->memberID = memberID;
-	this->membershipType = membershipType;
-	this->currency = currency;
+    this->fname = fname;
+    this->lname = lname;
+    this->isAdmin = isAdmin;
+    this->memberID = memberID;
+    this->membershipType = membershipType;
+    this->currency = currency;
 }
 
 /*
@@ -56,14 +57,20 @@ Member::Member(std::string fname, std::string lname, bool isAdmin, int memberID,
 *         name: name of the card holder
 *         securityCode: security code for credit card
 *         company: the providing credit card company
-* Return: true if the card is valid, false if the card is invalid
+* Return: none
 */
 void Member::addCurrency(float quantity, std::string number, int month, int year, std::string name, std::string securityCode, CreditCardCompany company)
 {
-    // add currency to account if credit card is valid
+    // check if quantity in valid format
+    if (currency < 0)
+    {
+        return;
+    }
+
+    // add currency rounded to two decimal places to account if credit card is valid 
     if (validateCreditCard(number, month, year, name, securityCode, company))
     {
-        currency += quantity;
+        currency += roundf(quantity * 100) / 100;
     }
 }
 
@@ -121,7 +128,7 @@ bool Member::validateCreditCard(std::string number, int month, int year, std::st
         }
         sum += temp;
     }
-    // sum odd digits from right to left 
+    // sum odd digits from right to left
     for (int i = number.length() - 1; i >= 0; i -= 2)
     {
         sum += number[i] - '0';
@@ -135,7 +142,7 @@ bool Member::validateCreditCard(std::string number, int month, int year, std::st
 
     // COULD MOVE INTO ITS OWN CLASS FOR USE IN EXPIRATION DATES FOR PRODUCTS, ETC
     // check the expiry date to the current date
-    time_t currSec = time(NULL); // get number of seconds since epoch
+    time_t currSec = time(NULL);        // get number of seconds since epoch
     tm *currTime = localtime(&currSec); // convert to days/months/years
 
     // month in range of 1-12
@@ -143,7 +150,8 @@ bool Member::validateCreditCard(std::string number, int month, int year, std::st
         return false;
 
     // check if card is expired
-    if ((currTime->tm_year - 100) > year || ((currTime->tm_year - 100) == year && (currTime->tm_mon + 1) > month)){
+    if ((currTime->tm_year - 100) > year || ((currTime->tm_year - 100) == year && (currTime->tm_mon + 1) > month))
+    {
         //cerr << "Expired Card" << endl;
         //cerr << currTime->tm_year-100<< " " << currTime->tm_mon +1 << endl;
         return false;
@@ -167,22 +175,23 @@ float Member::getCurrency() const
 {
     return currency;
 }
-std::string Member::getfname() const 
+std::string Member::getfname() const
 {
-	return fname;
+    return fname;
 }
-std::string Member::getlname() const 
+std::string Member::getlname() const
 {
-	return lname;
+    return lname;
 }
-bool Member::getisadmin() const 
+bool Member::getisadmin() const
 {
-	return isAdmin;
+    return isAdmin;
 }
-std::string Member::getMembershipType() const 
+std::string Member::getMembershipType() const
 {
-	return membershipType;
+    return membershipType;
 }
-void Member::setMembershipType(std::string membershipType) {
-	this->membershipType = membershipType;
+void Member::setMembershipType(std::string membershipType)
+{
+    this->membershipType = membershipType;
 }

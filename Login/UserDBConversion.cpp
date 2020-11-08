@@ -121,7 +121,7 @@ std::unordered_map<std::string, std::pair<std::string, Member>> UserDBConversion
 			//for whatever reason last line of the file doesnt have terminator so there MUST be a newline in the file after the last line
 			std::string t = std::string(start);
 			tPass = t.substr(0, t.size() - 1);
-			std::cout << "in userdbconversion: " << tPass << std::endl;
+			//std::cout << "in userdbconversion: " << tPass << std::endl;
 
 			//input all information from line into map 
 			
