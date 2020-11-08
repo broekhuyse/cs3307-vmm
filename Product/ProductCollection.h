@@ -27,5 +27,6 @@ class ProductCollection {
         Product at(int index);
         void changePrice(Product product, float newPrice);
         std::vector<Product> getProductList();
+        void saveToDatabase();
 };
 #endif

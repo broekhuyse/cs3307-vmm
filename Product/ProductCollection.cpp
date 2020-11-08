@@ -14,6 +14,7 @@ using namespace std;
 ProductCollection::ProductCollection() {
     std::vector<Product> temp;
     this->productList = temp;
+    
     ifstream input;
     string fileName;
     input.open("products.csv");
@@ -60,6 +61,7 @@ void ProductCollection::changeInventory(Product product, int quantity) {
     for(int i = 0; i < productList.size(); i++) {
         if (productList[i].getID() == product.getID()) {
             productList[i].setQuantity(quantity);
+            saveToDatabase();
         }
     }
 }
@@ -93,6 +95,7 @@ void ProductCollection::restockInventory(Product product, int quantity) {
             found = true;
             cout << "Previous Quantity For " << productList.at(i).getName() << " Was " << productList.at(i).getQuantity() << endl;
             productList.at(i).addQuantity(quantity);
+            saveToDatabase();
             cout << "New Quantity For " << productList.at(i).getName() << " Is " << productList.at(i).getQuantity() << endl;
             break;
         }
@@ -145,6 +148,7 @@ void ProductCollection::changePrice(Product product, float newPrice) {
             found = true;
             cout << "Previous Price For " << productList.at(i).getName() << " Was " << productList.at(i).getPrice() << endl;
             productList.at(i).setPrice(newPrice);
+            saveToDatabase();
             cout << "New Price For " << productList.at(i).getName() << " Is " << productList.at(i).getPrice() << endl;
             break;
         }
@@ -156,4 +160,24 @@ void ProductCollection::changePrice(Product product, float newPrice) {
 
 std::vector<Product> ProductCollection::getProductList(){
     return productList;
+}
+
+void ProductCollection::saveToDatabase(){
+    // clears the csv file
+    ofstream ofs;
+    ofs.open("products.csv", ofstream::out | ofstream::trunc);
+    ofs.close();
+    
+    // write the productsList vector into the empty csv file
+    ofstream file;
+    file.open("products.csv");
+    file << "ID,Name,Category,Price,GlobalDiscount,Quantity,\n";    // create the column titles
+    
+    // create a product entry for each product in the list
+    for(int i=0; i < productList.size(); i++){
+        file << productList.at(i).getID() << "," << productList.at(i).getName() << "," << productList.at(i).getCategory() << "," << productList.at(i).getPrice() << "," << productList.at(i).getDiscount() << "," << productList.at(i).getQuantity() << "\n";
+    }
+    
+    file.close();
+    
 }
