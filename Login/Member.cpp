@@ -77,6 +77,16 @@ void Member::addCurrency(float quantity, std::string number, int month, int year
 }
 
 /**
+* Adds the specified quantity to the current amount of currency while bypassing the card validation process, rounds to the nearest two decimal places
+* @param quantity amount of currency to be added
+* @return none
+*/
+void Member::modifyBalance(float quantity)
+{
+	currency += roundf(quantity * 100) / 100;
+}
+
+/**
 * Takes credit card information as parameters and checks if the card is valid
 * @param number credit card number as a string
 * @param month expiry month as an int

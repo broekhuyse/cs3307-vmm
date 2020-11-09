@@ -82,7 +82,7 @@ int ShoppingCart::processCart(Member* buyer) {
 		std::cerr << "Low user funds: Cart total is $" << grandPrice << ", while User has balance of $" << buyer->getCurrency() << "\n";
 	}
 	
-	// Continue with checkout ONLY if verified
+	// Continue with checkout ONLY if verified (no issues)
 	if(!verified) {
 		std::cout << "Checkout failed. \n";
 		return 0;
@@ -93,7 +93,7 @@ int ShoppingCart::processCart(Member* buyer) {
 		(*i).getProduct()->setQuantity((*i).getProduct()->getQuantity() - (*i).getQuantity());
 		purchased << (*i).getProduct()->getName() << " x " << (*i).getQuantity() << ", ";
 	}
-	buyer->addCurrency(-grandPrice, "0000000000000000", 10, 2022, "Admin", "000", visa);      // Use Company's Card to remove balance (non-functional example as placeholder)	
+	buyer->modifyBalance(-grandPrice);      // Add balance as negative float
 	std::string purchasedItems = purchased.str();
 	std::cout << "Checkout success!\n" << purchasedItems.substr(0, purchasedItems.length()-3) << "\n";
 	
