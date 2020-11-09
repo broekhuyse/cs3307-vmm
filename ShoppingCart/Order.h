@@ -5,25 +5,24 @@
 
 class Order {
 	private:
-		Product product;
-		int dateOfPurchase;				// Should prob be string
+		Product* product;
+		int dateOfPurchase;	
 		int quantity;
 		float totalCost;
 		
-		void calculateCost();
-		
 	public:
 		Order();
-		Order(Product prod, int pDate, int quant);
+		Order(Product* prod, int pDate, int quant);
 		
 		bool operator == (const Order& other);
 		bool operator != (const Order& other);
 		
-		int getDate();
-		int getQuantity();
-		Product getProduct();
+		int getDate() const;
+		int getQuantity() const;
+		Product* getProduct() const;
 		float getTotalCost();
 		
+		void updateCost();
 		void setDate(int newDate);
 		void setQuantity(int amount);
 		void changeTotalCost(float cost);

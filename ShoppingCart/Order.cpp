@@ -2,47 +2,48 @@
 
 
 Order::Order() {
-	this->product = null;
+	Product emptyProd;
+	this->product = (&emptyProd);
 	this->dateOfPurchase = 0;
 	this->quantity = 0;
 	this->totalCost = 0;
 }
 
-Order::Order(Product prod, int pDate, int quant) {
+Order::Order(Product* prod, int pDate, int quant) {
 	this->product = prod;
 	this->dateOfPurchase = pDate;
 	this->quantity = quant;
 	
-	calculateCost();
+	updateCost();
 }
 
 // Overrides == to compare product, quantity, and date
 // Returns true iff all of the above match with the other
 bool Order::operator== (const Order& other){
-	return (this->product == other.getProduct() && this->quantity == other.getQuantity() && this->dateOfPurchase == other.getDate());
+	return (*product == *(other.getProduct()) && this->quantity == other.getQuantity() && this->dateOfPurchase == other.getDate());
 }
 
 // Overrides != to compare product, quantity, and date
 // Returns true iff ANY of the above does not match with the other
 bool Order::operator!= (const Order& other){
-	return (this->product != other.getProduct() || this->quantity != other.getQuantity() || this->dateOfPurchase != other.getDate());
+	return (!(*product == *(other.getProduct()))|| !(this->quantity == other.getQuantity()) || !(this->dateOfPurchase == other.getDate()));
 }
 
-void Order::calculateCost() {
-	float cost = this->product.getCost();
+void Order::updateCost() {
+	float cost = this->product->getPrice();
 	// If there is any discount stuff, calculate it here
 	this->totalCost = cost * this->quantity;
 }
 
-int Order::getDate() {
+int Order::getDate() const{
 	return this->dateOfPurchase;
 }
 
-int Order::getQuantity() {
+int Order::getQuantity() const{
 	return this->quantity;
 }
 
-Product Order::getProduct() {
+Product* Order::getProduct() const{
 	return this->product;
 }
 
