@@ -41,10 +41,10 @@ VendingInterface::VendingInterface(ProductCollection& productCollection, Member&
 
 };
 //returns pair<int,int> where first integer is the product position in in vector, second integer is the quantity. 
-int VendingInterface::VendingDisplay() {
+pair<int,int> VendingInterface::VendingDisplay() {
 
 	string choice; 
-	int amount, vectorPosition;
+	int amount, vectorIndex;
 	// print out products and prices, each with an assigned code. 
 	std::cout << SHOPTOP << std::endl << TITLE << std::endl << SHOPTOP << std::endl;
 	std::vector<std::string> codes{ "A1","A2","B1","B2","C1","C2", "D1","D2", "E1","E2" };
@@ -66,10 +66,10 @@ int VendingInterface::VendingDisplay() {
 			continue;
 		}
 
-		//if choice was 0, return -1
+		//if choice was 0, return -1,-1
 		if (choice == "0") {
 			//return -1 on exit with no order added to cart
-			return -1;
+			return make_pair(-1, -1);
 		}
 		//if input was proper, exit loop
 		else break;
@@ -79,9 +79,9 @@ int VendingInterface::VendingDisplay() {
 		cout << endl << "Please enter amount of selected item to purchase or enter 0 to exit: ";
 		cin >> amount;
 
-		//if input = 0 return -1
+		//if input = 0 return -1,-1
 		if (amount == 0) {
-			return -1;
+			return make_pair(-1, -1);
 		}
 		//if input was not an integer prompt for proper input
 		else if (cin.fail()) {
@@ -97,17 +97,22 @@ int VendingInterface::VendingDisplay() {
 		else break;
 	}
 	
-	vectorPosition = choiceToInt(choice);
+	while (amount > productCollection->getProductList[vectorIndex].getQuantity()) {
 
-	cout << amount << " units of: " << productCollection->getProductList[vectorPosition].getPName() << " added to cart" << endl;
+		cout << "Quantity requested is higher than quantity in stock, please select a quantity less than : " << productCollection->getProductList[vectorIndex].getQuantity()
+			<< " or enter 0 to exit." << endl; 
+	}
 
-	// should just make it add to cart here. 
-	// ADD CODE HERE 
-
-
-
+	if (amount == 0)  return make_pair(-1, -1); 
 
 
-	//return 1 when product added to cart 
-	return 1;
+
+	vectorIndex = choiceToInt(choice);
+
+	//cout << amount << " units of: " << productCollection->getProductList[vectorPosition].getPName() << " added to cart" << endl;
+
+	//COULD HAVE ITEM BE ADDED TO CART HERE INSTEAD OF RETURNING PAIR ?
+
+	//return pair of (amount, index 
+	return make_pair(amount, vectorIndex);
 };

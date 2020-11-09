@@ -16,7 +16,7 @@ private:
 
 public:
 	VendingInterface(ProductCollection& productCollection, Member& currentMember, ShoppingCart cart);
-	int VendingDisplay();
+	pair<int, int> VendingDisplay();
 	
 	
 };
