@@ -37,37 +37,16 @@ void SetupInterface::SetupPrompt() {
 		
 		result = login->createAccount(username, password, firstName, lastName, true, "temp");
 		if(result == -1){
-			cout << "Username already exists." << endl;
+			cout << "Username already exists. Please try again" << endl;
 		}
 		
 		else if(result == -2){
-			cout << "Password is not secure enough." << endl;
+			cout << "Password is not secure enough. Please try again" << endl;
 		}
 		
 		else {
 			cout << "Your setup is complete!" << endl;
 		}
 		
-		if(result < 0) {
-			string redoInput;
-			int redo;
-			cout << "Input 0 to try again or 1 to exit" << endl;
-			while(getline(cin, redoInput); {
-				stringstream stream(redoInput);
-				if(stream >> redo){
-					if(stream.eof() && (redo == 0 || redo == 1)) {
-						if(redo == 0) {
-							result = -1;
-						}
-						else {
-							result = 0;
-						}
-						break;
-					}
-				}
-				
-				cout << "Invalid Input" << endl;
-			}
-		}
 	}
 }
