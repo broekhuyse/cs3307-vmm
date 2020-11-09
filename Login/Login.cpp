@@ -1,26 +1,28 @@
+/**
+ * This class may be removed depending on how security for the passwords will be handled
+ * A class to provide the login functions, dealing with the raw passwords
+ */
 #include "Login.h"
 
 Login::Login()
 {
 }
 
-/*
-* Name: Login
-* Description: Constructor for Login class to set the LoginCollection
-* Params: loginCollection: The collection used to store the username and password data
-* Return: none
+/**
+* Constructor for Login class to set the LoginCollection
+* @param loginCollection The collection used to store the username and password data
+* @return none
 */
 Login::Login(LoginCollection loginCollection)
 {
     this->loginCollection = loginCollection;
 }
 
-/*
-* Name: createAccount
-* Description: Adds a user to the collection of logins with their username and password
-* Params: username: username of the new user
-*         password: password of the new user (to be encoded)
-* Return: 0 on success, -1 on failure (username already exists)
+/**
+* Adds a user to the collection of logins with their username and password
+* @param username username of the new user
+* @param password password of the new user 
+* @return 0 on success, -1 on failure (username already exists)
 */
 int Login::createAccount(std::string username, std::string password, std::string fname, std::string lname, bool isAdmin, std::string membershipType)
 {
@@ -28,12 +30,11 @@ int Login::createAccount(std::string username, std::string password, std::string
     return loginCollection.addMember(username, password, fname, lname, isAdmin, membershipType);
 }
 
-/*
-* Name: checkLogin
-* Description: Adds a user to the collection of logins with their username and password
-* Params: username: username of the new user
-*         password: password of the new user (to be encoded)
-* Return: Pointer to the member
+/**
+* Adds a user to the collection of logins with their username and password
+* @param username username of the new user
+* @param password password of the new user
+* @return Pointer to the member
 */
 Member *Login::checkLogin(std::string username, std::string password)
 {

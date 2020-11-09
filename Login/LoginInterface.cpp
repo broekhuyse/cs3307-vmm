@@ -1,3 +1,7 @@
+/**
+ * Class that provides an interface to login to the vending machine system
+ */
+
 #include <iostream>
 #include <sstream>
 #include "LoginInterface.h"
@@ -15,6 +19,11 @@ LoginInterface::LoginInterface(Login *login)
     this->login = login;
 }
 
+/**
+ * Provides an interface for the user to create an account in the system
+ * @param
+ * @return void 
+ */
 void LoginInterface::createAccountPrompt()
 {
     int result = -1;
@@ -126,6 +135,11 @@ void LoginInterface::createAccountPrompt()
     }
 }
 
+/**
+ * Provides an interface for the user to login to the system
+ * @param
+ * @return A pointer to the member that has been logged into or a NULL pointer if login is cancelled by the user 
+ */
 Member *LoginInterface::loginPrompt()
 {
     bool done = false;

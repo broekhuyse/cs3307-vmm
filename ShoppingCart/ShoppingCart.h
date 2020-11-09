@@ -4,6 +4,7 @@
 #include <string>
 #include <list>
 #include "Order.h"
+#include "../Login/Member.h"
 //#include "CouponCollection"
 
 class ShoppingCart {
@@ -20,10 +21,11 @@ class ShoppingCart {
 		bool isEmpty();
 		int getSize();
 		
+		void updateCosts();
 		void addCouponCode(std::string code);
 		//void updateCouponCollection(CouponCollection newCodes);
-		string createInvoice();
-		void processCart();			// Dead for now, probably needs something more
+		std::string createInvoice();
+		int processCart(Member* buyer);
 };
 
 #endif
