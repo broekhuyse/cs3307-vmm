@@ -1,3 +1,6 @@
+/**
+ * Class that provides an interface to handle the account that is currently logged in to the vending machine system
+ */
 #include "AccountInterface.h"
 #include <iostream>
 #include <sstream>
@@ -18,6 +21,11 @@ void AccountInterface::setCurrentMember(Member *member)
     currentMember = member;
 }
 
+/**
+ * Provides an interface for the user to add currency to their account
+ * @param
+ * @return void 
+ */
 void AccountInterface::addCurrencyPrompt()
 {
     float quant;
@@ -108,6 +116,11 @@ void AccountInterface::addCurrencyPrompt()
     cout << "Currency: " << currentMember->getCurrency() << endl;
 }
 
+/**
+ * Prints the account's ID, name and currency to the screen
+ * @param
+ * @return void 
+ */
 void AccountInterface::printAccountInfo()
 {
     cout << "ID: " << currentMember->getID() << endl;

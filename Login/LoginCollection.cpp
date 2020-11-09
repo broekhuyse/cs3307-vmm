@@ -1,3 +1,6 @@
+/**
+ * Class that stores the login information of the members of the vending machine system
+ */
 
 #include "LoginCollection.h"
 #include <iostream>
@@ -8,16 +11,15 @@ LoginCollection::LoginCollection()
     currentHighestMemberID = 0;
 }
 
-/*
-* Name: addMember
-* Description: Adds a user to the collection of logins with their username and password
-* Params: username: username of the new user
-*         password: password of the new user (encoded)
-*         fname: first name of new user
-*         lname: last name of new user
-*         isAdmin: admin status of new user
-*         membershipType: membership type of new user
-* Return: 0 on success, -1 on failure (username already exists), -2 if password is not secure enough
+/**
+* Adds a user to the collection of logins with their username and password. Only adds to the collection if the password is secure enough
+* @param username username of the new user
+* @param password password of the new user (encoded)
+* @param fname first name of new user
+* @param lname last name of new user
+* @param isAdmin admin status of new user
+* @param membershipType membership type of new user
+* @return 0 on success, -1 on failure (username already exists), -2 if password is not secure enough
 */
 int LoginCollection::addMember(std::string username, std::string password, std::string fname, std::string lname, bool isAdmin, std::string membershipType)
 {
@@ -77,13 +79,11 @@ int LoginCollection::addMember(std::string username, std::string password, std::
 	*/
 }
 
-/*
-* Name: findMember
-* Description: Adds a user to the collection of logins with their username and password
-* Params: username: username of the user
-*         password: password of the user (encoded)
-* Return: NULL if username doesnt exist or password does not match
-*         Member* if the member exists
+/**
+* Adds a user to the collection of logins with their username and password
+* @param username username of the user
+* @param password password of the user 
+* @return NULL if username doesnt exist or password does not match, Member* if the member exists
 */
 Member *LoginCollection::findMember(std::string username, std::string password)
 {
@@ -104,12 +104,11 @@ Member *LoginCollection::findMember(std::string username, std::string password)
     }
 }
 
-/*
-* Name: deleteUser
-* Description: Changes the password of an existing user in the database
-* Params: username: username of the user to be deleted
-*         password: password of the user to be deleted(encoded)
-* Return: 0 on success, -1 if username doesnt exist or password does not match
+/**
+* Delete a user from the database with a specific username and password
+* @param username: username of the user to be deleted
+* @param password: password of the user to be deleted
+* @return 0 on success, -1 if username doesnt exist or password does not match
 */
 int LoginCollection::deleteUser(std::string username, std::string password)
 {
@@ -126,13 +125,12 @@ int LoginCollection::deleteUser(std::string username, std::string password)
     }
 }
 
-/*
-* Name: changePassword
+/**
 * Description: Changes the password of an existing user in the database
-* Params: username: username of the user
-*         oldPassword: oldPassword of the user (encoded)
-*         newPassword: newPassword of the user (encoded)
-* Return: 0 on success, -1 if username does not exist or if oldPassword is incorrect for username
+* @param username username of the user
+* @param oldPassword oldPassword of the user 
+* @param newPassword newPassword of the user 
+* @return 0 on success, -1 if username does not exist or if oldPassword is incorrect for username
 */
 int LoginCollection::changePassword(std::string username, std::string oldPassword, std::string newPassword)
 {

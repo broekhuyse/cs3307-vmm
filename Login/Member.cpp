@@ -1,3 +1,7 @@
+/**
+ *  Class that contains the data for a member in the vending machine system.
+ *  Contains the name, member status, ID, member type and currency of the member
+ */
 //#include <iostream> // TEMP FOR DEBUGGING
 #include <ctime>
 #include <math.h>
@@ -9,14 +13,13 @@ Member::Member()
 {
 }
 
-/*
-* Name: Member
-* Description: Constructor for Member class to initialize new member
-* Params: name: Name of the new member
-*         isAdmin: Admin status of the member
-*         memberID: ID of the member
-*         membershipType: membership type of the new member
-* Return: none
+/**
+* Constructor for Member class to initialize new member
+* @param name Name of the new member
+* @param isAdmin Admin status of the member
+* @param memberID ID of the member
+* @param membershipType membership type of the new member
+* @return none
 */
 Member::Member(std::string fname, std::string lname, bool isAdmin, int memberID, std::string membershipType)
 {
@@ -27,15 +30,15 @@ Member::Member(std::string fname, std::string lname, bool isAdmin, int memberID,
     this->membershipType = membershipType;
     currency = 0;
 }
-/*
-* Name: Member
-* Description: Constructor for Member class to add user from DB to collection
-* Params: name: Name of the new member
-*         isAdmin: Admin status of the member
-*         memberID: ID of the member
-*         membershipType: membership type of the new member
-*		  currency: amount of currency on member account
-* Return: none
+
+/**
+* Constructor for Member class to add user from DB to collection
+* @param name Name of the new member
+* @param isAdmin Admin status of the member
+* @param memberID ID of the member
+* @param membershipType membership type of the new member
+* @param currency amount of currency on member account
+* @return none
 */
 Member::Member(std::string fname, std::string lname, bool isAdmin, int memberID, std::string membershipType, float currency)
 {
@@ -47,17 +50,16 @@ Member::Member(std::string fname, std::string lname, bool isAdmin, int memberID,
     this->currency = currency;
 }
 
-/*
-* Name: addCurrency
-* Description: Takes credit card information and amount of currency to add as parameters and checks if the card is valid, if valid then adds to the member's currency
-* Params: quantity: amount of currency to be added
-*         number: credit card number
-*         month: expiry month
-*         year: expiry year
-*         name: name of the card holder
-*         securityCode: security code for credit card
-*         company: the providing credit card company
-* Return: none
+/**
+* Takes credit card information and amount of currency to add as parameters and checks if the card is valid, if valid then adds to the member's currency
+* @param quantity amount of currency to be added
+* @param number credit card number as a string
+* @param month expiry month as an int
+* @param year expiry year as an int
+* @param name name of the card holder
+* @param securityCode security code for credit card as a string
+* @param company the providing credit card company as an enum of CreditCardCompany
+* @return none
 */
 void Member::addCurrency(float quantity, std::string number, int month, int year, std::string name, std::string securityCode, CreditCardCompany company)
 {
@@ -67,23 +69,22 @@ void Member::addCurrency(float quantity, std::string number, int month, int year
         return;
     }
 
-    // add currency rounded to two decimal places to account if credit card is valid 
+    // add currency rounded to two decimal places to account if credit card is valid
     if (validateCreditCard(number, month, year, name, securityCode, company))
     {
         currency += roundf(quantity * 100) / 100;
     }
 }
 
-/*
-* Name: validateCreditCard
-* Description: Takes credit card information as parameters and checks if the card is valid
-* Params: number: credit card number
-*         month: expiry month
-*         year: expiry year
-*         name: name of the card holder
-*         securityCode: security code for credit card
-*         company: the providing credit card company
-* Return: true if the card is valid, false if the card is invalid
+/**
+* Takes credit card information as parameters and checks if the card is valid
+* @param number credit card number as a string
+* @param month expiry month as an int
+* @param year expiry year as an int
+* @param name name of the card holder
+* @param securityCode security code for credit card as a string
+* @param company the providing credit card company as an enum of CreditCardCompany
+* @return true if the card is valid, false if the card is invalid
 */
 bool Member::validateCreditCard(std::string number, int month, int year, std::string name, std::string securityCode, CreditCardCompany company)
 {
