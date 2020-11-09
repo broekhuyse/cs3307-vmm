@@ -9,8 +9,6 @@
 #include "ProductCollection.h"
 using namespace std; 
 
-
-
 ProductCollection::ProductCollection() {
     std::vector<Product> temp;
     this->productList = temp;
@@ -93,15 +91,15 @@ void ProductCollection::restockInventory(Product product, int quantity) {
     for (int i = 0; i < productList.size(); i++) {
         if (productList.at(i) == product) {
             found = true;
-            cout << "Previous Quantity For " << productList.at(i).getName() << " Was " << productList.at(i).getQuantity() << endl;
+            cout << "Previous Quantity for " << productList.at(i).getName() << " was " << productList.at(i).getQuantity() << endl;
             productList.at(i).addQuantity(quantity);
             saveToDatabase();
-            cout << "New Quantity For " << productList.at(i).getName() << " Is " << productList.at(i).getQuantity() << endl;
+            cout << "New Quantity for " << productList.at(i).getName() << " is " << productList.at(i).getQuantity() << endl;
             break;
         }
     }
     if (!found) {
-        cout << "Product was not found in the collection" << endl;
+        cout << "Product was not found in the collection." << endl;
     }
 }
 
@@ -109,12 +107,12 @@ void ProductCollection::sortByPrice(string order) {
     if (order == "increasing") {
         sort(productList.begin(), productList.end(), [](Product& lhs, Product& rhs) {
             return lhs.getPrice() < rhs.getPrice();
-            });
+        });
     }
     else if (order == "decreasing") {
         sort(productList.begin(), productList.end(), [](Product& lhs, Product& rhs) {
             return lhs.getPrice() > rhs.getPrice();
-            });
+        });
     }
 
 }
@@ -123,14 +121,31 @@ void ProductCollection::sortByCategory(string order) {
     if (order == "increasing") {
         sort(productList.begin(), productList.end(), [](Product& lhs, Product& rhs) {
             return lhs.getCategory() < rhs.getCategory();
-            });
+        });
     }
     else if (order == "decreasing") {
         sort(productList.begin(), productList.end(), [](Product& lhs, Product& rhs) {
             return lhs.getCategory() > rhs.getCategory();
-            });
+        });
     }
 
+}
+
+void ProductCollection::changePrice(Product product, float newPrice) {
+    bool found = false;
+    for (int i = 0; i < productList.size(); i++) {
+        if (productList.at(i) == product) {
+            found = true;
+            cout << "Previous Price for " << productList.at(i).getName() << " was " << productList.at(i).getPrice() << endl;
+            productList.at(i).setPrice(newPrice);
+            saveToDatabase();
+            cout << "New Price for " << productList.at(i).getName() << " is " << productList.at(i).getPrice() << endl;
+            break;
+        }
+    }
+    if (!found) {
+        cout << "Product was not found in the collection" << endl;
+    }
 }
 
 int ProductCollection::size() {
@@ -139,23 +154,6 @@ int ProductCollection::size() {
 
 Product ProductCollection::at(int index) {
     return productList[index];
-}
-
-void ProductCollection::changePrice(Product product, float newPrice) {
-    bool found = false;
-    for (int i = 0; i < productList.size(); i++) {
-        if (productList.at(i) == product) {
-            found = true;
-            cout << "Previous Price For " << productList.at(i).getName() << " Was " << productList.at(i).getPrice() << endl;
-            productList.at(i).setPrice(newPrice);
-            saveToDatabase();
-            cout << "New Price For " << productList.at(i).getName() << " Is " << productList.at(i).getPrice() << endl;
-            break;
-        }
-    }
-    if (!found) {
-        cout << "Product was not found in the collection" << endl;
-    }
 }
 
 std::vector<Product> ProductCollection::getProductList(){
@@ -178,6 +176,5 @@ void ProductCollection::saveToDatabase(){
         file << productList.at(i).getID() << "," << productList.at(i).getName() << "," << productList.at(i).getCategory() << "," << productList.at(i).getPrice() << "," << productList.at(i).getDiscount() << "," << productList.at(i).getQuantity() << "\n";
     }
     
-    file.close();
-    
+    file.close();   
 }
