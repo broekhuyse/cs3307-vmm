@@ -6,6 +6,7 @@
 //#include "LoginCollection.h"
 #include "LoginInterface.h"
 #include "UserDBConversion.h"
+#include "SetupInterface.h"
 
 using namespace std;
 
@@ -13,28 +14,42 @@ enum Menu
 {
 	loginMenu,
 	accountMenu,
-	productMenu
+	productMenu,
+	setupMenu
 };
 
 int main()
 {
 	LoginCollection collection;
 	UserDBConversion converter;
+	Menu menu;
 
 	//load collection from file
 	collection.setCollection(converter.FileToLoginCollection());
 
 	Login login(collection);
 	LoginInterface loginInterface(&login);
+	SetupInterface SetupInterface(&login);
 
 	Member *currentUser;
 	AccountInterface accInterface;
 
 	int input = 0;
-	Menu menu = loginMenu;
 
+	// if the login collection is empty run a first time setup for the first admin account
+	if (collection.getMap().size() == 0) {
+		menu = setupMenu;
+	}
+	else {
+		menu = loginMenu;
+	}
 	while (true)
 	{
+
+		while (menu == setupMenu) {
+			SetupInterface.SetupPrompt();
+		}
+
 		while (menu == loginMenu)
 		{
 			string inputStr;
