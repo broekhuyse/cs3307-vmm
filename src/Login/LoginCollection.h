@@ -19,7 +19,7 @@ public:
     int deleteUser(std::string username, std::string password);
     int changePassword(std::string username, std::string oldPassword, std::string newPassword);
 	std::unordered_map<std::string, std::pair<std::string, Member>> getMap();
-	void setCollection(std::unordered_map<std::string, std::pair<std::string, Member>>);
+	void setCollection(std::unordered_map<std::string, std::pair<std::string, Member>>,int highestID);
 };
 
 #endif

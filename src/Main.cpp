@@ -25,7 +25,8 @@ int main()
 	Menu menu;
 
 	//load collection from file
-	collection.setCollection(converter.FileToLoginCollection());
+	auto map = converter.FileToLoginCollection();
+	collection.setCollection(map, converter.getHighestID());
 
 	Login login(collection);
 	LoginInterface loginInterface(&login);
@@ -37,16 +38,19 @@ int main()
 	int input = 0;
 
 	// if the login collection is empty run a first time setup for the first admin account
-	if (collection.getMap().size() == 0) {
+	if (collection.getMap().size() == 0)
+	{
 		menu = setupMenu;
 	}
-	else {
+	else
+	{
 		menu = loginMenu;
 	}
 	while (true)
 	{
 
-		while (menu == setupMenu) {
+		while (menu == setupMenu)
+		{
 			SetupInterface.SetupPrompt();
 			menu = loginMenu;
 			break;

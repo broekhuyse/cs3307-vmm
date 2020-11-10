@@ -85,7 +85,8 @@ int LoginCollection::addMember(std::string username, std::string password, std::
     }
 
     //alternate way to insert
-    auto test = std::make_pair(password, Member(fname, lname, isAdmin, currentHighestMemberID += 1, membershipType, 0.0));
+    currentHighestMemberID += 1;
+    auto test = std::make_pair(password, Member(fname, lname, isAdmin, currentHighestMemberID, membershipType, 0.0));
     auto insert = std::make_pair(username, test);
     this->loginCollection.insert(insert);
 
@@ -172,7 +173,8 @@ std::unordered_map<std::string, std::pair<std::string, Member>> LoginCollection:
 
     return this->loginCollection;
 }
-void LoginCollection::setCollection(std::unordered_map<std::string, std::pair<std::string, Member>> map)
+void LoginCollection::setCollection(std::unordered_map<std::string, std::pair<std::string, Member>> map, int highestID)
 {
     loginCollection = map;
+    currentHighestMemberID = highestID;
 }
