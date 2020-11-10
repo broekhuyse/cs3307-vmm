@@ -77,11 +77,16 @@ void ProductCollection::removeProduct(string id) {
     }
     output.close();
 }
-Product ProductCollection::findProduct(Product product) {
+
+// returns the index of a product in the list  based on the product id passed into the parameter
+int ProductCollection::findProduct(string id) {
     // Finds product based on product object, not entirely sure what the point of the function is
     for(int i = 0; i < productList.size(); i++) {
-        if (productList[i].getID() == product.getID()) {
-            return product;
+        if (productList[i].getID() == id) {
+            return i;
+        }
+        else {
+            return -1;
         }
     }
 }
