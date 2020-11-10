@@ -6,17 +6,19 @@
 #include "ShoppingCart.h"
 #include "product.h"
 #include "ProductCollection.h"
+
 class VendingInterface
 {
 private:
 	
-	ProductCollection* productCollection;
+	ProductCollection* pCollection;
 	Member* currentMember; 
-	ShoppingCart* cart;
+	//ShoppingCart* cart;
 
 public:
-	VendingInterface(ProductCollection& productCollection, Member& currentMember, ShoppingCart cart);
-	pair<int, int> VendingDisplay();
+	
+	VendingInterface(ProductCollection& productCollection, Member& currentMember);
+	std::pair<int, int> VendingDisplay();
 	
 	
 };
