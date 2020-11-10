@@ -18,7 +18,7 @@ class ProductCollection {
         void addProduct(Product product);
         void changeInventory(Product product, int quantity);
         void removeProduct(std::string);
-        Product findProduct(Product product);
+        int findProduct(std::string id);
         
         void restockInventory(Product product, int quantity);
         void sortByPrice(std::string order);
