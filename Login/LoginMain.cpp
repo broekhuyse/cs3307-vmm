@@ -9,6 +9,13 @@
 
 using namespace std;
 
+enum Menu
+{
+	loginMenu,
+	accountMenu,
+	productMenu
+};
+
 int main()
 {
 	LoginCollection collection;
@@ -24,10 +31,11 @@ int main()
 	AccountInterface accInterface;
 
 	int input = 0;
+	Menu menu = loginMenu;
 
 	while (true)
 	{
-		while (true)
+		while (menu == loginMenu)
 		{
 			string inputStr;
 			cout << "----------------- Main Menu -----------------" << endl;
@@ -56,6 +64,7 @@ int main()
 					// add other setters here for the current user in the system
 					// OR could change login interface to a singleton and have a static member for the current user----------------------
 					accInterface.setCurrentMember(currentUser);
+					menu = productMenu;
 					break;
 				}
 			}
@@ -71,8 +80,13 @@ int main()
 				return 0;
 			}
 		}
+		while (menu == productMenu)
+		{
+			cout << "PRODUCT MENU NOT IMPLEMENTED" << endl;
+			menu = accountMenu;
+		}
 
-		while (true)
+		while (menu == accountMenu)
 		{
 			string inputStr;
 			int input;
@@ -105,6 +119,7 @@ int main()
 			}
 			else if (input == 3)
 			{
+				menu = loginMenu;
 				break;
 			}
 		}
@@ -130,27 +145,4 @@ int main()
 	// converter.LoginCollectionToFile(test);
 
 	// return 0;
-}
-
-int accountPrompt()
-{
-	string inputStr;
-	int input;
-	cout << "----------------- Account Menu -----------------" << endl;
-	cout << "1. Display Account Information" << endl;
-	cout << "2. Add currency" << endl;
-	cout << "3. Logout" << endl;
-	while (getline(cin, inputStr))
-	{
-		stringstream stream(inputStr);
-		if (stream >> input)
-		{
-			if (stream.eof())
-			{
-				break;
-			}
-		}
-		cout << "Invalid input" << endl;
-	}
-	return input;
 }
