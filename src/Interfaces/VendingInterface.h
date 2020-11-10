@@ -2,10 +2,11 @@
 #ifndef VENDINGINTERFACE_H
 #define VENDINGINTERFACE_H
 
-#include "Member.h"
-#include "ShoppingCart.h"
-#include "product.h"
-#include "ProductCollection.h"
+
+#include "../Login/Member.h"
+#include "../Product/Product.h"
+#include "../Product/ProductCollection.h"
+#include "../ShoppingCart/ShoppingCart.h"
 
 class VendingInterface
 {

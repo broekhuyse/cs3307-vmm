@@ -59,20 +59,25 @@ Member::Member(std::string fname, std::string lname, bool isAdmin, int memberID,
 * @param name name of the card holder
 * @param securityCode security code for credit card as a string
 * @param company the providing credit card company as an enum of CreditCardCompany
-* @return none
+* @return 0 if currency added, -1 if not added
 */
-void Member::addCurrency(float quantity, std::string number, int month, int year, std::string name, std::string securityCode, CreditCardCompany company)
+int Member::addCurrency(float quantity, std::string number, int month, int year, std::string name, std::string securityCode, CreditCardCompany company)
 {
     // check if quantity in valid format
     if (currency < 0)
     {
-        return;
+        return -1;
     }
 
     // add currency rounded to two decimal places to account if credit card is valid
     if (validateCreditCard(number, month, year, name, securityCode, company))
     {
         currency += roundf(quantity * 100) / 100;
+        return 0;
+    }
+    else
+    {
+        return -1;
     }
 }
 
@@ -83,7 +88,7 @@ void Member::addCurrency(float quantity, std::string number, int month, int year
 */
 void Member::modifyBalance(float quantity)
 {
-	currency += roundf(quantity * 100) / 100;
+    currency += roundf(quantity * 100) / 100;
 }
 
 /**
@@ -122,6 +127,15 @@ bool Member::validateCreditCard(std::string number, int month, int year, std::st
             return false;
         }
         break;
+    }
+
+    // check to see if name is valid
+    for (int i = 0; i < name.length(); i++)
+    {
+        if (!isalpha(name[i]))
+        {
+            return false;
+        }
     }
 
     // check the credit card number using Luhn algorithm

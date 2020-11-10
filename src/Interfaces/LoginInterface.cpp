@@ -5,8 +5,8 @@
 #include <iostream>
 #include <sstream>
 #include "LoginInterface.h"
-#include "Member.h"
-#include "CreditCardCompany.h"
+#include "../Login/Member.h"
+#include "../Login/CreditCardCompany.h"
 
 using namespace std;
 
@@ -63,7 +63,8 @@ void LoginInterface::createAccountPrompt()
             // Prompt for admin login
             Member *result = NULL;
             string username, password;
-            while (result == NULL)
+            bool repeat = true;
+            while (repeat)
             {
                 cout << "----------Admin Login----------" << endl;
                 cout << "Username: " << endl;
@@ -82,11 +83,37 @@ void LoginInterface::createAccountPrompt()
                     if (result->getisadmin())
                     {
                         admin = true;
+                        repeat = false;
                     }
                     else
                     {
                         cout << "This user is not an admin" << endl;
-                        result = NULL;
+                    }
+                }
+                if (repeat)
+                {
+                    string redoInput;
+                    int redo;
+                    cout << "Input 0 to try again or 1 to exit." << endl;
+                    while (getline(cin, redoInput))
+                    {
+                        stringstream stream(redoInput);
+                        if (stream >> redo)
+                        {
+                            if (stream.eof() && (redo == 0 || redo == 1))
+                            {
+                                if (redo == 0)
+                                {
+                                    repeat = true;
+                                }
+                                else // redo == 1
+                                {
+                                    repeat = 0;
+                                }
+                                break;
+                            }
+                        }
+                        cout << "Invalid input" << endl;
                     }
                 }
             }
@@ -100,6 +127,14 @@ void LoginInterface::createAccountPrompt()
         else if (result == -2)
         {
             cout << "Password is not secure enough." << endl;
+        }
+        else if (result == -3)
+        {
+            cout << "Empty fields." << endl;
+        }
+        else if (result == -4)
+        {
+            cout << "Name contained non-alpha characters." << endl;
         }
         else
         {

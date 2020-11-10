@@ -19,7 +19,7 @@ LoginCollection::LoginCollection()
 * @param lname last name of new user
 * @param isAdmin admin status of new user
 * @param membershipType membership type of new user
-* @return 0 on success, -1 on failure (username already exists), -2 if password is not secure enough
+* @return 0 on success, -1 on failure (username already exists), -2 if password is not secure enough, -3 if fields are empty, -4 if name contains non alpha characters
 */
 int LoginCollection::addMember(std::string username, std::string password, std::string fname, std::string lname, bool isAdmin, std::string membershipType)
 {
@@ -27,6 +27,12 @@ int LoginCollection::addMember(std::string username, std::string password, std::
     {
         // username already exists
         return -1;
+    }
+
+    // check if fields are empty
+    if (username.length() < 1 || fname.length() < 1 || lname.length() < 1)
+    {
+        return -3;
     }
 
     // check if password is secure enough
@@ -62,7 +68,21 @@ int LoginCollection::addMember(std::string username, std::string password, std::
         return -2;
     }
 
-    // check if name is correct formatting
+    // check if name contains non alpha characters
+    for (int i = 0; i < fname.length(); i++)
+    {
+        if (!isalpha(fname[i]))
+        {
+            return -4;
+        }
+    }
+    for (int i = 0; i < lname.length(); i++)
+    {
+        if (!isalpha(lname[i]))
+        {
+            return -4;
+        }
+    }
 
     //alternate way to insert
     auto test = std::make_pair(password, Member(fname, lname, isAdmin, currentHighestMemberID += 1, membershipType, 0.0));

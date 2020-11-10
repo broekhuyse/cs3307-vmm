@@ -1,7 +1,4 @@
 
-#include "Member.h"
-#include "product.h"
-#include "ProductCollection.h"
 #include "VendingInterface.h"
 #include "iomanip"
 #include <iostream>

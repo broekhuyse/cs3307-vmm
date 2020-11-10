@@ -2,7 +2,7 @@
 #define SETUP_INTERFACE_H
 
 #include <string>
-#include <Login.h>
+#include "../Login/Login.h"
 
 class SetupInterface {
 	private:
@@ -11,6 +11,6 @@ class SetupInterface {
 		SetupInterface();
 		SetupInterface(Login *login);
 		void SetupPrompt();
-	}
+	};
 
 #endif

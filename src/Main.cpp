@@ -1,12 +1,12 @@
 #include <iostream>
 #include <sstream>
 //#include "Member.h"
-#include "AccountInterface.h"
+#include "Interfaces/AccountInterface.h"
 //#include "Login.h"
 //#include "LoginCollection.h"
-#include "LoginInterface.h"
-#include "UserDBConversion.h"
-#include "SetupInterface.h"
+#include "Interfaces/LoginInterface.h"
+#include "Login/UserDBConversion.h"
+#include "Interfaces/SetupInterface.h"
 
 using namespace std;
 
@@ -48,6 +48,8 @@ int main()
 
 		while (menu == setupMenu) {
 			SetupInterface.SetupPrompt();
+			menu = loginMenu;
+			break;
 		}
 
 		while (menu == loginMenu)

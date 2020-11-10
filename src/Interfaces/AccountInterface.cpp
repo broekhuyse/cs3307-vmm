@@ -108,12 +108,17 @@ void AccountInterface::addCurrencyPrompt()
         break;
     }
 
-    currentMember->addCurrency(quant, number, month, year, name, securityCode, company);
+    int result = currentMember->addCurrency(quant, number, month, year, name, securityCode, company);
 
-    // Temp debugging print for member information
-    cout << "ID: " << currentMember->getID() << endl;
-    cout << "Name: " << currentMember->getName().first << " " << currentMember->getName().second << endl;
-    cout << "Currency: " << currentMember->getCurrency() << endl;
+    if (result == -1)
+    {
+        cout << "ERROR. The currency could not be added" << endl;
+    }
+    else
+    {
+        cout << "The currency was added." << endl;
+        cout << "New Balance: " << currentMember->getCurrency() << endl;
+    }
 }
 
 /**

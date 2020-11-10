@@ -1,7 +1,7 @@
 #ifndef ACCOUNT_INTERFACE_H
 #define ACCOUNT_INTERFACE_H
 
-#include "Member.h"
+#include "../Login/Member.h"
 class AccountInterface
 {
 private:
