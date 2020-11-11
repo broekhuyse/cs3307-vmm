@@ -13,12 +13,12 @@ class VendingInterface
 private:
 	
 	ProductCollection* pCollection;
-	Member* currentMember; 
+	//Member* currentMember; 
 	//ShoppingCart* cart;
 
 public:
 	
-	VendingInterface(ProductCollection& productCollection, Member& currentMember);
+	VendingInterface(ProductCollection& productCollection);
 	std::pair<int, int> VendingDisplay();
 	
 	
