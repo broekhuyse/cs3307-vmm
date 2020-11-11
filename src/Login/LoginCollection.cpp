@@ -69,14 +69,14 @@ int LoginCollection::addMember(std::string username, std::string password, std::
     }
 
     // check if name contains non alpha characters
-    for (int i = 0; i < fname.length(); i++)
+    for (unsigned i = 0; i < fname.length(); i++)
     {
         if (!isalpha(fname[i]))
         {
             return -4;
         }
     }
-    for (int i = 0; i < lname.length(); i++)
+    for (unsigned i = 0; i < lname.length(); i++)
     {
         if (!isalpha(lname[i]))
         {

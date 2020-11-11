@@ -317,7 +317,7 @@ int main()
 			}
 			else if (input == 3)
 			{
-				int cartCheck = cart.removeOrderInterface();
+				cart.removeOrderInterface();
 				break;
 			}
 			else if (input == 4)

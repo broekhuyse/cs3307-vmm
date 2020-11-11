@@ -106,10 +106,8 @@ int ProductCollection::findProduct(string id) {
         if (productList[i].getID() == id) {
             return i;
         }
-        else {
-            return -1;
-        }
     }
+    return -1;
 }
 
 void ProductCollection::restockInventory(Product product, int quantity) {

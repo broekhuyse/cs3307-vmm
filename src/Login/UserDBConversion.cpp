@@ -25,7 +25,7 @@ void UserDBConversion::LoginCollectionToFile(std::unordered_map<std::string, std
 	userFile.open("userDB.txt");
 
 	//create iterator for unordered_map
-	std::unordered_map<std::string, std::pair<std::string, Member>>::iterator it = map.begin();
+	//std::unordered_map<std::string, std::pair<std::string, Member>>::iterator it = map.begin();
 
 	//iterate through unordered_map and output everything
 	for (std::unordered_map<std::string, std::pair<std::string, Member>>::iterator it = map.begin(); it != map.end(); ++it)

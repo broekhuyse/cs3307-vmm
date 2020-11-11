@@ -40,9 +40,9 @@ void ShoppingCart::removeOrder(Order rem) {
 	orders.remove(rem);
 }
 
-void ShoppingCart::addCouponCode(std::string code) {
+//void ShoppingCart::addCouponCode(std::string code) {
 	// Nothing for now until coupons are implemented
-}
+//}
 
 /*
 * Name: updateCosts
@@ -202,7 +202,8 @@ int ShoppingCart::removeOrderInterface() {
 	std::cout << "Select the number of the product you would like to remove from your order or press 0 to return to the Main Menu: " << std::endl;
 	std::cin >> input;
 
-	while (std::cin.fail()|| input > orders.size() || input < 0) {
+	int size = orders.size();
+	while (std::cin.fail()|| input > size || input < 0) {
 
 		std::cin.clear();
 		std::cin.ignore(1000, '\n');

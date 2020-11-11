@@ -130,7 +130,7 @@ bool Member::validateCreditCard(std::string number, int month, int year, std::st
     }
 
     // check to see if name is valid
-    for (int i = 0; i < name.length(); i++)
+    for (unsigned i = 0; i < name.length(); i++)
     {
         if (!isalpha(name[i]))
         {
