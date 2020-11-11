@@ -24,14 +24,13 @@ AdminInterface::AdminInterface(ProductCollection& productCollection) {
 };
 
 // Method that displays all the current products in the product collection
-void ProductDisplay() {
+void AdminInterface::ProductDisplay() {
 	
 	// print out products and prices, each with an assigned code. 
 	std::cout << SHOPTOP << std::endl << TITLE << std::endl << SHOPTOP << std::endl;
 
 	if (pCollection->size() == 0) {
 		std::cout << std::endl << "Sorry No Products Available" << std::endl << std::endl;
-		return std::make_pair(-1, -1);
 	}
 
 	for (int i = 0; i < pCollection->size(); i++) {
@@ -164,7 +163,7 @@ void AdminInterface::AdminPrompt() {
 
 		// prompts for removing a product
 		while (action == 2) {
-			int id;
+			string id;
 			cout << "Please enter the product id of the product you want to remove" << endl;
 			cin >> id;
 			this->pCollection->removeProduct(id);
@@ -212,7 +211,7 @@ void AdminInterface::AdminPrompt() {
 			}
 			//if input is integer and in the correct range
 			else {
-				vectorIndex = choice - 1;
+				int vectorIndex = choice - 1;
 
 				Product selectedProduct = pCollection->getProductList().at(vectorIndex);
 
@@ -269,7 +268,7 @@ void AdminInterface::AdminPrompt() {
 			}
 			//if input is integer and in the correct range
 			else {
-				vectorIndex = choice - 1;
+				int vectorIndex = choice - 1;
 
 				Product selectedProduct = pCollection->getProductList().at(vectorIndex);
 
