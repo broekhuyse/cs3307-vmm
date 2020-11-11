@@ -51,7 +51,7 @@ void AdminInterface::AdminPrompt() {
 	int action;	
 
 	while (true) {
-
+		
 		// possible actions
 		cout << "Please select one of the following options: " << endl;
 		cout << "1: Add Product" << endl;

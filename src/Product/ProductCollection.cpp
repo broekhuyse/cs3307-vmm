@@ -46,7 +46,7 @@ ProductCollection::~ProductCollection(){
 // No need to take in quantity (like in UML diagram) because quantity is specified when creating Product object
 void ProductCollection::addProduct(Product newProduct) {
     bool inCollection;
-    for (int i = 0; i < productList.size(); i++) {
+    for (unsigned i = 0; i < productList.size(); i++) {
         if (productList[i].getID() == newProduct.getID()) {
             inCollection = true;
         }
@@ -73,7 +73,7 @@ void ProductCollection::addProduct(Product newProduct) {
 }
 void ProductCollection::changeInventory(Product product, int quantity) {
     // Changes product quantity 
-    for(int i = 0; i < productList.size(); i++) {
+    for(unsigned i = 0; i < productList.size(); i++) {
         if (productList[i].getID() == product.getID()) {
             productList[i].setQuantity(quantity);
             saveToDatabase();
@@ -85,22 +85,24 @@ void ProductCollection::changeInventory(Product product, int quantity) {
 }
 void ProductCollection::removeProduct(string id) {
     // Removes product and updates product list
-    for (int i = 0; i < productList.size(); i++) {
+    bool found = false;
+    for (unsigned i = 0; i < productList.size(); i++) {
         if (productList[i].getID() == id) {
+            found = true;
             productList.erase(productList.begin() + i);
             cout << "Product was removed from the product collection successfully" << endl;
             saveToDatabase();
         }
-        else {
-            cout << "Product was not found in the product collection" << endl;
-        }
+    }
+    if (!found) {
+        cout << "Product was not found in the product collection" << endl;
     }
 }
 
 // returns the index of a product in the list  based on the product id passed into the parameter
 int ProductCollection::findProduct(string id) {
     // Finds product based on product object, not entirely sure what the point of the function is
-    for(int i = 0; i < productList.size(); i++) {
+    for(unsigned i = 0; i < productList.size(); i++) {
         if (productList[i].getID() == id) {
             return i;
         }
@@ -112,7 +114,7 @@ int ProductCollection::findProduct(string id) {
 
 void ProductCollection::restockInventory(Product product, int quantity) {
     bool found = false;
-    for (int i = 0; i < productList.size(); i++) {
+    for (unsigned i = 0; i < productList.size(); i++) {
         if (productList.at(i) == product) {
             found = true;
             cout << "Previous Quantity for " << productList.at(i).getName() << " was " << productList.at(i).getQuantity() << endl;
@@ -157,7 +159,7 @@ void ProductCollection::sortByCategory(string order) {
 
 void ProductCollection::changePrice(Product product, float newPrice) {
     bool found = false;
-    for (int i = 0; i < productList.size(); i++) {
+    for (unsigned i = 0; i < productList.size(); i++) {
         if (productList.at(i) == product) {
             found = true;
             cout << "Previous Price for " << productList.at(i).getName() << " was " << productList.at(i).getPrice() << endl;
@@ -196,7 +198,7 @@ void ProductCollection::saveToDatabase(){
     file << "ID,Name,Category,Price,GlobalDiscount,Quantity,\n";    // create the column titles
     
     // create a product entry for each product in the list
-    for(int i=0; i < productList.size(); i++){
+    for(unsigned i=0; i < productList.size(); i++){
         file << productList.at(i).getID() << "," << productList.at(i).getName() << "," << productList.at(i).getCategory() << "," << productList.at(i).getPrice() << "," << productList.at(i).getDiscount() << "," << productList.at(i).getQuantity() << "\n";
     }
     
