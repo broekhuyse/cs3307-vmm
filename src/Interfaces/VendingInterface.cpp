@@ -1,9 +1,9 @@
 
 #include "VendingInterface.h"
-#include "iomanip"
+#include <iomanip>
 #include <iostream>
-#include <sstream>
-#include <limits>
+
+
 
 
 
@@ -18,15 +18,15 @@ constexpr auto PRICEDIV = "    Price: ";
 
 
 
-VendingInterface::VendingInterface(ProductCollection& productCollection, Member& currentMember) {
+VendingInterface::VendingInterface(ProductCollection& productCollection) {
 
 	this->pCollection = &productCollection;
-	this->currentMember = &currentMember;
+	//this->currentMember = &currentMember;
 	//this->cart = &cart;
 
 };
 
-//returns pair<int,int> where first integer is the product position in in vector, second integer is the quantity. return -1,-1 on user exit and 0,0 if there are no products to display
+//returns pair<int,int> where first integer is the product position in in vector, second integer is the quantity. return -1,-1 on user exit 
 std::pair<int,int> VendingInterface::VendingDisplay() {
 
 	
@@ -35,8 +35,8 @@ std::pair<int,int> VendingInterface::VendingDisplay() {
 	std::cout << SHOPTOP << std::endl << TITLE << std::endl << SHOPTOP << std::endl;
 
 	if (pCollection->size() == 0) {
-		std::cout << std::endl << "Sorry No Products Available" << std::endl;
-		return std::make_pair(0, 0);
+		std::cout << std::endl << "Sorry No Products Available" << std::endl << std::endl;
+		return std::make_pair(-1, -1);
 	}
 
 	for (int i = 0; i < pCollection->size(); i++) {
@@ -50,7 +50,7 @@ std::pair<int,int> VendingInterface::VendingDisplay() {
 
 
 	while (true) {
-		std::cout << "What product would you like to purchase? " << std::endl << "";
+		std::cout << "Enter number of product or enter 0 to exit " << std::endl << "";
 		std::cin >> choice; 
 		//if input is not an integer enter this loop
 		while (std::cin.fail()|| choice > pCollection->size() || choice < 0){
@@ -65,6 +65,8 @@ std::pair<int,int> VendingInterface::VendingDisplay() {
 		
 		//if choice is 0 to exit
 		if (choice == 0) {
+			std::cin.clear();
+			std::cin.ignore(1000, '\n');
 			return std::make_pair(-1, -1);
 		}
 		//if input is integer and in the correct range
@@ -74,8 +76,10 @@ std::pair<int,int> VendingInterface::VendingDisplay() {
 		
 	vectorIndex = choice - 1;
 	
+	std::string name = pCollection->getProductList().at(vectorIndex).getName();
+
 	while (true) {
-		std::cout << std::endl << "Please enter amount of "<< pCollection->getProductList().at(vectorIndex).getName()<< " to purchase or enter 0 to exit: ";
+		std::cout << std::endl << "Please enter amount of "<< name << " to purchase or enter 0 to exit: ";
 		std::cin >> amount;
 		std::cout << std::endl;
 		
@@ -92,6 +96,8 @@ std::pair<int,int> VendingInterface::VendingDisplay() {
 		
 		//if input was 0, exit (return -1,-1)
 		if (amount == 0) {
+			std::cin.clear();
+			std::cin.ignore(1000, '\n');
 			return std::make_pair(-1, -1);
 		}
 		//if input was positive integer exit
@@ -108,16 +114,40 @@ std::pair<int,int> VendingInterface::VendingDisplay() {
 		std::cin >> amount;
 	}
 
-	if (amount == 0)  return std::make_pair(-1, -1);
-
+	if (amount == 0) {
+		std::cin.clear();
+		std::cin.ignore(1000, '\n');
+		return std::make_pair(-1, -1);
+	}
 
 
 	
 
+	std::string confirm; 
+
+	while (true) {
+		std::cout << "Please Confirm: " << amount << " units of " << pCollection->at(vectorIndex).getName() << " to be added to cart: (Y to confirm, N to cancel.)" << std::endl;
+		std::cin >> confirm;
+
+		while (confirm != "Y" || confirm != "N") {
+
+			if (confirm == "Y") {
+				std::cin.clear();
+				std::cin.ignore(1000, '\n');
+				return std::make_pair(amount, vectorIndex);
+			}
+			else if (confirm == "N") {
+				std::cin.clear();
+				std::cin.ignore(1000, '\n');
+				return std::make_pair(-1, -1);
+			}
+			std::cout << "Improper Input: Enter Y/N:  " << std::endl;
+			std::cin >> confirm;
+		}
+	}
 	
 
-	//COULD HAVE ITEM BE ADDED TO CART HERE INSTEAD OF RETURNING PAIR ?
-
-	//return pair of (amount, index 
-	return std::make_pair(amount, vectorIndex);
+	
+	
+	
 };
