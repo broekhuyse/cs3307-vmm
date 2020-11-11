@@ -52,9 +52,9 @@ clean:
 # checks the executable and symlinks to the output
 .PHONY: all
 all: $(BIN_PATH)/$(BIN_NAME)
-	@echo "Making symlink: $(BIN_NAME) -> $<"
-	@$(RM) $(BIN_NAME)
-	@ln -s $(BIN_PATH)/$(BIN_NAME) $(BIN_NAME)
+# @echo "Making symlink: $(BIN_NAME) -> $<"
+# @$(RM) $(BIN_NAME)
+# @ln -s $(BIN_PATH)/$(BIN_NAME) $(BIN_NAME)
 
 # Creation of the executable
 $(BIN_PATH)/$(BIN_NAME): $(OBJECTS)

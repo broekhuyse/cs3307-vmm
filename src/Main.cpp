@@ -21,7 +21,8 @@ enum Menu
 	accountMenu,
 	productMenu,
 	cartMenu,
-	setupMenu
+	setupMenu,
+	adminMenu
 };
 
 int main()
@@ -36,20 +37,16 @@ int main()
 	ProductCollection Products;
 	Products = ProductCollection();
 
-
 	//initalize classes
 	Login login(collection);
 	LoginInterface loginInterface(&login);
 	SetupInterface SetupInterface(&login);
 	Member *currentUser;
 	AccountInterface accInterface;
-	ShoppingCart cart; 
+	ShoppingCart cart;
 
 	int input = 0;
-	int amount,index;
-
-	
-	
+	int amount, index;
 
 	// if the login collection is empty run a first time setup for the first admin account
 	if (collection.getMap().size() == 0)
@@ -72,9 +69,10 @@ int main()
 
 		while (menu == loginMenu)
 		{
-			
+
 			string inputStr;
-			cout << endl << "----------------- Main Menu -----------------" << endl;
+			cout << endl
+				 << "----------------- Main Menu -----------------" << endl;
 			cout << "1. Login" << endl;
 			cout << "2. CreateAccount" << endl;
 			cout << "3. Exit" << endl;
@@ -93,16 +91,47 @@ int main()
 
 			if (input == 1)
 			{
-				
+
 				cout << "----------------- Login -----------------" << endl;
+				currentUser = NULL;
 				currentUser = loginInterface.loginPrompt();
 				if (currentUser != NULL)
 				{
 					// add other setters here for the current user in the system
 					// OR could change login interface to a singleton and have a static member for the current user----------------------
 					accInterface.setCurrentMember(currentUser);
-					menu = mainMenu;
-					break;
+					string adminCheck = "";
+					if (currentUser->getisadmin())
+					{
+						while (adminCheck != "y" && adminCheck != "n")
+						{
+							cout << "Login as an admin? (Y/N)" << endl;
+							getline(cin, adminCheck);
+							adminCheck = tolower(adminCheck[0]);
+
+							if (adminCheck.length() != 1 || (adminCheck != "y" && adminCheck != "n"))
+							{
+								cout << "Invalid input" << endl;
+								continue;
+							}
+						}
+					}
+					else
+					{
+						menu = mainMenu;
+						break;
+					}
+
+					if (adminCheck == "y")
+					{
+						menu = adminMenu;
+						break;
+					}
+					else
+					{
+						menu = mainMenu;
+						break;
+					}
 				}
 			}
 			else if (input == 2)
@@ -115,51 +144,47 @@ int main()
 			{
 				auto test = login.getLoginCollection().getMap();
 				converter.LoginCollectionToFile(test);
+				Products.saveToDatabase();
 				return 0;
 			}
 		}
-		 
+
 		while (menu == productMenu)
 		{
-			
 
-			while (true) {
+			while (true)
+			{
 				VendingInterface SaleInterface(Products);
 				pair<int, int> result = SaleInterface.VendingDisplay();
-				
+
 				amount = result.second;
 				index = result.first;
 
-				cout << "amount = " << amount << "index= " << index << endl; 
-				
-				if (index != -1) {
-					
+				if (index != -1)
+				{
+
 					Product Product = Products.getProductList().at(index);
 					Order newOrder(Product, 0, amount);
 					cart.addOrder(newOrder);
 
-					
 					cout << cart.printCart() << endl;
-					
 				}
-				else {
+				else
+				{
 					break;
 				}
 			}
 
 			menu = mainMenu;
-
 		}
-
-
 
 		while (menu == mainMenu)
 		{
-			
-		
+
 			string inputStr;
 			int input;
-			cout << endl << "--------------------- Main Menu ---------------------" << endl;
+			cout << endl
+				 << "--------------------- Main Menu ---------------------" << endl;
 			cout << "1. Product Catalogue" << endl;
 			cout << "2. Shopping Cart and Checkout" << endl;
 			cout << "3. Account Menu" << endl;
@@ -237,12 +262,12 @@ int main()
 			}
 		}
 
-	
 		while (menu == cartMenu)
 		{
 			string inputStr;
 			int input;
-			cout << endl << "----------------- Shopping Cart Menu -----------------" << endl;
+			cout << endl
+				 << "----------------- Shopping Cart Menu -----------------" << endl;
 			cout << "1. View Shopping Cart" << endl;
 			cout << "2. Checkout" << endl;
 			cout << "3. Remove Items from Shopping Cart" << endl;
@@ -265,23 +290,24 @@ int main()
 				cout << cart.printCart() << endl;
 				cout << "Press Enter to Continue";
 				cin.ignore();
-				
-				
 			}
 			else if (input == 2)
 			{
 
 				int check = cart.processCart(currentUser);
 
-				//check if process cart failed or succeeded here. 
+				//check if process cart failed or succeeded here.
 
-				if (check == 0) {
+				if (check == 0)
+				{
 					break;
 				}
-				else {
+				else
+				{
 					cout << cart.createInvoice() << endl;
 					cart.clearOrders();
-					cout << endl << "Press Enter to Continue";
+					cout << endl
+						 << "Press Enter to Continue";
 					cin.ignore();
 				}
 			}
@@ -292,51 +318,93 @@ int main()
 			}
 			else if (input == 4)
 			{
-				
+
 				menu = mainMenu;
 				break;
 			}
 		}
 
+		while (menu == adminMenu)
+		{
 
+			string inputStr;
+			int input;
+			cout << endl
+				 << "--------------------- Admin Menu ---------------------" << endl;
+			cout << "1. Product Catalogue" << endl;
+			cout << "2. Shopping Cart and Checkout" << endl;
+			cout << "3. Account Menu" << endl;
+			cout << "4. Add product" << endl;
+			cout << "5. Remove product" << endl;
+			cout << "6. Restock" << endl;
+			cout << "7. Change price" << endl;
+			cout << "8. Logout" << endl;
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+			while (getline(cin, inputStr))
+			{
+				stringstream stream(inputStr);
+				if (stream >> input)
+				{
+					if (stream.eof())
+					{
+						break;
+					}
+				}
+				cout << "Invalid input" << endl;
+			}
+			if (input == 1)
+			{
+				menu = productMenu;
+				break;
+			}
+			else if (input == 2)
+			{
+				menu = cartMenu;
+				break;
+			}
+			else if (input == 3)
+			{
+				menu = accountMenu;
+				break;
+			}
+			else if (input == 4)
+			{
+			}
+			else if (input == 5)
+			{
+			}
+			else if (input == 6)
+			{
+			}
+			else if (input == 7)
+			{
+			}
+			else if (input == 8)
+			{
+				menu = loginMenu;
+				break;
+			}
+		}
 	}
-
-
-
 }
 
-	// for (int i = 0; i < 1; i++)
-	// {
-	// 	cout << "----------------- Account Creation -----------------" << endl;
-	// 	loginInterface.createAccountPrompt();
-	// }
+// for (int i = 0; i < 1; i++)
+// {
+// 	cout << "----------------- Account Creation -----------------" << endl;
+// 	loginInterface.createAccountPrompt();
+// }
 
-	// cout << "----------------- Login -----------------" << endl;
-	// currentUser = loginInterface.loginPrompt();
+// cout << "----------------- Login -----------------" << endl;
+// currentUser = loginInterface.loginPrompt();
 
-	// if (currentUser != NULL)
-	// {
-	// 	accInterface.setCurrentMember(currentUser);
-	// 	accInterface.addCurrencyPrompt();
-	// }
+// if (currentUser != NULL)
+// {
+// 	accInterface.setCurrentMember(currentUser);
+// 	accInterface.addCurrencyPrompt();
+// }
 
-	//save collection to file
-	// auto test = login.getLoginCollection().getMap();
-	// converter.LoginCollectionToFile(test);
+//save collection to file
+// auto test = login.getLoginCollection().getMap();
+// converter.LoginCollectionToFile(test);
 
-	// return 0;
-
+// return 0;
