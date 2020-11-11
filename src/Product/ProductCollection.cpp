@@ -45,13 +45,30 @@ ProductCollection::~ProductCollection(){
 } 
 // No need to take in quantity (like in UML diagram) because quantity is specified when creating Product object
 void ProductCollection::addProduct(Product newProduct) {
-    productList.push_back(newProduct);
+    bool inCollection;
+    for (int i = 0; i < productList.size(); i++) {
+        if (productList[i].getID() == newProduct.getID()) {
+            inCollection = true;
+        }
+    }
+
+    if (inCollection) {
+        cout << "This product shares the same ID as another product in the collection" << endl;
+    }
+
+    else {
+        productList.push_back(newProduct);
+
+        // Writes product to file in CSV format
+        ofstream output;
+        output.open("products.csv", std::ios_base::app);
+        output << newProduct.getID() << "," << newProduct.getName() << "," << newProduct.getCategory() << "," << newProduct.getPrice() << "," << newProduct.getDiscount() << "," << newProduct.getQuantity() << '\n'; // Outputs to .CSV
+        output.close();
+
+        cout << "Product was added successfully" << endl;
+    }
     
-    // Writes product to file in CSV format
-    ofstream output;
-    output.open("products.csv", std::ios_base::app);
-    output << newProduct.getID() << "," << newProduct.getName() << "," << newProduct.getCategory() << "," << newProduct.getPrice() << "," << newProduct.getDiscount() << "," << newProduct.getQuantity() << '\n'; // Outputs to .CSV
-    output.close();
+    
 
 }
 void ProductCollection::changeInventory(Product product, int quantity) {
@@ -61,21 +78,23 @@ void ProductCollection::changeInventory(Product product, int quantity) {
             productList[i].setQuantity(quantity);
             saveToDatabase();
         }
+        else {
+            cout << "Could not find the given product in the product collection" << endl;
+        }
     }
 }
 void ProductCollection::removeProduct(string id) {
     // Removes product and updates product list
-    ofstream output;
-    output.open("products.csv");
-    for(int i = 0; i < productList.size(); i++) {
+    for (int i = 0; i < productList.size(); i++) {
         if (productList[i].getID() == id) {
             productList.erase(productList.begin() + i);
+            cout << "Product was removed from the product collection successfully" << endl;
+            saveToDatabase();
+        }
+        else {
+            cout << "Product was not found in the product collection" << endl;
         }
     }
-    for(int i = 0; i < productList.size(); i++) {
-        output << productList[i].getID() << "," << productList[i].getName() << "," << productList[i].getCategory() << "," << productList[i].getPrice() << "," << productList[i].getDiscount() << "," << productList[i].getQuantity() << '\n';
-    }
-    output.close();
 }
 
 // returns the index of a product in the list  based on the product id passed into the parameter
