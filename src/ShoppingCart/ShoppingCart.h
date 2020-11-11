@@ -16,6 +16,7 @@ class ShoppingCart {
 		ShoppingCart();
 		//ShoppingCart(CouponCollection codeBase);
 		
+		void clearOrders();
 		void removeOrder(Order rem);
 		void addOrder(Order add);
 		bool isEmpty();
@@ -26,6 +27,8 @@ class ShoppingCart {
 		//void updateCouponCollection(CouponCollection newCodes);
 		std::string createInvoice();
 		int processCart(Member* buyer);
+		std::string printCart();
+		int removeOrderInterface();
 };
 
 #endif
