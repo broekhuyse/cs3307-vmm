@@ -5,10 +5,10 @@
 
 using namespace std;
 
-constexpr auto TITLE = "|                               ~   Products   ~                              |";
-constexpr auto SHOPTOP = "------------------------------------------------------------------------------";
+constexpr auto TITLE = "|                                      ~   Products   ~                                      |";
+constexpr auto SHOPTOP = "----------------------------------------------------------------------------------------------";
 constexpr auto SHOPLEFT = "| ";
-constexpr auto SHOPRIGHT = "     |";
+constexpr auto SHOPRIGHT = " |";
 constexpr auto PRICEDIV = "    Price: ";
 
 //constructor, takes in a product collection
@@ -37,8 +37,8 @@ void AdminInterface::ProductDisplay()
 	for (int i = 0; i < pCollection->size(); i++)
 	{
 
-		std::cout << SHOPLEFT << i + 1 << ".  " << "ID: " << std::left << std::setw(10) << pCollection->getProductList().at(i).getID() << std::left << std::setw(17) << pCollection->getProductList().at(i).getName() << PRICEDIV << "$" << std::left << std::setw(17) << pCollection->getProductList().at(i).getPrice()
-				  << "QTY: " << std::left << std::setw(10) << pCollection->getProductList().at(i).getQuantity() << std::endl;
+		std::cout << SHOPLEFT << std::left << std::setw(4) << i + 1 << ".  " << "ID: " << std::left << std::setw(10) << pCollection->getProductList().at(i).getID() << std::left << std::setw(20) << pCollection->getProductList().at(i).getName() << PRICEDIV << "$" << std::left << std::setw(10) << pCollection->getProductList().at(i).getPrice()
+			<< "QTY: " << std::left << std::setw(10) << pCollection->getProductList().at(i).getQuantity() << std::left << std::setw(10) << pCollection->getProductList().at(i).getCategory() << SHOPRIGHT << std::endl;
 	}
 
 	std::cout << std::endl;
