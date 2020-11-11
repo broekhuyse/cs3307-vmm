@@ -45,7 +45,7 @@ ProductCollection::~ProductCollection(){
 } 
 // No need to take in quantity (like in UML diagram) because quantity is specified when creating Product object
 void ProductCollection::addProduct(Product newProduct) {
-    bool inCollection;
+    bool inCollection = false;
     for (unsigned i = 0; i < productList.size(); i++) {
         if (productList[i].getID() == newProduct.getID()) {
             inCollection = true;
