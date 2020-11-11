@@ -42,13 +42,14 @@ int main()
 	Login login(collection);
 	LoginInterface loginInterface(&login);
 	SetupInterface SetupInterface(&login);
-	AdminInterface adminInterface(&Products);
+	AdminInterface adminInterface(Products);
 	Member *currentUser;
 	AccountInterface accInterface;
 	ShoppingCart cart;
 
 	int input = 0;
 	int amount, index;
+	Menu baseMenu;
 
 	// if the login collection is empty run a first time setup for the first admin account
 	if (collection.getMap().size() == 0)
@@ -120,18 +121,18 @@ int main()
 					}
 					else
 					{
-						menu = mainMenu;
+						menu = baseMenu = mainMenu;
 						break;
 					}
 
 					if (adminCheck == "y")
 					{
-						menu = adminMenu;
+						menu = baseMenu = adminMenu;
 						break;
 					}
 					else
 					{
-						menu = mainMenu;
+						menu = baseMenu = mainMenu;
 						break;
 					}
 				}
@@ -177,7 +178,7 @@ int main()
 				}
 			}
 
-			menu = mainMenu;
+			menu = baseMenu;
 		}
 
 		while (menu == mainMenu)
@@ -259,7 +260,7 @@ int main()
 			}
 			else if (input == 3)
 			{
-				menu = mainMenu;
+				menu = baseMenu;
 				break;
 			}
 		}
@@ -321,7 +322,7 @@ int main()
 			else if (input == 4)
 			{
 
-				menu = mainMenu;
+				menu = baseMenu;
 				break;
 			}
 		}
