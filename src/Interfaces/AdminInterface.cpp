@@ -5,7 +5,7 @@
 
 using namespace std;
 
-constexpr auto TITLE = "|                       ~   Products   ~                       |";
+constexpr auto TITLE = "|                               ~   Products   ~                              |";
 constexpr auto SHOPTOP = "------------------------------------------------------------------------------";
 constexpr auto SHOPLEFT = "| ";
 constexpr auto SHOPRIGHT = "     |";
