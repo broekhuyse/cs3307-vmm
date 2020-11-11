@@ -10,6 +10,7 @@
 #include "Interfaces/VendingInterface.h"
 #include "ShoppingCart/Order.h"
 #include "ShoppingCart/ShoppingCart.h"
+#include "Interfaces/AdminInterface.h"
 #include <climits>
 
 using namespace std;
@@ -41,6 +42,7 @@ int main()
 	Login login(collection);
 	LoginInterface loginInterface(&login);
 	SetupInterface SetupInterface(&login);
+	AdminInterface adminInterface(&Products);
 	Member *currentUser;
 	AccountInterface accInterface;
 	ShoppingCart cart;
@@ -334,11 +336,8 @@ int main()
 			cout << "1. Product Catalogue" << endl;
 			cout << "2. Shopping Cart and Checkout" << endl;
 			cout << "3. Account Menu" << endl;
-			cout << "4. Add product" << endl;
-			cout << "5. Remove product" << endl;
-			cout << "6. Restock" << endl;
-			cout << "7. Change price" << endl;
-			cout << "8. Logout" << endl;
+			cout << "4. Add/Remove/Restock/Change Price" << endl;
+			cout << "5. Logout" << endl;
 
 			while (getline(cin, inputStr))
 			{
@@ -369,17 +368,10 @@ int main()
 			}
 			else if (input == 4)
 			{
+				adminInterface.AdminPrompt();
+				break;
 			}
 			else if (input == 5)
-			{
-			}
-			else if (input == 6)
-			{
-			}
-			else if (input == 7)
-			{
-			}
-			else if (input == 8)
 			{
 				menu = loginMenu;
 				break;

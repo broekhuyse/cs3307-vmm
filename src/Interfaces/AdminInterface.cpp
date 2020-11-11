@@ -24,7 +24,7 @@ AdminInterface::AdminInterface(ProductCollection& productCollection) {
 };
 
 // Method that displays all the current products in the product collection
-void ProductDisplay() {
+void AdminInterface::ProductDisplay() {
 	
 	// print out products and prices, each with an assigned code. 
 	std::cout << SHOPTOP << std::endl << TITLE << std::endl << SHOPTOP << std::endl;
