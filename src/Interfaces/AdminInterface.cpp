@@ -8,7 +8,7 @@ using namespace std;
 constexpr auto TITLE = "|                                      ~   Products   ~                                      |";
 constexpr auto SHOPTOP = "----------------------------------------------------------------------------------------------";
 constexpr auto SHOPLEFT = "| ";
-constexpr auto SHOPRIGHT = " |";
+constexpr auto SHOPRIGHT = "   |";
 constexpr auto PRICEDIV = "    Price: ";
 
 //constructor, takes in a product collection
@@ -43,6 +43,7 @@ void AdminInterface::ProductDisplay()
 
 	std::cout << std::endl;
 }
+std::cout << SHOPTOP << std::endl;
 
 // interface that displays appropriate prompts and user inputs that relate to the different admin functions
 void AdminInterface::AdminPrompt()
