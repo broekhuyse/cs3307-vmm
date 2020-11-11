@@ -134,7 +134,7 @@ std::pair<int,int> VendingInterface::VendingDisplay() {
 			if (confirm == "Y") {
 				std::cin.clear();
 				std::cin.ignore(1000, '\n');
-				return std::make_pair(amount, vectorIndex);
+				return std::make_pair(vectorIndex, amount);
 			}
 			else if (confirm == "N") {
 				std::cin.clear();
