@@ -6,7 +6,7 @@
 using namespace std;
 
 constexpr auto TITLE = "|                       ~   Products   ~                       |";
-constexpr auto SHOPTOP = "---------------------------------------------------------------";
+constexpr auto SHOPTOP = "------------------------------------------------------------------------------";
 constexpr auto SHOPLEFT = "| ";
 constexpr auto SHOPRIGHT = "     |";
 constexpr auto PRICEDIV = "    Price: ";
@@ -37,7 +37,7 @@ void AdminInterface::ProductDisplay()
 	for (int i = 0; i < pCollection->size(); i++)
 	{
 
-		std::cout << SHOPLEFT << i + 1 << ".  " << std::left << std::setw(17) << pCollection->getProductList().at(i).getName() << PRICEDIV << "$" << std::left << std::setw(17) << pCollection->getProductList().at(i).getPrice()
+		std::cout << SHOPLEFT << i + 1 << ".  " << "ID: " << std::left << std::setw(10) << pCollection->getProductList().at(i).getID() << std::left << std::setw(17) << pCollection->getProductList().at(i).getName() << PRICEDIV << "$" << std::left << std::setw(17) << pCollection->getProductList().at(i).getPrice()
 				  << "QTY: " << std::left << std::setw(10) << pCollection->getProductList().at(i).getQuantity() << std::endl;
 	}
 
@@ -91,7 +91,7 @@ void AdminInterface::AdminPrompt()
 			string id, productName, category;
 			float price;
 			int quantity;
-
+			ProductDisplay();
 			cout << "Please enter a unique product id\n"
 				 << endl;
 			cin >> id;
@@ -184,6 +184,7 @@ void AdminInterface::AdminPrompt()
 		// prompts for removing a product
 		while (action == 2)
 		{
+			ProductDisplay();
 			string id;
 			cout << "Please enter the product id of the product you want to remove" << endl;
 			cin >> id;
