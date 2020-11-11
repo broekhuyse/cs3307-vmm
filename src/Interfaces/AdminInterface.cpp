@@ -72,6 +72,7 @@ void AdminInterface::AdminPrompt() {
 			cout << "2: Remove Product" << endl;
 			cout << "3: Restock Product" << endl;
 			cout << "4: Change Price of Product" << endl;
+			cout << "0: Exit the admin menu" << endl;
 			cin >> action;
 		}
 
