@@ -222,6 +222,7 @@ int main()
 			}
 			else if (input == 4)
 			{
+				cart.clearOrders();
 				menu = loginMenu;
 				break;
 			}
