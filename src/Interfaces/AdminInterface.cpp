@@ -41,9 +41,9 @@ void AdminInterface::ProductDisplay()
 			<< "QTY: " << std::left << std::setw(10) << pCollection->getProductList().at(i).getQuantity() << std::left << std::setw(10) << pCollection->getProductList().at(i).getCategory() << SHOPRIGHT << std::endl;
 	}
 
-	std::cout << std::endl;
+	cout << endl;
 }
-std::cout << SHOPTOP << std::endl;
+cout << SHOPTOP << endl;
 
 // interface that displays appropriate prompts and user inputs that relate to the different admin functions
 void AdminInterface::AdminPrompt()
