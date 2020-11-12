@@ -6,7 +6,8 @@
 #include "Order.h"
 #include "../Login/Member.h"
 //#include "CouponCollection"
-
+#include "../Product/ProductCollection.h"
+#include <vector>
 class ShoppingCart {
 	private:
 		std::list<Order> orders;
@@ -26,7 +27,7 @@ class ShoppingCart {
 		void addCouponCode(std::string code);
 		//void updateCouponCollection(CouponCollection newCodes);
 		std::string createInvoice();
-		int processCart(Member* buyer);
+		int processCart(Member* buyer, ProductCollection &productC);
 		std::string printCart();
 		int removeOrderInterface();
 };
