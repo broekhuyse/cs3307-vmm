@@ -1,5 +1,6 @@
 #include <iostream>
 #include <sstream>
+#include <math.h>
 #include "ShoppingCart.h"
 
 
@@ -64,7 +65,7 @@ void ShoppingCart::updateCosts() {
 */
 int ShoppingCart::processCart(Member* buyer, ProductCollection &productC) {
 	float grandPrice = 0.0;
-	const int tax = 0.15;
+	const float tax = 0.15;
 	bool verified = true;
 	std::ostringstream purchased;
 	std::cout << std::endl;
@@ -122,18 +123,11 @@ int ShoppingCart::processCart(Member* buyer, ProductCollection &productC) {
 	std::string orderID;
 	int reduced;
 
-	std::cout << productC.size() << std::endl;
-	std::cout << productC.getProductList().at(0).getID() << std::endl;
-	std::cout << productC.getProductList().at(1).getID() << std::endl;
-	std::cout << productC.getProductList().at(2).getID() << std::endl;
-	std::cout << productC.getProductList().at(3).getID() << std::endl;
-
 
 	Product test;
 	for(std::list<Order>::iterator i = orders.begin(); i != orders.end(); ++i) {
 		
 		orderID = i->getProduct().getID();
-		std::cout << orderID << std::endl;
 
 		for (unsigned x= 0; x < productC.getProductList().size(); x++) {
 
@@ -155,7 +149,7 @@ int ShoppingCart::processCart(Member* buyer, ProductCollection &productC) {
 
 	buyer->modifyBalance(-grandPrice);      // Add balance as negative float
 	std::string purchasedItems = purchased.str();
-	std::cout << "Checkout success!\n" << purchasedItems.substr(0, purchasedItems.length()-3) << "\n";
+	std::cout << "Checkout success!\n" << purchasedItems.substr(0, purchasedItems.length()-2) << "\n";
 	
 	
 	
@@ -178,7 +172,7 @@ std::string ShoppingCart::printCart() {
 	}
 	
 	tax = grandCost*0.15;		// Hardcoded tax
-	invoice << "\nSubtotal: $" << grandCost << "\nTax: $" << tax << "\nTotal: $" << (grandCost+tax) << "\n";
+	invoice << "\nSubtotal: $" << grandCost << "\nTax: $" << roundf(tax *100)/100 << "\nTotal: $" << roundf((grandCost + tax) *100)/100 << "\n";
 	return "----------------- Shopping Cart -----------------:\n" + invoice.str();
 }
 /*
@@ -197,7 +191,7 @@ std::string ShoppingCart::createInvoice() {
 	}
 
 	tax = grandCost * 0.15;		// Hardcoded tax
-	invoice << "\nSubtotal: $" << grandCost << "\nTax: $" << tax << "\nTotal: $" << (grandCost + tax) << "\nPaid: $" << (grandCost + tax) << "\nOwed: $0\n";
+	invoice << "\nSubtotal: $" << grandCost << "\nTax: $" << roundf(tax *100)/100 << "\nTotal: $" << roundf((grandCost + tax) *100)/100 << "\nPaid: $" << roundf((grandCost + tax) *100)/100 << "\nOwed: $0\n";
 	return "Invoice:\n" + invoice.str();
 }
 

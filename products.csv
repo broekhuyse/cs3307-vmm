@@ -1,7 +1,7 @@
 ID,Name,Category,Price,GlobalDiscount,Quantity
 bc_f,Big Chair,Furniture,69.99,0,20
 sc_f,Small Chair,Furniture,15.99,0,60
-aed_f, Marble Desk,Furniture,9999.99,0,1
+aed_f,Marble Desk,Furniture,9999.99,0,1
 s6p_c,Socks - 6 pair,Clothing,2.5,0,105
 pts_c,iatesumpi tshirt,Clothing,3.14,0,1592
 rk_e,Rock,Essentials,0.29,0,3000

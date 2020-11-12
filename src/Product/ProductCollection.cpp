@@ -77,7 +77,7 @@ void ProductCollection::changeInventory(Product product, int quantity) {
         if (productList[i].getID() == product.getID()) {
             productList[i].setQuantity(quantity);
             saveToDatabase();
-			break;
+			return;
         }
         
             
