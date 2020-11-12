@@ -62,7 +62,7 @@ void ShoppingCart::updateCosts() {
 * Params: buyer: Member* who is making the purchase
 * Returns: 0 on failure, 1 or higher on success.
 */
-int ShoppingCart::processCart(Member* buyer) {
+int ShoppingCart::processCart(Member* buyer, ProductCollection &productC) {
 	float grandPrice = 0.0;
 	const int tax = 0.15;
 	bool verified = true;
@@ -116,11 +116,43 @@ int ShoppingCart::processCart(Member* buyer) {
 		return 0;
 	}
 	purchased << "Purchased items: ";
+
+
+
+	std::string orderID;
+	int reduced;
+
+	std::cout << productC.size() << std::endl;
+	std::cout << productC.getProductList().at(0).getID() << std::endl;
+	std::cout << productC.getProductList().at(1).getID() << std::endl;
+	std::cout << productC.getProductList().at(2).getID() << std::endl;
+	std::cout << productC.getProductList().at(3).getID() << std::endl;
+
+
+	Product test;
 	for(std::list<Order>::iterator i = orders.begin(); i != orders.end(); ++i) {
-		// Remove stock
-		i->getProduct().setQuantity(i->getProduct().getQuantity() - i->getQuantity());
+		
+		orderID = i->getProduct().getID();
+		std::cout << orderID << std::endl;
+
+		for (unsigned x= 0; x < productC.getProductList().size(); x++) {
+
+			if (orderID == productC.getProductList().at(x).getID())
+			{
+				reduced = ((productC.getProductList().at(x).getQuantity()) - (i->getQuantity()));
+				productC.changeInventory(productC.getProductList().at(x), reduced);
+			}
+			
+
+		}
+
 		purchased << i->getProduct().getName() << " x " << i->getQuantity() << ", ";
+
 	}
+
+
+
+
 	buyer->modifyBalance(-grandPrice);      // Add balance as negative float
 	std::string purchasedItems = purchased.str();
 	std::cout << "Checkout success!\n" << purchasedItems.substr(0, purchasedItems.length()-3) << "\n";
