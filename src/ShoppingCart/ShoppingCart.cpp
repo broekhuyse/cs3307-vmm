@@ -8,6 +8,10 @@
 ShoppingCart::ShoppingCart() {
 }
 
+ShoppingCart::~ShoppingCart() {
+
+}
+
 bool ShoppingCart::isEmpty(){
 	return orders.empty();
 }

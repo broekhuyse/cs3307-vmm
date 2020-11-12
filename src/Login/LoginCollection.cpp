@@ -11,6 +11,10 @@ LoginCollection::LoginCollection()
     currentHighestMemberID = 0;
 }
 
+LoginCollection::~LoginCollection() {
+
+}
+
 /**
 * Adds a user to the collection of logins with their username and password. Only adds to the collection if the password is secure enough
 * @param username username of the new user

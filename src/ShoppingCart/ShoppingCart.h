@@ -16,7 +16,7 @@ class ShoppingCart {
 	public:
 		ShoppingCart();
 		//ShoppingCart(CouponCollection codeBase);
-		
+		~ShoppingCart();
 		void clearOrders();
 		void removeOrder(Order rem);
 		void addOrder(Order add);

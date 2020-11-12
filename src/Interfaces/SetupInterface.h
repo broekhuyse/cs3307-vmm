@@ -10,6 +10,7 @@ class SetupInterface {
 	public:
 		SetupInterface();
 		SetupInterface(Login *login);
+		~SetupInterface();
 		void SetupPrompt();
 	};
 

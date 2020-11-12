@@ -11,6 +11,10 @@ AccountInterface::AccountInterface()
 {
 }
 
+AccountInterface::~AccountInterface() {
+
+}
+
 AccountInterface::AccountInterface(Member *member)
 {
     currentMember = member;

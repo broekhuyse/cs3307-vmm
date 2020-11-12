@@ -13,6 +13,10 @@ Member::Member()
 {
 }
 
+Member::~Member() {
+
+}
+
 /**
 * Constructor for Member class to initialize new member
 * @param name Name of the new member

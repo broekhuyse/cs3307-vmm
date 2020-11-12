@@ -9,6 +9,10 @@ Order::Order() {
 	this->totalCost = 0;
 }
 
+Order::~Order() {
+
+}
+
 Order::Order(Product prod, int pDate, int quant) {
 	this->product = prod;
 	this->dateOfPurchase = pDate;

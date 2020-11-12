@@ -14,6 +14,10 @@ SetupInterface::SetupInterface(Login *login)
 	this->login = login;
 }
 
+SetupInterface::~SetupInterface() {
+
+}
+
 void SetupInterface::SetupPrompt()
 {
 	int result = -1;

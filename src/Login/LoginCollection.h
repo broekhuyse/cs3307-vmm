@@ -13,6 +13,7 @@ private:
 
 public:
     LoginCollection();
+    ~LoginCollection();
     int addMember(std::string username, std::string password, std::string fname, std::string lname, bool isAdmin, std::string membershipType);
     Member *findMember(std::string username, std::string password);
 

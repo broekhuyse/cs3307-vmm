@@ -14,6 +14,7 @@ private:
 public:
 	
 	VendingInterface(ProductCollection& productCollection);
+	~VendingInterface();
 	std::pair<int, int> VendingDisplay();
 	
 	

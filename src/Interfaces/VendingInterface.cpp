@@ -26,6 +26,10 @@ VendingInterface::VendingInterface(ProductCollection& productCollection) {
 
 };
 
+VendingInterface::~VendingInterface() {
+
+}
+
 //returns pair<int,int> where first integer is the product position in in vector, second integer is the quantity. return -1,-1 on user exit 
 std::pair<int,int> VendingInterface::VendingDisplay() {
 

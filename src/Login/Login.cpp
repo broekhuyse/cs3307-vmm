@@ -8,6 +8,10 @@ Login::Login()
 {
 }
 
+Login::~Login() {
+
+}
+
 /**
 * Constructor for Login class to set the LoginCollection
 * @param loginCollection The collection used to store the username and password data

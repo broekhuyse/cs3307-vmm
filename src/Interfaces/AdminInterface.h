@@ -12,6 +12,7 @@ private:
 public:
 
 	AdminInterface(ProductCollection& productCollection);
+	~AdminInterface();
 	void ProductDisplay();
 	void AdminPrompt();
 

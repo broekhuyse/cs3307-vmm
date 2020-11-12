@@ -11,6 +11,10 @@ UserDBConversion::UserDBConversion()
 	highestID = -1;
 };
 
+UserDBConversion::~UserDBConversion() {
+
+}
+
 /*
 * Name: LoginCollectionToFile
 * Description: Writes the LoginCollection to Output File

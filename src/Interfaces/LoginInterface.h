@@ -14,6 +14,7 @@ private:
 public:
     LoginInterface();
     LoginInterface(Login *login);
+    ~LoginInterface();
     void createAccountPrompt();
     Member *loginPrompt();
 };

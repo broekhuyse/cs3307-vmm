@@ -10,6 +10,7 @@ private:
 public:
     AccountInterface();
     AccountInterface(Member *member);
+    ~AccountInterface();
     void setCurrentMember(Member *member);
     void addCurrencyPrompt();
     void printAccountInfo();

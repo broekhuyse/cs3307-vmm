@@ -19,6 +19,10 @@ LoginInterface::LoginInterface(Login *login)
     this->login = login;
 }
 
+LoginInterface::~LoginInterface() {
+
+}
+
 /**
  * Provides an interface for the user to create an account in the system
  * @param

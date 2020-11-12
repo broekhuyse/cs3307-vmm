@@ -18,6 +18,10 @@ AdminInterface::AdminInterface(ProductCollection &productCollection)
 	this->pCollection = &productCollection;
 };
 
+AdminInterface::~AdminInterface() {
+
+}
+
 // Method that displays all the current products in the product collection
 void AdminInterface::ProductDisplay()
 {

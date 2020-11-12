@@ -12,6 +12,7 @@ class Order {
 		
 	public:
 		Order();
+		~Order();
 		Order(Product prod, int pDate, int quant);
 		
 		bool operator == (const Order& other);
