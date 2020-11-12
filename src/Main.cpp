@@ -298,7 +298,7 @@ int main()
 			else if (input == 2)
 			{
 
-				int check = cart.processCart(currentUser);
+				int check = cart.processCart(currentUser, Products);
 
 				//check if process cart failed or succeeded here.
 
