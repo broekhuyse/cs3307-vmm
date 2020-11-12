@@ -77,11 +77,13 @@ void ProductCollection::changeInventory(Product product, int quantity) {
         if (productList[i].getID() == product.getID()) {
             productList[i].setQuantity(quantity);
             saveToDatabase();
+			break;
         }
-        else {
-            cout << "Could not find the given product in the product collection" << endl;
-        }
+        
+            
+        
     }
+	cout << "Could not find the given product in the product collection" << endl;
 }
 void ProductCollection::removeProduct(string id) {
     // Removes product and updates product list
