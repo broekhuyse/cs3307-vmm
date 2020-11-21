@@ -11,8 +11,8 @@ UserDBConversion::UserDBConversion()
 	highestID = -1;
 };
 
-UserDBConversion::~UserDBConversion() {
-
+UserDBConversion::~UserDBConversion()
+{
 }
 
 /*
@@ -27,6 +27,9 @@ void UserDBConversion::LoginCollectionToFile(std::unordered_map<std::string, std
 	//open output file
 	std::ofstream userFile;
 	userFile.open("userDB.txt");
+	std::ostringstream oss;
+	std::string temp;
+	//std::hash<std::string> hashed;
 
 	//create iterator for unordered_map
 	//std::unordered_map<std::string, std::pair<std::string, Member>>::iterator it = map.begin();
@@ -34,9 +37,11 @@ void UserDBConversion::LoginCollectionToFile(std::unordered_map<std::string, std
 	//iterate through unordered_map and output everything
 	for (std::unordered_map<std::string, std::pair<std::string, Member>>::iterator it = map.begin(); it != map.end(); ++it)
 	{
-
-		userFile << it->second.second.getfname() << "," << it->second.second.getlname() << "," << it->second.second.getisadmin() << "," << it->second.second.getID() << ","
-				 << it->second.second.getMembershipType() << "," << it->second.second.getCurrency() << "," << it->first << "," << it->second.first << " " << std::endl;
+		oss << it->second.second.getfname() << "," << it->second.second.getlname() << "," << it->second.second.getisadmin() << "," << it->second.second.getID() << ","
+			<< it->second.second.getMembershipType() << "," << it->second.second.getCurrency() << "," << it->first << "," << it->second.first << " " << std::endl;
+		temp = oss.str();
+		temp = encryptDecrypt(temp);
+		userFile << temp;
 	}
 };
 
@@ -53,10 +58,19 @@ std::unordered_map<std::string, std::pair<std::string, Member>> UserDBConversion
 	std::string line;
 	std::ifstream file("UserDB.txt");
 	std::unordered_map<std::string, std::pair<std::string, Member>> map;
+
+	std::stringstream ss;
+	std::string temp;
 	if (file.is_open())
 	{
-
+		// Decrypt the file
 		while (getline(file, line))
+		{
+			temp = encryptDecrypt(line);
+			ss << temp;
+		}
+
+		while (getline(ss, line))
 		{
 
 			std::string tFName, tLName, tMembershipType, tUser, tPass;
@@ -139,11 +153,23 @@ std::unordered_map<std::string, std::pair<std::string, Member>> UserDBConversion
 			map[tUser].second = Member(tFName, tLName, tIsAdmin, tmemberID, tMembershipType, tcurrency);
 		}
 	}
-	
+
 	return map;
 };
 
 int UserDBConversion::getHighestID()
 {
 	return highestID;
+}
+
+std::string UserDBConversion::encryptDecrypt(std::string text)
+{
+	char key = 'L';
+	std::string result = text;
+
+	for (unsigned i = 0; i < text.size(); i++)
+	{
+		result[i] = text[i] ^ key;
+	}
+	return result;
 }

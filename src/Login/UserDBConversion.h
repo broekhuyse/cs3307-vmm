@@ -8,6 +8,7 @@ class UserDBConversion {
 
 private:
 	int highestID;
+	std::string encryptDecrypt(std::string text);
 
 public: 
 	UserDBConversion();
