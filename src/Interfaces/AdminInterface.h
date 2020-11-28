@@ -3,18 +3,21 @@
 
 #include "../Product/Product.h"
 #include "../Product/ProductCollection.h"
+#include "../Product/DiscountCollection.h"
 
 class AdminInterface
 {
 private:
 	ProductCollection* pCollection;
+	DiscountCollection* dCollection;
 
 public:
 
-	AdminInterface(ProductCollection& productCollection);
+	AdminInterface(ProductCollection& productCollection, DiscountCollection& discountCollection);
 	~AdminInterface();
 	void ProductDisplay();
-	void AdminPrompt();
+	void AdminProductPrompt();
+	void AdminDiscountPrompt();
 
 };
 #endif

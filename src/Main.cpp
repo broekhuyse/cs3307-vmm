@@ -13,6 +13,9 @@
 #include "Interfaces/AdminInterface.h"
 #include <climits>
 
+// temp
+#include "Product/DiscountCollection.h"
+
 using namespace std;
 
 enum Menu
@@ -38,11 +41,13 @@ int main()
 	ProductCollection Products;
 	Products = ProductCollection();
 
+	DiscountCollection discounts = DiscountCollection(&Products);
+
 	//initalize classes
 	Login login(collection);
 	LoginInterface loginInterface(&login);
 	SetupInterface SetupInterface(&login);
-	AdminInterface adminInterface(Products);
+	AdminInterface adminInterface(Products, discounts);
 	Member *currentUser;
 	AccountInterface accInterface;
 	ShoppingCart cart;
@@ -148,6 +153,7 @@ int main()
 				auto test = login.getLoginCollection().getMap();
 				converter.LoginCollectionToFile(test);
 				Products.saveToDatabase();
+				discounts.saveToDatabase();
 				return 0;
 			}
 		}
@@ -166,7 +172,7 @@ int main()
 				if (index != -1)
 				{
 
-					Product Product = Products.getProductList().at(index);
+					Product Product = *Products.getProduct(index);
 					Order newOrder(Product, 0, amount);
 					cart.addOrder(newOrder);
 
@@ -339,7 +345,8 @@ int main()
 			cout << "2. Shopping Cart and Checkout" << endl;
 			cout << "3. Account Menu" << endl;
 			cout << "4. Add/Remove/Restock/Change Price" << endl;
-			cout << "5. Logout" << endl;
+			cout << "5. Add/Remove Discount" << endl;
+			cout << "6. Logout" << endl;
 
 			while (getline(cin, inputStr))
 			{
@@ -370,10 +377,15 @@ int main()
 			}
 			else if (input == 4)
 			{
-				adminInterface.AdminPrompt();
+				adminInterface.AdminProductPrompt();
 				break;
 			}
 			else if (input == 5)
+			{
+				adminInterface.AdminDiscountPrompt();
+				break;
+			}
+			else if (input == 6)
 			{
 				menu = loginMenu;
 				break;

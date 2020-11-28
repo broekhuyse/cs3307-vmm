@@ -25,6 +25,7 @@ class ProductCollection {
         void sortByCategory(std::string order);
         int size();
         Product at(int index);
+        Product *getProduct(int index);
         void changePrice(Product product, float newPrice);
         std::vector<Product> getProductList();
         void saveToDatabase();

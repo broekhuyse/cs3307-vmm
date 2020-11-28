@@ -13,19 +13,19 @@ Product::Product() {
     this->productName = "";
     this->category = "";
     this->price = 0.00;
+	this->discount = NULL;
     this->bulkModifier = 0.00;
-    this->globalDiscount = 0.00;
     this->quantity = 0;
 }
 // constructor with parameters
-Product::Product(std::string productName, std::string category, std::string id, float price, int quantity, float bulkModifier, float globalDiscount) {
+Product::Product(std::string productName, std::string category, std::string id, float price, int quantity, float bulkModifier) {
 	this->productName = productName;
 	this->category = category;
 	this->id = id;
 	this->price = price;
 	this->quantity = quantity;
+	this->discount = NULL;
 	this->bulkModifier = bulkModifier;
-	this->globalDiscount = globalDiscount;
 }
 
 /*
@@ -44,8 +44,8 @@ Product::Product(std::string productName, std::string category, std::string id, 
 	this->id = id;
 	this->price = price;
 	this->quantity = quantity;
+	this->discount = NULL;
 	this->bulkModifier = 0;
-	this->globalDiscount = 0;
 }
 
 // destructor
@@ -70,6 +70,9 @@ void Product::setPrice(float new_price) {
 void Product::setQuantity(int new_quantity) { 
     quantity = new_quantity; 
 }
+void Product::setDiscount(Discount *new_discount){
+	discount = new_discount;
+}
 string Product::getID() const{
     return id;
 }
@@ -79,8 +82,8 @@ string Product::getName() {
 string Product::getCategory() {
     return category;
 }
-float Product::getDiscount() {
-    return globalDiscount;
+Discount* Product::getDiscount() {
+    return discount;
 }
 float Product::getPrice() { 
     return price; 
@@ -98,6 +101,6 @@ bool Product::operator == (const Product& other) {
 }
 
 ostream& operator<<(ostream& os, const Product& prod) {
-	os << prod.productName << "    " << prod.category << "    " << prod.id << "    " << prod.price << "    " << prod.quantity << "    " << prod.bulkModifier << "    " << prod.globalDiscount << endl;
+	os << prod.productName << "    " << prod.category << "    " << prod.id << "    " << prod.price << "    " << prod.quantity << "    " << prod.bulkModifier << endl;
 	return os;
 }

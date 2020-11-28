@@ -5,21 +5,22 @@
 
 using namespace std;
 
-constexpr auto TITLE = "|                                      ~   Products   ~                                      |";
-constexpr auto SHOPTOP = "----------------------------------------------------------------------------------------------";
+constexpr auto TITLE = "|                                               ~   Products   ~                                               |";
+constexpr auto SHOPTOP = "----------------------------------------------------------------------------------------------------------------";
 constexpr auto SHOPLEFT = "| ";
 constexpr auto SHOPRIGHT = "   |";
 constexpr auto PRICEDIV = "    Price: ";
 
 //constructor, takes in a product collection
-AdminInterface::AdminInterface(ProductCollection &productCollection)
+AdminInterface::AdminInterface(ProductCollection &productCollection, DiscountCollection &discountCollection)
 {
 
 	this->pCollection = &productCollection;
+	this->dCollection = &discountCollection;
 };
 
-AdminInterface::~AdminInterface() {
-
+AdminInterface::~AdminInterface()
+{
 }
 
 // Method that displays all the current products in the product collection
@@ -41,16 +42,24 @@ void AdminInterface::ProductDisplay()
 	for (int i = 0; i < pCollection->size(); i++)
 	{
 
-		std::cout << SHOPLEFT << std::left << std::setw(4) << i + 1 << ".  " << "ID: " << std::left << std::setw(10) << pCollection->getProductList().at(i).getID() << std::left << std::setw(20) << pCollection->getProductList().at(i).getName() << PRICEDIV << "$" << std::left << std::setw(10) << pCollection->getProductList().at(i).getPrice()
-			<< "QTY: " << std::left << std::setw(10) << pCollection->getProductList().at(i).getQuantity() << std::left << std::setw(10) << pCollection->getProductList().at(i).getCategory() << SHOPRIGHT << std::endl;
+		std::cout << SHOPLEFT << std::left << std::setw(4) << i + 1 << ".  "
+				  << "ID: " << std::left << std::setw(10) << pCollection->getProductList().at(i).getID() << std::left << std::setw(20) << pCollection->getProductList().at(i).getName() << PRICEDIV << "$" << std::left << std::setw(10) << pCollection->getProductList().at(i).getPrice()
+				  << "QTY: " << std::left << std::setw(10) << pCollection->getProductList().at(i).getQuantity() << std::left << std::setw(15) << pCollection->getProductList().at(i).getCategory();
+		if (pCollection->getProductList().at(i).getDiscount() != NULL)
+		{
+			std::cout << "Discount: " << std::left << std::setw(2) << pCollection->getProduct(i)->getDiscount()->getAmount() * 100 << "%" << SHOPRIGHT << std::endl;
+		}
+		else
+		{
+			std::cout << "Discount: " << std::left << std::setw(2) << "N/A" << SHOPRIGHT << std::endl;
+		}
 	}
 
 	cout << SHOPTOP << endl;
 }
 
-
 // interface that displays appropriate prompts and user inputs that relate to the different admin functions
-void AdminInterface::AdminPrompt()
+void AdminInterface::AdminProductPrompt()
 {
 	// represents what action the user wants to do. Possible actions are shown below
 	int action;
@@ -162,13 +171,13 @@ void AdminInterface::AdminPrompt()
 				break;
 			}
 
-			Product newProduct = Product(productName, category, id, price, quantity, 0, 0);
+			Product newProduct = Product(productName, category, id, price, quantity, 0);
 			this->pCollection->addProduct(newProduct);
 
 			cin.clear();
 			cin.ignore(1000, '\n');
 
-			cout << "If you want to add product again, press 1\n To go back to the main menu input 0" << endl;
+			cout << "If you want to add product again, press 1\nTo go back to the main menu input 0" << endl;
 			cin >> action;
 			if (cin.fail() || (action != 1 && action != 0))
 			{
@@ -198,7 +207,7 @@ void AdminInterface::AdminPrompt()
 			cin.clear();
 			cin.ignore(1000, '\n');
 
-			cout << "If you want to remove product again, press 2\n To go back to the main menu input 0" << endl;
+			cout << "If you want to remove product again, press 2\nTo go back to the main menu input 0" << endl;
 			cin >> action;
 			if (cin.fail() || (action != 2 && action != 0))
 			{
@@ -338,6 +347,168 @@ void AdminInterface::AdminPrompt()
 				cin.clear();
 				cin.ignore(1000, '\n');
 				cout << "Invalid input. Returning to main menu" << endl;
+				break;
+			}
+
+			if (action == 0)
+			{
+				cin.clear();
+				cin.ignore(1000, '\n');
+				break;
+			}
+		}
+	}
+}
+
+void AdminInterface::AdminDiscountPrompt()
+{
+	// represents what action the user wants to do. Possible actions are shown below
+	int action;
+
+	while (true)
+	{
+
+		// possible actions
+		cout << "Please select one of the following options: " << endl;
+		cout << "1: Add Discount" << endl;
+		cout << "2: Remove Discount" << endl;
+		cout << "0: Exit the admin menu" << endl;
+		cin >> action;
+
+		//if incorrect input, then prompt again
+		while (action != 1 && action != 2 && action != 0)
+		{
+			cin.clear();
+			cin.ignore(1000, '\n');
+			cout << "Error: You must pick one of the valid options" << endl;
+			cout << "Please select one of the following options: " << endl;
+			cout << "1: Add Discount" << endl;
+			cout << "2: Remove Discount" << endl;
+			cout << "0: Exit the admin menu" << endl;
+			cin >> action;
+		}
+
+		if (action == 0)
+		{
+			cin.clear();
+			cin.ignore(1000, '\n');
+			break;
+		}
+		while (action == 1)
+		{
+			ProductDisplay();
+			int choice = -1;
+			cout << "Enter number of product or enter 0 to exit " << endl;
+			cin >> choice;
+			//if input is not an integer enter this loop
+			while (cin.fail() || choice > pCollection->size() || choice < 0)
+			{
+
+				cin.clear();
+				cin.ignore(1000, '\n');
+				cout << "Error: You must enter number of displayed product" << endl;
+				cout << "Please enter number of product or enter 0 to exit: " << endl;
+				cin >> choice;
+			}
+
+			//if choice is 0 to exit
+			if (choice == 0)
+			{
+				cin.clear();
+				cin.ignore(1000, '\n');
+				break;
+			}
+			//if input is integer and in the correct range
+			else
+			{
+				int vectorIndex = choice - 1;
+
+				float amount = 0;
+				cout << "Enter the discount amount in percent: " << endl;
+				cin >> amount;
+
+				//if input is invalid
+				while (cin.fail() || amount < 0 || amount > 100)
+				{
+
+					cin.clear();
+					cin.ignore(1000, '\n');
+					cout << "Error: You must enter a valid percentage" << endl;
+					cout << "Please enter the discount amount in percent: " << endl;
+					cin >> amount;
+				}
+				// Prompts for adding expiration date if implemented
+				// int day, month, year;
+
+				// cout << "Enter the expiry day of the month: " << endl;
+				// cin >> day;
+				// while (cin.fail() || day < 0 || day > 31)
+				// {
+				// 	cin.clear();
+				// 	cin.ignore(1000, '\n');
+				// 	cout << "Error: You must enter a valid day" << endl;
+				// 	cout << "Please enter the expiry day: " << endl;
+				// 	cin >> day;
+				// }
+
+				// cout << "Enter the expiry month: " << endl;
+				// cin >> month;
+				// while (cin.fail() || month < 0 || month > 12)
+				// {
+				// 	cin.clear();
+				// 	cin.ignore(1000, '\n');
+				// 	cout << "Error: You must enter a valid month" << endl;
+				// 	cout << "Please enter the expiry month: " << endl;
+				// 	cin >> month;
+				// }
+
+				// cout << "Enter the expiry year: " << endl;
+				// cin >> year;
+				// while (cin.fail() || year < 0)
+				// {
+				// 	cin.clear();
+				// 	cin.ignore(1000, '\n');
+				// 	cout << "Error: You must enter a valid year" << endl;
+				// 	cout << "Please enter the expiry year: " << endl;
+				// 	cin >> year;
+				// }
+
+				dCollection->addDiscount(pCollection->getProduct(vectorIndex), amount / 100, 0, 0, 0);
+			}
+		}
+
+		// prompts for removing a discount
+		while (action == 2)
+		{
+			ProductDisplay();
+			int choice;
+			cout << "Enter number of product or enter 0 to exit" << endl;
+			cin >> choice;
+			while (cin.fail() || choice > pCollection->size() || choice < 0)
+			{
+
+				cin.clear();
+				cin.ignore(1000, '\n');
+				cout << "Error: You must enter number of displayed product" << endl;
+				cout << "Please enter number of product or enter 0 to exit: " << endl;
+				cin >> choice;
+			}
+			//if choice is 0 to exit
+			if (choice == 0)
+			{
+				cin.clear();
+				cin.ignore(1000, '\n');
+				break;
+			}
+			dCollection->removeDiscount(pCollection->getProduct(choice - 1));
+
+			cout << "If you want to remove another discount, press 2\nTo go back to the main menu input 0" << endl;
+			cin >> action;
+			if (cin.fail() || (action != 2 && action != 0))
+			{
+				cout << "Invalid input. Returning to main menu" << endl;
+				cin.clear();
+				cin.ignore(1000, '\n');
 				break;
 			}
 
