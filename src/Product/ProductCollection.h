@@ -29,5 +29,6 @@ class ProductCollection {
         void changePrice(Product product, float newPrice);
         std::vector<Product> getProductList();
         void saveToDatabase();
+		void alertInterface();
 };
 #endif

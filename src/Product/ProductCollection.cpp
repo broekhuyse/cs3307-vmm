@@ -5,6 +5,8 @@
 #include <fstream>
 #include <sstream>
 #include <algorithm>
+#include <limits>
+#include <iomanip>
 #include "../ShoppingCart/Order.h"
 #include "ProductCollection.h"
 using namespace std;
@@ -238,3 +240,28 @@ void ProductCollection::saveToDatabase()
 
     file.close();
 }
+
+void ProductCollection::alertInterface()
+{
+
+	cout << "------------------Current Inventory Alerts------------------" << endl << endl;
+
+	for (unsigned i = 0; i < productList.size(); i++)
+	{
+		if (productList[i].getQuantity() < 5) 
+		{
+			cout << "Product: " << left << setw(20) << productList[i].getName() << " LOW STOCK - Current Stock: " << productList[i].getQuantity() << endl;
+		}
+		else if (productList[i].getQuantity() == 0) {
+			cout << "Product: " << productList[i].getName() << " OUT OF STOCK - Current Stock: " << productList[i].getQuantity() << endl;
+		}
+		
+	}
+	
+
+	cout <<endl<< "Press Enter to Continue";
+	cin.ignore(std::numeric_limits<streamsize>::max(), '\n');
+
+
+}
+
