@@ -132,6 +132,7 @@ int main()
 
 					if (adminCheck == "y")
 					{
+						Products.alertInterface();
 						menu = baseMenu = adminMenu;
 						break;
 					}
@@ -346,7 +347,8 @@ int main()
 			cout << "3. Account Menu" << endl;
 			cout << "4. Add/Remove/Restock/Change Price" << endl;
 			cout << "5. Add/Remove Discount" << endl;
-			cout << "6. Logout" << endl;
+			cout << "6. View Inventory Alerts" << endl;
+			cout << "7. Logout" << endl;
 
 			while (getline(cin, inputStr))
 			{
@@ -386,6 +388,11 @@ int main()
 				break;
 			}
 			else if (input == 6)
+			{
+				Products.alertInterface();
+				break;
+			}
+			else if (input == 7)
 			{
 				menu = loginMenu;
 				break;
