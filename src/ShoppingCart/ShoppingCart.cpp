@@ -2,6 +2,7 @@
 #include <sstream>
 #include <math.h>
 #include "ShoppingCart.h"
+#include "../PurchaseHistory/PurchaseHistory.h"
 
 ShoppingCart::ShoppingCart()
 {
@@ -75,7 +76,7 @@ void ShoppingCart::updateCosts()
 * Params: buyer: Member* who is making the purchase
 * Returns: 0 on failure, 1 or higher on success.
 */
-int ShoppingCart::processCart(Member *buyer, ProductCollection &productC)
+int ShoppingCart::processCart(Member *buyer, ProductCollection &productC, PurchaseHistoryCollection &histC)
 {
 	float grandPrice = 0.0;
 	const float tax = 0.15;
@@ -165,6 +166,10 @@ int ShoppingCart::processCart(Member *buyer, ProductCollection &productC)
 	std::string purchasedItems = purchased.str();
 	std::cout << "Checkout success!\n"
 			  << purchasedItems.substr(0, purchasedItems.length() - 2) << "\n";
+			  
+	// Send a copy of the order list to the history collection
+	PurchaseHistory hist = PurchaseHistory(orders, buyer->getID());
+	histC.addPurchaseHistory(hist);
 
 	return 1;
 }

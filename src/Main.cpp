@@ -11,6 +11,7 @@
 #include "ShoppingCart/Order.h"
 #include "ShoppingCart/ShoppingCart.h"
 #include "Interfaces/AdminInterface.h"
+#include "PurchaseHistory/PurchaseHistoryCollection.h"
 #include <climits>
 
 // temp
@@ -57,6 +58,7 @@ int main()
 	Member *currentUser;
 	AccountInterface accInterface;
 	ShoppingCart cart;
+	PurchaseHistoryCollection history = PurchaseHistoryCollection();
 
 	int input = 0;
 	int amount, index;
@@ -311,7 +313,7 @@ int main()
 			else if (input == 2)
 			{
 
-				int check = cart.processCart(currentUser, Products);
+				int check = cart.processCart(currentUser, Products, history);
 
 				//check if process cart failed or succeeded here.
 
@@ -323,6 +325,7 @@ int main()
 				{
 					cout << cart.createInvoice() << endl;
 					cart.clearOrders();
+					history.saveToDatabase();
 					cout << endl
 						 << "Press Enter to Continue";
 					cin.ignore();
