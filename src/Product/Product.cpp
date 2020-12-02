@@ -1,7 +1,7 @@
-/*!
+/*! \file Product.h
  * \brief Class containing a product object. 
  * \details Class containing a product object including its unique information. Also includes getter and setter methods for changing product details and data retrieval. 
- * \author Alex Broekhuyse
+ * \authors Alex Broekhuyse, Shahryar Iqbal
 */
 #include <string>
 #include "Product.h"
@@ -30,6 +30,7 @@ Product::Product() {
 * @param price Price of the product.
 * @param discount Product discount.
 * @param quantity On-hand quantity of the product.
+* @param bulkModifier
 * @return None.
 */
 Product::Product(std::string productName, std::string category, std::string id, float price, int quantity, float bulkModifier) {
@@ -42,14 +43,15 @@ Product::Product(std::string productName, std::string category, std::string id, 
 	this->bulkModifier = bulkModifier;
 }
 
-/*
-	Name: Product()
-	Description: Constructor that takes all necessary parameters. bulkModifier and globalDiscount attributes are defaulted to 0.
-	Params: productName: Name of the product
-			category: The category the product belongs to
-			id: the unique id of the product
-			cost: the cost of the product
-	Return: none
+/**
+* Constructor with bulkModifier set to 0.
+* @param id Unique product tag.
+* @param productName Name of the product.
+* @param category Specific product category.
+* @param price Price of the product.
+* @param discount Product discount.
+* @param quantity On-hand quantity of the product.
+* @return None.
 */
 Product::Product(std::string productName, std::string category, std::string id, float price, int quantity) {
 	this->productName = productName;

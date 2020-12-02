@@ -191,36 +191,61 @@ bool Member::validateCreditCard(std::string number, int month, int year, std::st
     return true;
 }
 
+/** Gets name of member. Returns first name and last name of the member.
+ * @return A pair of strings containing the first name and surname of the member.
+ */
 std::pair<std::string, std::string> Member::getName() const
 {
     return std::pair<std::string, std::string>(fname, lname);
 }
 
+/** Gets the unique ID of the member.
+ * @return Unique member ID of this member.
+ */
 int Member::getID() const
 {
     return memberID;
 }
 
+/** Gets the amount of currency this member has in the application.
+ * @return Float value of the amount of currency this member has in their account.
+ */
 float Member::getCurrency() const
 {
     return currency;
 }
+/** Gets the first name of this member.
+ * @return A string containing first name of this member.
+ */
 std::string Member::getfname() const
 {
     return fname;
 }
+/** Gets the surname of this member.
+ * @returns A string containg this member's surname.
+ */
 std::string Member::getlname() const
 {
     return lname;
 }
+/** Gets the isAdmin boolean of this member. Determines if this member is an admin by returning the isAdmin attribute of this member.
+ * @return A boolean that is true if the member is an admin, false if not.
+ */
 bool Member::getisadmin() const
 {
     return isAdmin;
 }
+/** Gets the membership type of this member.
+ * @return A string describing the membership type of this member.
+ */
 std::string Member::getMembershipType() const
 {
     return membershipType;
 }
+/** Sets the membership type of this member.
+ * @param membershipType The membership type to assign to this member.
+ * @return None.
+ */
 void Member::setMembershipType(std::string membershipType)
 {
     this->membershipType = membershipType;

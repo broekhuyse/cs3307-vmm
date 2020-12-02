@@ -1,7 +1,7 @@
-/*!
+/*! \file ProductCollection.h
  * \brief Functions for maintaining product database. 
  * \details Reads and writes from/to the product database, including adding products and monitoring stock. 
- * \author Alex Broekhuyse
+ * \authors Alex Broekhuyse, Shahryar Iqbal
 */
 #include <iostream>
 #include <vector>
@@ -61,6 +61,7 @@ ProductCollection::ProductCollection()
 }
 /**
  * Class destructor.
+ * @return None.
  */
 ProductCollection::~ProductCollection()
 {
