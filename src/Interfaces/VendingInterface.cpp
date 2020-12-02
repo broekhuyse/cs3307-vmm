@@ -1,7 +1,7 @@
 /*!
  * \file VendingInterface.h
- * \brief Class containing a product object.
- * \details Class containing a product object including its unique information. Also includes getter and setter methods for changing product details and data retrieval.
+ * \brief Class containing a product collection
+ * \details Class containing a product collection. Used to display current products and allow user to add items to cart
  * \author Matthew Mombourquette
 */
 #include "VendingInterface.h"
