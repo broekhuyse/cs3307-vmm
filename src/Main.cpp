@@ -1,9 +1,11 @@
+/// Driver code and menu functionality.
+/** Driver class that provides the interface for the main menu, login, shopping car and account creation.
+ *  Also provides access to admin menu functionality.
+*/
+
 #include <iostream>
 #include <sstream>
-//#include "Member.h"
 #include "Interfaces/AccountInterface.h"
-//#include "Login.h"
-//#include "LoginCollection.h"
 #include "Interfaces/LoginInterface.h"
 #include "Login/UserDBConversion.h"
 #include "Interfaces/SetupInterface.h"
@@ -19,10 +21,7 @@
 
 using namespace std;
 
-/// Driver code and menu functionality.
-/** Driver class that provides the interface for the main menu, login, shopping car and account creation. 
- *  Also provides access to admin menu functionality.
-*/
+
 
 enum Menu
 {
@@ -38,11 +37,11 @@ enum Menu
 /*!< Driver function for switching between menus inside the application. */
 int main()
 {
-	LoginCollection collection;
-	UserDBConversion converter;
-	Menu menu;
+	LoginCollection collection;		// collection containing login information
+	UserDBConversion converter;		// encrpyts saves the member information into the csv database.
+	Menu menu;						// enum variable that holds the current menu being used
 
-	//load collectios from file
+	//load collections from file
 	auto map = converter.FileToLoginCollection();
 	collection.setCollection(map, converter.getHighestID());
 	ProductCollection Products;
@@ -69,13 +68,17 @@ int main()
 	{
 		menu = setupMenu;
 	}
+
+	// otherwise go straight to the login meny
 	else
 	{
 		menu = loginMenu;
 	}
+
+	// forever loop that keeps going until the user exits 
 	while (true)
 	{
-
+		// if in the setup menu, then call the prompts from SetupInterface. After the setup is complete, changes menu to loginMenu
 		while (menu == setupMenu)
 		{
 			SetupInterface.SetupPrompt();
@@ -83,6 +86,7 @@ int main()
 			break;
 		}
 
+		// if in the login menu, then prompts for user action. Can do login, createAccount, or exit
 		while (menu == loginMenu)
 		{
 
@@ -105,6 +109,7 @@ int main()
 				cout << "Invalid input" << endl;
 			}
 
+			// if user inputs for Login, then display the login menu and call the relevant prompts from loginInterface
 			if (input == 1)
 			{
 
@@ -117,6 +122,7 @@ int main()
 					// OR could change login interface to a singleton and have a static member for the current user----------------------
 					accInterface.setCurrentMember(currentUser);
 					string adminCheck = "";
+					// if the user is an admin, then prompted to view the vending machine as an admin.
 					if (currentUser->getisadmin())
 					{
 						while (adminCheck != "y" && adminCheck != "n")
@@ -132,6 +138,7 @@ int main()
 							}
 						}
 					}
+					// if user is not an admin, then they are sent to the main menu
 					else
 					{
 						menu = baseMenu = mainMenu;
@@ -151,12 +158,15 @@ int main()
 					}
 				}
 			}
+			// if the user inputs to create an account, then go to the account creation menu and call relevant prompts from loginInterface.
 			else if (input == 2)
 			{
 				std::cin.clear();
 				cout << "----------------- Account Creation -----------------" << endl;
 				loginInterface.createAccountPrompt();
 			}
+
+			// if the user inputs to exit, then save all relevant data to the databases and terminate the program. 
 			else if (input == 3)
 			{
 				auto test = login.getLoginCollection().getMap();
@@ -167,6 +177,7 @@ int main()
 			}
 		}
 
+		// the product menu. Displays relevant prompts from VendingInterface.
 		while (menu == productMenu)
 		{
 
@@ -196,6 +207,7 @@ int main()
 			menu = baseMenu;
 		}
 
+		// The main menu. This is the first menu shown after logging in. Prompts user for action, either to view the product catalogue and purchase products, go to checkout, go to account menu, or logout.
 		while (menu == mainMenu)
 		{
 
@@ -220,6 +232,8 @@ int main()
 				}
 				cout << "Invalid input" << endl;
 			}
+
+			// checks user input and sets the menu accordingly
 			if (input == 1)
 			{
 				menu = productMenu;
@@ -243,6 +257,7 @@ int main()
 			}
 		}
 
+		// Account menu. Displays prompts for user action. Can either display account information, add currency, or go back to the main menu
 		while (menu == accountMenu)
 		{
 			string inputStr;
@@ -264,6 +279,7 @@ int main()
 				cout << "Invalid input" << endl;
 			}
 
+			// checks user input and calls the correct functions from AccountInterface or sets the menu to the Main Menu.
 			if (input == 1)
 			{
 				cout << "----------------- Account Information -----------------" << endl;
@@ -281,6 +297,7 @@ int main()
 			}
 		}
 
+		// Menu for the shopping cart. Prompts user for various actions. 
 		while (menu == cartMenu)
 		{
 			string inputStr;
@@ -304,6 +321,7 @@ int main()
 				cout << "Invalid input" << endl;
 			}
 
+			// checks user input and does the appropriate function call from ShoppingCart. 
 			if (input == 1)
 			{
 				cout << cart.printCart() << endl;
@@ -343,7 +361,8 @@ int main()
 				break;
 			}
 		}
-
+		
+		// Admin Menu. Prompts user for different actions related to the admin. 
 		while (menu == adminMenu)
 		{
 
@@ -371,6 +390,8 @@ int main()
 				}
 				cout << "Invalid input" << endl;
 			}
+
+			// checks user input and either sets the menu appropriately, or calls a function related to the action. 
 			if (input == 1)
 			{
 				menu = productMenu;
