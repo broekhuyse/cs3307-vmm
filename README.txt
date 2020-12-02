@@ -1,4 +1,7 @@
-Running the Makefile will create a bin directory which will contain the executable.
+"make" will compile the code and place the executable in a bin folder
+"make clean" will remove the executable and objects used for compilation
+
+To start the program again from nothing, run "make clean" and "make"
 Before running, move products.csv into the bin directory to start with default products.
 
 
