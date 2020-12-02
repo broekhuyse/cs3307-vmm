@@ -1,3 +1,10 @@
+/*!
+ * \file AdminInterface.h
+ * \brief Class containing the user interface for he admin menu
+ * \details Class containing admin menu interface actions. Takes in user inputs and does the according actions. Can do add product, remove product, restock product, change price of product in adminProductPrompt(). Can do add discount and remove discount in the AdminDiscountPrompt().
+ * \authors Justin Woo, Shahryar Iqbal
+*/
+
 #include "AdminInterface.h"
 #include <iostream>
 #include <iomanip>
@@ -11,7 +18,11 @@ constexpr auto SHOPLEFT = "| ";
 constexpr auto SHOPRIGHT = "   |";
 constexpr auto PRICEDIV = "    Price: ";
 
-//constructor, takes in a product collection
+/**
+* Default Constructor for this AdminInterface class. Takes in the product collection and discount collection databases as parameters and sets the attributes accordingly.
+* @param productCollection product collection database.
+* @param discountCollection dicount collection database.
+*/
 AdminInterface::AdminInterface(ProductCollection &productCollection, DiscountCollection &discountCollection)
 {
 
@@ -19,11 +30,18 @@ AdminInterface::AdminInterface(ProductCollection &productCollection, DiscountCol
 	this->dCollection = &discountCollection;
 };
 
+/**
+* @brief Default destructor for AdminInterface. Just a null destructor
+* @return None.
+*/
 AdminInterface::~AdminInterface()
 {
 }
 
-// Method that displays all the current products in the product collection
+/**
+* @brief Method that displays the products currently in the product collection database. Prints out to the console each product along with their attributes. It displays the product's name, id, quantity, cost, and category.
+* @return None.
+*/
 void AdminInterface::ProductDisplay()
 {
 
@@ -58,7 +76,10 @@ void AdminInterface::ProductDisplay()
 	cout << SHOPTOP << endl;
 }
 
-// interface that displays appropriate prompts and user inputs that relate to the different admin functions
+/**
+*	Method that displays relevant prompts to the console and checks for user input. Depending on the input, performs product specific tasks and keeps looping until the exit input is placed.
+*	@return None.
+*/
 void AdminInterface::AdminProductPrompt()
 {
 	// represents what action the user wants to do. Possible actions are shown below
@@ -360,6 +381,10 @@ void AdminInterface::AdminProductPrompt()
 	}
 }
 
+/**
+*	Method that displays relevant prompts to the console and checks for user input. Depending on the input, performs specific task regarding discounts and keeps looping until the exit input is placed.
+*	@return None.
+*/
 void AdminInterface::AdminDiscountPrompt()
 {
 	// represents what action the user wants to do. Possible actions are shown below
