@@ -1,5 +1,7 @@
-/**
- * Class that provides an interface to login to the vending machine system
+/*! @file LoginInterface.h
+ * @brief Class that provides an interface to login to the vending machine system
+ * @details Class provides an interface for the user to create an account and log into the system
+ * @author Justin Woo
  */
 
 #include <iostream>
@@ -10,21 +12,33 @@
 
 using namespace std;
 
+/**
+ * Default constructor to declare a new login interface
+ * @return None.
+ */
 LoginInterface::LoginInterface()
 {
 }
 
+/**
+ * Constructor that sets the login system for the login interface
+ * @return None
+ */
 LoginInterface::LoginInterface(Login *login)
 {
     this->login = login;
 }
 
+/**
+ * Class destructor.
+ */
 LoginInterface::~LoginInterface() {
 
 }
 
 /**
- * Provides an interface for the user to create an account in the system
+ * Provides an interface for the user to create an account in the system. Sets the username, password, first name and last name. Checks if password is secure enough. Additionally, prompts the user 
+ * if they would like to create an admin account, if yes, then prompts for the login information for an admin account.
  * @param
  * @return void 
  */
@@ -175,7 +189,7 @@ void LoginInterface::createAccountPrompt()
 }
 
 /**
- * Provides an interface for the user to login to the system
+ * Provides an interface for the user to login to the system. Takes in the user's username and password and checks the login system to see if they are correct.
  * @param
  * @return A pointer to the member that has been logged into or a NULL pointer if login is cancelled by the user 
  */
