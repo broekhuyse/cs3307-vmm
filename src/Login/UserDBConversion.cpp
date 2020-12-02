@@ -1,3 +1,10 @@
+/*! \file UserDBConversion.h
+ * \brief Class to convert the userDB file to the login collection and to save from the login collection to the UserDB file
+ * \details Class to convert the userDB file to the login collection and to save from the login collection to the UserDB file, ecrypts file upon saving
+ * \authors Matthew Mombourquette
+*/
+
+
 #include "UserDBConversion.h"
 #include <string>
 #include <fstream>

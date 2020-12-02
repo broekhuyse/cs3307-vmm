@@ -1,32 +1,51 @@
-/**
- * Class that provides an interface to handle the account that is currently logged in to the vending machine system
+/*! @file AccountInterface.h
+ * @brief Class that provides an interface to manage a user's account
+ * @details Class provides an interface to the user to add currency or print account details of the currently logged in member 
+ * @author Justin Woo
  */
+#include "AccountInterface.h"
 #include "AccountInterface.h"
 #include <iostream>
 #include <sstream>
 
 using namespace std;
 
+/**
+ * Default constructor to declare a new account interface
+ * @return None.
+ */
 AccountInterface::AccountInterface()
 {
 }
 
-AccountInterface::~AccountInterface() {
-
+/**
+ * Class destructor.
+ */
+AccountInterface::~AccountInterface()
+{
 }
 
+/**
+ * Constructor that sets the member. Sets the currently logged in member for the vending machine
+ * @return None.
+ */
 AccountInterface::AccountInterface(Member *member)
 {
     currentMember = member;
 }
 
+/**
+ * Sets the current member. Sets the currently logged in member for the vending machine
+ * @param member The new member
+ * @return None.
+ */
 void AccountInterface::setCurrentMember(Member *member)
 {
     currentMember = member;
 }
 
 /**
- * Provides an interface for the user to add currency to their account
+ * Provides an interface for the user to add currency to their account. Verifies the user's credit card information
  * @param
  * @return void 
  */
@@ -126,7 +145,7 @@ void AccountInterface::addCurrencyPrompt()
 }
 
 /**
- * Prints the account's ID, name and currency to the screen
+ * Prints information about the account. Prints the account's ID, name and currency to the screen
  * @param
  * @return void 
  */

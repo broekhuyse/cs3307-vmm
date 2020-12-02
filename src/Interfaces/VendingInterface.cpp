@@ -1,4 +1,9 @@
-
+/*!
+ * \file VendingInterface.h
+ * \brief Class containing a product collection
+ * \details Class containing a product collection. Used to display current products and allow user to add items to cart
+ * \author Matthew Mombourquette
+*/
 #include "VendingInterface.h"
 #include <iomanip>
 #include <iostream>
@@ -9,6 +14,14 @@ constexpr auto SHOPLEFT = "| ";
 constexpr auto SHOPRIGHT = "  |";
 constexpr auto PRICEDIV = "    Price: ";
 
+
+
+
+/**
+* Constructor with specific parameters.
+* @param ProductCollection & product collection passed by reference
+* @return VendingInterface object
+*/
 VendingInterface::VendingInterface(ProductCollection &productCollection)
 {
 
@@ -20,8 +33,11 @@ VendingInterface::VendingInterface(ProductCollection &productCollection)
 VendingInterface::~VendingInterface()
 {
 }
-
-//returns pair<int,int> where first integer is the product position in in vector, second integer is the quantity. return -1,-1 on user exit
+/**
+* Displays current products, allows user to view items in order of price or category, add items to cart
+* @param new_id Unique ID for the product.
+* @return pair<int,int> , first integer is product position in product vector, second integer is quantity. return <-1,-1> on user exit
+*/
 std::pair<int, int> VendingInterface::VendingDisplay()
 {
 
