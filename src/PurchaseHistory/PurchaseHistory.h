@@ -1,8 +1,8 @@
 #ifndef PURCHASEHISTORY_H
 #define PURCHASEHISTORY_H
-#include "Product.h"
-#include "Member.h"
-#include "Order.h"
+#include "../Product/Product.h"
+#include "../Login/Member.h"
+#include "../ShoppingCart/Order.h"
 #include <list>
 #include <string>
 #include <ctime>
@@ -28,6 +28,10 @@ class PurchaseHistory {
 		void removeOrder(Order order);
 		std::string printHistory();
 		
+		int length();
+		bool isEmpty();
+		std::list<Order>::iterator begin();
+		std::list<Order>::iterator end();
 };
 
 #endif

@@ -71,3 +71,20 @@ std::string PurchaseHistory::printHistory() {
 	
 	return output.str();
 }
+
+int PurchaseHistory::length() {
+	return history.size();
+}
+
+bool PurchaseHistory::isEmpty() {
+	return history.empty();
+}
+
+std::list<Order>::iterator PurchaseHistory::begin() {
+	return history.begin();
+}
+
+std::list<Order>::iterator PurchaseHistory::end() {
+	return history.end();
+}
+
