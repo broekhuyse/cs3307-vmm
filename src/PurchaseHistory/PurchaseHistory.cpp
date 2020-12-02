@@ -64,7 +64,7 @@ PurchaseHistory::PurchaseHistory(std::list<Order> orders, int memberid, time_t d
  */
 PurchaseHistory::~PurchaseHistory() {}
 
-/** Gets unique member ID associate with this purchase history.
+/** Gets unique member ID associated with this purchase history.
  * @return An integer value of the unique member ID associated with this purchase history.
  */
 int PurchaseHistory::getMemberID() {
@@ -88,6 +88,10 @@ std::string PurchaseHistory::getTime() {
 	return std::string(asctime(timeInfo));
 }
 
+/** Adds an Order to the PurchaseHistory.
+* @param order Order to be added.
+* @return None.
+*/
 void PurchaseHistory::addOrder(Order order) {
 	for(std::list<Order>::iterator i = history.begin(); i != history.end(); ++i) {
 		if(order.getProduct() == i->getProduct()) {
@@ -99,10 +103,17 @@ void PurchaseHistory::addOrder(Order order) {
 	history.push_back(order);
 }
 
+/** Finds provided Order in the PurchaseHistory and removes it.
+* @param order Order to be deleted.
+* @return None.
+*/
 void PurchaseHistory::removeOrder(Order order) {
 	history.remove(order);
 }
 
+/** Provides a transcription of the contained Orders.
+* @return string representation of the Orders inside the PurchaseHistory list.
+*/
 std::string PurchaseHistory::printHistory() {
 	std::ostringstream output;
 	for(std::list<Order>::iterator i = history.begin(); i != history.end(); ++i) {
@@ -112,18 +123,34 @@ std::string PurchaseHistory::printHistory() {
 	return output.str();
 }
 
+/**
+* Number of contained Orders.
+* @return int length of Order list.
+*/
 int PurchaseHistory::length() {
 	return history.size();
 }
 
+/**
+* Tests of the PurchaseHistory is empty.
+* @return true if list is empty, false otherwise.
+*/
 bool PurchaseHistory::isEmpty() {
 	return history.empty();
 }
 
+/**
+* Returns an iterator that can be used to traverse the PurchaseHistory. Iterator starts and the begining of the list.
+* @return list<Order>::iterator to the start of the PurchaseHistory list.
+*/
 std::list<Order>::iterator PurchaseHistory::begin() {
 	return history.begin();
 }
 
+/**
+* Returns an iterator that can be used to traverse the PurchaseHistory. Iterator starts and the end of the list.
+* @return list<Order>::iterator to the end of the PurchaseHistory list.
+*/
 std::list<Order>::iterator PurchaseHistory::end() {
 	return history.end();
 }
