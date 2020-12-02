@@ -1,4 +1,6 @@
 /* COMPSCI-3307 Group Assignment | Alex Broekhuyse | abroekhu@uwo.ca | 250978523 */
+/** @author Alex Broekhuyse
+ */
 #ifndef PRODUCT_H
 #define PRODUCT_H
 #include <string>

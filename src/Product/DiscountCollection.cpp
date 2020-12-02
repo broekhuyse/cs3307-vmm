@@ -4,12 +4,21 @@
 #include "DiscountCollection.h"
 
 using namespace std;
+
+/**
+* Constructor to build empty discount collection
+* @return None.
+*/
 DiscountCollection::DiscountCollection()
 {
     std::unordered_map<std::string, Discount> temp;
     this->discountCollection = temp;
 }
-
+/**
+* Constructor reads from product collection to check for discounts.
+* @param pCollection Reference to product collection.
+* @return None.
+*/
 DiscountCollection::DiscountCollection(ProductCollection *pCollection)
 {
     std::unordered_map<std::string, Discount> temp;
@@ -37,10 +46,23 @@ DiscountCollection::DiscountCollection(ProductCollection *pCollection)
     input.close();
 }
 
+/**
+* Destructor for discount collection.
+* @return None.
+*/
 DiscountCollection::~DiscountCollection()
 {
 }
 
+/**
+* Attaches a discount and expiry date to a product.
+* @param product Product to add the discount to.
+* @param discountAmount Discount value for the product.
+* @param day Day of discount expiry.
+* @param month Month of discount expiry.
+* @param year Year of discount expiry.
+* @return None.
+*/
 void DiscountCollection::addDiscount(Product *product, float discountAmount, int day, int month, int year)
 {
     if (discountAmount > 1)
@@ -65,6 +87,11 @@ void DiscountCollection::addDiscount(Product *product, float discountAmount, int
     }
 }
 
+/**
+* Removes a discount association with a product.
+* @param product Product to remove the discount from.
+* @return None.
+*/
 void DiscountCollection::removeDiscount(Product *product)
 {
     if (discountCollection.find(product->getID()) != discountCollection.end())
@@ -81,6 +108,10 @@ void DiscountCollection::removeDiscount(Product *product)
     }
 }
 
+/**
+* Saves discount information to discount database file.
+* @return None.
+*/
 void DiscountCollection::saveToDatabase()
 {
     // clears the csv file

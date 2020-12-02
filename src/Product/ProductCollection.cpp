@@ -1,4 +1,8 @@
-/* COMPSCI-3307 Group Assignment | Alex Broekhuyse | abroekhu@uwo.ca | 250978523 */
+/*!
+ * \brief Functions for maintaining product database. 
+ * \details Reads and writes from/to the product database, including adding products and monitoring stock. 
+ * \author Alex Broekhuyse
+*/
 #include <iostream>
 #include <vector>
 #include <string>
@@ -11,6 +15,16 @@
 #include "ProductCollection.h"
 using namespace std;
 
+/**
+* Constructor reads from database file and puts product objects into a vector.
+* @param temp Tempory vector of product objects, use for loading products into application.
+* @param input File stream for reading/writing product database file.
+* @param fileName Specifies database file name.
+* @param line Holds a product record read from database file.
+* @param key Placeholder for specific product attribute (ID, price, etc).
+* @param product Placeholder for product object to be inserted in vector.
+* @return None.
+*/
 ProductCollection::ProductCollection()
 {
     std::vector<Product> temp;
@@ -45,13 +59,21 @@ ProductCollection::ProductCollection()
     }
     input.close();
 }
+/**
+ * Class destructor.
+ */
 ProductCollection::~ProductCollection()
 {
 }
+/**
+* Adds a product. Adds a product to the productList, and writes product to database file.
+* @param newProduct Product object of new product for database.
+* @return None.
+*/
 // No need to take in quantity (like in UML diagram) because quantity is specified when creating Product object
 void ProductCollection::addProduct(Product newProduct)
 {
-    bool inCollection = false;
+    bool inCollection = false; //! Checks if this product is already in the collection */
     for (unsigned i = 0; i < productList.size(); i++)
     {
         if (productList[i].getID() == newProduct.getID())
@@ -78,6 +100,12 @@ void ProductCollection::addProduct(Product newProduct)
         cout << "Product was added successfully" << endl;
     }
 }
+/**
+* Changes a product's on-hand quantity
+* @param product Product to receive inventory change.
+* @param quantity On-hand quantity to set product as having.
+* @return None.
+*/
 void ProductCollection::changeInventory(Product product, int quantity)
 {
     // Changes product quantity
@@ -92,10 +120,15 @@ void ProductCollection::changeInventory(Product product, int quantity)
     }
     cout << "Could not find the given product in the product collection" << endl;
 }
+/**
+* Removes a product from the product collection.
+* @param id Product's unique ID.
+* @return None.
+*/
 void ProductCollection::removeProduct(string id)
 {
     // Removes product and updates product list
-    bool found = false;
+    bool found = false; /*!< Checks if this product is in the collection */
     for (unsigned i = 0; i < productList.size(); i++)
     {
         if (productList[i].getID() == id)
@@ -112,10 +145,13 @@ void ProductCollection::removeProduct(string id)
     }
 }
 
-// returns the index of a product in the list  based on the product id passed into the parameter
+/**
+* Finds the index of the product contained in the product vector.
+* @param id Product's unique ID.
+* @return Int of the product's index in the product vector. Returns -1 if not found.
+*/
 int ProductCollection::findProduct(string id)
 {
-    // Finds product based on product object, not entirely sure what the point of the function is
     for (unsigned i = 0; i < productList.size(); i++)
     {
         if (productList[i].getID() == id)
@@ -125,7 +161,12 @@ int ProductCollection::findProduct(string id)
     }
     return -1;
 }
-
+/**
+* Changes a product's on-hand quantity
+* @param product Product to receive inventory change.
+* @param quantity On-hand quantity to set product as having.
+* @return None.
+*/
 void ProductCollection::restockInventory(Product product, int quantity)
 {
     bool found = false;
@@ -146,7 +187,11 @@ void ProductCollection::restockInventory(Product product, int quantity)
         cout << "Product was not found in the collection." << endl;
     }
 }
-
+/**
+* Sorts the product list according to price.
+* @param order Either in increasing or decreasing price.
+* @return None.
+*/
 void ProductCollection::sortByPrice(string order)
 {
     if (order == "increasing")
@@ -162,7 +207,11 @@ void ProductCollection::sortByPrice(string order)
         });
     }
 }
-
+/**
+* Sorts the product list according to category, alphabetically.
+* @param order Either in increasing or decreasing order.
+* @return None.
+*/
 void ProductCollection::sortByCategory(string order)
 {
     if (order == "increasing")
@@ -178,7 +227,12 @@ void ProductCollection::sortByCategory(string order)
         });
     }
 }
-
+/**
+* Changes the price of a product.
+* @param product Product to receive price change.
+* @param newPrice Updated price of product.
+* @return None.
+*/
 void ProductCollection::changePrice(Product product, float newPrice)
 {
     bool found = false;
@@ -200,26 +254,44 @@ void ProductCollection::changePrice(Product product, float newPrice)
     }
 }
 
+/**
+* Returns the amount of products in the collection.
+* @return Integer amount of products.
+*/
 int ProductCollection::size()
 {
     return productList.size();
 }
-
+/**
+* Returns the product at specified index in product vector.
+* @param index Index to search in product vector.
+* @return Integer index of product in product vector.
+*/
 Product ProductCollection::at(int index)
 {
     return productList[index];
 }
-
+/**
+* Returns product found at specified index in product vector.
+* @param index Index to search in product vector.
+* @return Reference to product found at index
+*/
 Product *ProductCollection::getProduct(int index)
 {
     return &productList[index];
 }
-
+/**
+* Returns product collection vector.
+* @return Vector of product objects
+*/
 std::vector<Product> ProductCollection::getProductList()
 {
     return productList;
 }
-
+/**
+* Saves any changes made to product collection to database file.
+* @return None.
+*/
 void ProductCollection::saveToDatabase()
 {
     // clears the csv file
@@ -240,7 +312,10 @@ void ProductCollection::saveToDatabase()
 
     file.close();
 }
-
+/**
+* Displays admin alerts for product collection based on inventory.
+* @return None.
+*/
 void ProductCollection::alertInterface()
 {
 
@@ -258,10 +333,6 @@ void ProductCollection::alertInterface()
 		
 	}
 	
-
 	cout <<endl<< "Press Enter to Continue";
 	cin.ignore(std::numeric_limits<streamsize>::max(), '\n');
-
-
 }
-

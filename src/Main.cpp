@@ -18,17 +18,23 @@
 
 using namespace std;
 
+/// Driver code and menu functionality.
+/** Driver class that provides the interface for the main menu, login, shopping car and account creation. 
+ *  Also provides access to admin menu functionality.
+*/
+
 enum Menu
 {
-	mainMenu,
-	loginMenu,
-	accountMenu,
-	productMenu,
-	cartMenu,
-	setupMenu,
-	adminMenu
+	mainMenu, /*!< Initial menu interface. */ 
+	loginMenu, /*!< Login interface. */ 
+	accountMenu, /*!< Account menu interface. */ 
+	productMenu, /*!< Product display interface. */ 
+	cartMenu, /*!< Shopping cart interface. */ 
+	setupMenu, /*!< Initial menu interface. */ 
+	adminMenu /*!< Interface for admin users. */ 
 };
 
+/*!< Driver function for switching between menus inside the application. */
 int main()
 {
 	LoginCollection collection;

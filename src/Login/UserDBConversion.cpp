@@ -15,11 +15,9 @@ UserDBConversion::~UserDBConversion()
 {
 }
 
-/*
-* Name: LoginCollectionToFile
-* Description: Writes the LoginCollection to Output File
-* Param: map of type : std::unordered_map<std::string, std::pair<std::string, Member>>
-* Return: Void
+/** Writes the LoginCollection to Output File
+* @param map of type : std::unordered_map<std::string, std::pair<std::string, Member>>
+* @return None.
 */
 void UserDBConversion::LoginCollectionToFile(std::unordered_map<std::string, std::pair<std::string, Member>> &map)
 {
@@ -45,11 +43,8 @@ void UserDBConversion::LoginCollectionToFile(std::unordered_map<std::string, std
 	}
 };
 
-/*
-* Name: FileToLoginCollection
-* Description: Fills LoginCollection from input file
-* Param: map of type: std::unordered_map<std::string, std::pair<std::string, Member>>
-* Return: Void
+/** Fills LoginCollection from input file.
+* @return Map of login collections.
 */
 std::unordered_map<std::string, std::pair<std::string, Member>> UserDBConversion::FileToLoginCollection()
 {
@@ -157,11 +152,18 @@ std::unordered_map<std::string, std::pair<std::string, Member>> UserDBConversion
 	return map;
 };
 
+/** Returns integer value of highest unique member ID.
+ * @return Integer value of highest unique member ID.
+ */
 int UserDBConversion::getHighestID()
 {
 	return highestID;
 }
 
+/** Encrypts specified string for security reasons.
+ * @param text String of text to be encrypted.
+ * @return None.
+ */
 std::string UserDBConversion::encryptDecrypt(std::string text)
 {
 	char key = 'L';

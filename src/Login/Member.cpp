@@ -37,7 +37,8 @@ Member::Member(std::string fname, std::string lname, bool isAdmin, int memberID,
 
 /**
 * Constructor for Member class to add user from DB to collection
-* @param name Name of the new member
+* @param fname First name of the new member
+* @param lname Surname of the new member
 * @param isAdmin Admin status of the member
 * @param memberID ID of the member
 * @param membershipType membership type of the new member
