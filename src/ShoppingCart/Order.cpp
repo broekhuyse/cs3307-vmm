@@ -50,7 +50,7 @@ bool Order::operator==(const Order &other)
 
 /** Overrides != to compare product, quantity, and date
  * @param other Other order to compare to.
-/* @return true iff product bought, quantity bought and date of purchase do not match, false if not.
+ * @return true iff product bought, quantity bought and date of purchase do not match, false if not.
  */
 bool Order::operator!=(const Order &other)
 {
@@ -58,7 +58,7 @@ bool Order::operator!=(const Order &other)
 }
 
 /** Overrides == to compare product, quantity, and date
-/* @return true iff ANY of the above does not match with the other
+ * @return true iff ANY of the above does not match with the other
  */
 void Order::updateCost()
 {
