@@ -1,7 +1,7 @@
 /*! \file ProductCollection.h
  * \brief Functions for maintaining product database. 
  * \details Reads and writes from/to the product database, including adding products and monitoring stock. 
- * \authors Alex Broekhuyse, Shahryar Iqbal
+ * \authors Alex Broekhuyse, Shahryar Iqbal, Matthew Mombourquette
 */
 #include <iostream>
 #include <vector>
