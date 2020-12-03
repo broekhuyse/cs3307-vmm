@@ -1,6 +1,7 @@
 /*! \file Order.h
  *  \brief Keeps details about a particular member order.
  *  \details Class containing order information and metadata for a particular order from a member.
+ *  \author Michael Schmittat
  */
 #include "Order.h"
 
