@@ -1,4 +1,5 @@
-/** \brief Header file to specify credit card companies.
+/** \file CreditCardCompany.h
+ * \brief Header file to specify credit card companies.
  * \authors Justin Woo, Alex Broekhuyse
  */
 
