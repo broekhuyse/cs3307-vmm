@@ -91,6 +91,8 @@ std::pair<int, int> VendingInterface::VendingDisplay()
 		std::cout << std::endl
 				  << "Sorry No Products Available" << std::endl
 				  << std::endl;
+		std::cin.clear();
+		std::cin.ignore(1000, '\n');
 		return std::make_pair(-1, -1);
 	}
 

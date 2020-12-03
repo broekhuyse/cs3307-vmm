@@ -87,7 +87,7 @@ void AdminInterface::AdminProductPrompt()
 
 	while (true)
 	{
-
+		action = -1;
 		// possible actions
 		cout << "Please select one of the following options: " << endl;
 		cout << "1: Add Product" << endl;
@@ -98,7 +98,7 @@ void AdminInterface::AdminProductPrompt()
 		cin >> action;
 
 		//if incorrect input, then prompt again
-		while (action != 1 && action != 2 && action != 3 && action != 4 && action != 0)
+		while (cin.fail() || (action != 1 && action != 2 && action != 3 && action != 4 && action != 0))
 		{
 			cin.clear();
 			cin.ignore(1000, '\n');
@@ -205,6 +205,7 @@ void AdminInterface::AdminProductPrompt()
 				cout << "Invalid input. Returning to main menu" << endl;
 				cin.clear();
 				cin.ignore(1000, '\n');
+				action = -1;
 				break;
 			}
 
@@ -235,6 +236,7 @@ void AdminInterface::AdminProductPrompt()
 				cout << "Invalid input. Returning to main menu" << endl;
 				cin.clear();
 				cin.ignore(1000, '\n');
+				action = -1;
 				break;
 			}
 
@@ -302,6 +304,7 @@ void AdminInterface::AdminProductPrompt()
 				cout << "Invalid input. Returning to main menu" << endl;
 				cin.clear();
 				cin.ignore(1000, '\n');
+				action = -1;
 				break;
 			}
 
@@ -368,6 +371,7 @@ void AdminInterface::AdminProductPrompt()
 				cin.clear();
 				cin.ignore(1000, '\n');
 				cout << "Invalid input. Returning to main menu" << endl;
+				action = -1;
 				break;
 			}
 
@@ -401,7 +405,7 @@ void AdminInterface::AdminDiscountPrompt()
 		cin >> action;
 
 		//if incorrect input, then prompt again
-		while (action != 1 && action != 2 && action != 0)
+		while (cin.fail() || (action != 1 && action != 2 && action != 0))
 		{
 			cin.clear();
 			cin.ignore(1000, '\n');
@@ -532,6 +536,7 @@ void AdminInterface::AdminDiscountPrompt()
 			if (cin.fail() || (action != 2 && action != 0))
 			{
 				cout << "Invalid input. Returning to main menu" << endl;
+				action = -1;
 				cin.clear();
 				cin.ignore(1000, '\n');
 				break;
