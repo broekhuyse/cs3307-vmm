@@ -1,6 +1,7 @@
 /** \file PurchaseHistory.h
  * \brief Functionality for purchase histories.
  * \details Creates a purchase history for a particular member. Also provides functionality for purchase history to be displayed in the application.
+ * \author Michael Schmittat
  */
 
 #include <sstream>
