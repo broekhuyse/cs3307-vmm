@@ -2,7 +2,7 @@
  *  \brief Functionality for the application's shopping cart.
  *  \details The shopping cart class. Stores products ready for a member to order 
  *  while the member keeps shopping. Also prepares items in cart for final purchase.
- *  \author Matt Mombourquette
+ *  \author Matt Mombourquette, Michael Schmittat
  */
 
 #include <iostream>
