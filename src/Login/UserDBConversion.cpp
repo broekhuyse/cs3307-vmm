@@ -9,7 +9,7 @@
 #include <string>
 #include <fstream>
 #include <sstream>
-#include "member.h"
+#include "Member.h"
 #include "LoginCollection.h"
 #include <iostream>
 
