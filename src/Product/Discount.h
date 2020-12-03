@@ -1,3 +1,5 @@
+/** \file Discount.h
+ */
 #ifndef DISCOUNT_H
 #define DISCOUNT_H
 
