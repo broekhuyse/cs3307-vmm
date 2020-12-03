@@ -1,3 +1,10 @@
+/** \file Discount.h
+ * \brief Class containing the discount object.
+ * \details The discount object, containing information for which product the disount is for, 
+ * the value of the discount, and the discount's expiry date.
+ * \author Justin Woo
+ */
+
 #include "Discount.h"
 using namespace std;
 
@@ -9,8 +16,8 @@ Discount::Discount()
 {
 }
 
-/**
-* Contructor with parameters for creating a discount object.
+/** 
+ * Contructor with parameters for creating a discount object.
 * @param product Product to associate the discount with.
 * @param amount Value of the discount.
 * @param day Day the discount expires.
@@ -29,6 +36,7 @@ Discount::Discount(string product, float amount, int day, int month, int year){
 
 /**
  * Class destructor.
+ * @return None.
  */
 Discount::~Discount()
 {

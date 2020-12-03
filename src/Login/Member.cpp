@@ -1,6 +1,6 @@
-/**
- *  Class that contains the data for a member in the vending machine system.
- *  Contains the name, member status, ID, member type and currency of the member
+/** \file Member.h
+ *  \brief Class that contains the data for a member in the vending machine system.
+ *  \details Contains the name, member status, ID, member type and currency of the member.
  */
 //#include <iostream> // TEMP FOR DEBUGGING
 #include <ctime>
@@ -9,10 +9,16 @@
 
 using namespace std;
 
+/** Default constructor.
+ * @return None.
+ */
 Member::Member()
 {
 }
 
+/** Default destructor.
+ * @return None.
+ */
 Member::~Member() {
 
 }

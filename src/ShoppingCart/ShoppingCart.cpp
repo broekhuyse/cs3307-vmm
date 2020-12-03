@@ -1,31 +1,49 @@
+/** \file ShoppingCart.h
+ *  \brief Functionality for the application's shopping cart.
+ *  \details The shopping cart class. Stores products ready for a member to order 
+ *  while the member keeps shopping. Also prepares items in cart for final purchase.
+ *  \author Matt Mombourquette
+ */
+
 #include <iostream>
 #include <sstream>
 #include <math.h>
 #include "ShoppingCart.h"
 #include "../PurchaseHistory/PurchaseHistory.h"
 
+/** Blank constructor. Creates a ShoppingCart instance.
+ * @return None.
+ */
 ShoppingCart::ShoppingCart()
 {
 }
 
+/** Default destructor.
+ * @return None.
+ */
 ShoppingCart::~ShoppingCart()
 {
 }
 
+/** Checks if the shopping cart is empty.
+ * @return True if there are no orders in the shopping cart, false if there are orders.
+ */
 bool ShoppingCart::isEmpty()
 {
 	return orders.empty();
 }
 
+/** Gets the amount of orders in the shopping cart.
+ * @return Integer value of the number of orders in the shopping cart.
+ */
 int ShoppingCart::getSize()
 {
 	return orders.size();
 }
 
-/*
-* Name: addOrder
-* Description: If the Order's product is already in the collection, merge orders. Otherwise adds order to collection
-* Params: add: Order to be added
+/** If the Order's product is already in the collection, merge orders. Otherwise adds order to collection.
+* @param add Order to be added to shopping cart.
+* @return None.
 */
 void ShoppingCart::addOrder(Order add)
 {
@@ -42,10 +60,9 @@ void ShoppingCart::addOrder(Order add)
 	orders.push_back(add);
 }
 
-/*
-* Name: removeOrder
-* Description: Remove the provided Order
-* Params: rem: Order to be removed
+/** Removes an order from the shopping cart.
+ * @param rem Order to be removed.
+ * @return None.
 */
 void ShoppingCart::removeOrder(Order rem)
 {
@@ -56,10 +73,9 @@ void ShoppingCart::removeOrder(Order rem)
 // Nothing for now until coupons are implemented
 //}
 
-/*
-* Name: updateCosts
-* Description: Calls Order::updateCost on every Order in the collection. Uses the new cost in the associated Product.
-*/
+/** Calls Order::updateCost on every Order in the collection. Uses the new cost in the associated Product.
+ * @return None.
+ */
 void ShoppingCart::updateCosts()
 {
 	for (std::list<Order>::iterator i = orders.begin(); i != orders.end(); ++i)
@@ -68,14 +84,12 @@ void ShoppingCart::updateCosts()
 	}
 }
 
-/*
-* Name: processCart
-* Description: Processes cart for issues, (not enough funds, not enough stock). If no issues are found, 
-* 			   checkouts items in cart by removing their quantity from stock and subtracts the total price from 
-*			   the provided member's balance. Then empties the cart - Recommended to create invoice BEFORE calling this function.
-* Params: buyer: Member* who is making the purchase
-* Returns: 0 on failure, 1 or higher on success.
-*/
+/** Processes cart for issues, (not enough funds, not enough stock). If no issues are found, 
+ * 			   checkouts items in cart by removing their quantity from stock and subtracts the total price from 
+ *			   the provided member's balance. Then empties the cart - Recommended to create invoice BEFORE calling this function.
+ * @param buyer: Member* who is making the purchase.
+ * @return 0 on failure, 1 or higher on success.
+ */
 int ShoppingCart::processCart(Member *buyer, ProductCollection &productC, PurchaseHistoryCollection &histC)
 {
 	float grandPrice = 0.0;
@@ -174,10 +188,8 @@ int ShoppingCart::processCart(Member *buyer, ProductCollection &productC, Purcha
 	return 1;
 }
 
-/*
-* Name: printCart
-* Description: Prints contents of cart and price
-* Returns: string, containing name, amount, totalCost of all Orders and grand total of Orders at end
+/** Prints contents of cart and price
+* @return A string containing name, amount, totalCost of all Orders and grand total of Orders at end.
 */
 std::string ShoppingCart::printCart()
 {
@@ -203,11 +215,9 @@ std::string ShoppingCart::printCart()
 	invoice << "\nSubtotal: $" << grandCost << "\nTax: $" << roundf(tax * 100) / 100 << "\nTotal: $" << roundf((grandCost + tax) * 100) / 100 << "\n";
 	return "----------------- Shopping Cart -----------------:\n" + invoice.str();
 }
-/*
-* Name: createInvoice
-* Description: Creates an invoice of the contained Orders
-* Returns: string invoice, containing name, amount, totalCost of all Orders and grand total of Orders at end
-*/
+/** Creates an invoice of the contained Orders.
+ * @return A string invoice, containing name, amount, totalCost of all Orders and grand total of Orders at end.
+ */
 std::string ShoppingCart::createInvoice()
 {
 	std::ostringstream invoice;
@@ -226,16 +236,17 @@ std::string ShoppingCart::createInvoice()
 	return "Invoice:\n" + invoice.str();
 }
 
-/*
-* Name: clearOrders
-* Description: Clears the list of orders in shopping cart
-* Returns: void
+/** Clears the list of orders in shopping cart.
+* @return None.
 */
 void ShoppingCart::clearOrders()
 {
 	orders.clear();
 }
 
+/** Command line interface for removing an order.
+ *  @return 0 if user wishes to exit, 1 if a user has removed an order from their shopping cart.
+ */
 int ShoppingCart::removeOrderInterface()
 {
 

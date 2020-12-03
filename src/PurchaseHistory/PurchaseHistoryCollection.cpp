@@ -1,3 +1,9 @@
+/** \file PurchaseHistoryCollection.h
+ * \brief Functionality for purchase history database. 
+ * \details Class for reading/writing the purchase history database file, including updating and removing entries.
+ * \author Michael Schmittat
+ */
+
 #include "PurchaseHistoryCollection.h"
 #include <cmath>
 #include <iostream>
@@ -5,6 +11,10 @@
 #include <fstream>
 #include <sstream>
 
+/** Reads database file into the application. Constructor that opens the collection database file. Reads
+ * orders, and creates a purchase history for orders associated with a particular member.
+ * @return None.
+ */
 PurchaseHistoryCollection::PurchaseHistoryCollection() {
 	std::ifstream input;
 	input.open("history.csv");
@@ -76,8 +86,16 @@ PurchaseHistoryCollection::PurchaseHistoryCollection() {
 	input.close();
 }
 
+/** Class destructor.
+ * @return None.
+ */
 PurchaseHistoryCollection::~PurchaseHistoryCollection() {}
 
+/** Gets the purchase history for a particular member.
+ * @param memberID Unique member ID of the member.
+ * @param date Timestamp of the purchase history
+ * @return A PurchaseHistory for the specified member.
+ */
 PurchaseHistory PurchaseHistoryCollection::getPurchaseHistory(int memberID, time_t date) {
 	if(historyCollection.find(memberID) != historyCollection.end()) {
 		std::vector<PurchaseHistory> histories = historyCollection.at(memberID);
@@ -91,6 +109,11 @@ PurchaseHistory PurchaseHistoryCollection::getPurchaseHistory(int memberID, time
 	return PurchaseHistory();
 }
 
+/** @brief Gets purchase history for a member.
+ * @details Gets purchase history for a member using their unique member ID.
+ * @param memberID The unique member ID of the member to grab purchase history for
+ * @return A vector of purchase histories associated with the member.
+ */
 std::vector<PurchaseHistory> PurchaseHistoryCollection::getHistoriesByID(int memberID) {
 	if(historyCollection.find(memberID) != historyCollection.end())
 		return historyCollection.at(memberID);
@@ -98,6 +121,13 @@ std::vector<PurchaseHistory> PurchaseHistoryCollection::getHistoriesByID(int mem
 	return std::vector<PurchaseHistory>();
 }
 
+/** @brief Gets purchase history before a particuular date.
+ * @details Given a unique member ID and a date, get the purchase history of this particular member
+ * before the specified date.
+ * @param memberID Unique member ID of member to search through purchase histories.
+ * @param date Reference date to check purchase histories before.
+ * @return A vector of purchase histories associated with the member before the specified date.
+ */
 std::vector<PurchaseHistory> PurchaseHistoryCollection::getMemberHistoriesBefore(int memberID, time_t date) {
 	if(historyCollection.find(memberID) == historyCollection.end())
 		return std::vector<PurchaseHistory>();
@@ -113,6 +143,13 @@ std::vector<PurchaseHistory> PurchaseHistoryCollection::getMemberHistoriesBefore
 	return histList;
 }
 
+/** @brief Gets purchase history after a particular date.
+ * @details Given a unique member ID and a date, get the purchase history of this particular member
+ * after the specified date.
+ * @param memberID Unique member ID of member to search through purchase histories.
+ * @param date Reference date to check purchase histories after.
+ * @return A vector of purchase histories associated with the member after the specified date.
+ */
 std::vector<PurchaseHistory> PurchaseHistoryCollection::getMemberHistoriesAfter(int memberID, time_t date) {
 	if(historyCollection.find(memberID) == historyCollection.end())
 		return std::vector<PurchaseHistory>();
@@ -128,6 +165,12 @@ std::vector<PurchaseHistory> PurchaseHistoryCollection::getMemberHistoriesAfter(
 	return histList;
 }
 
+/** @brief Gets purchase history within a 24-hour span.
+ * @details Given a unique member ID and a date, get the purchase history of this particular member over the past 24 hours.
+ * @param memberID Unique member ID of member to search through purchase histories.
+ * @param date Reference date to check purchase histories before.
+ * @return A vector of purchase histories associated with the member within the past 24 hours.
+ */
 std::vector<PurchaseHistory> PurchaseHistoryCollection::getMemberHistoriesWithinDay(int memberID, time_t date) {
 	if(historyCollection.find(memberID) == historyCollection.end())
 		return std::vector<PurchaseHistory>();
@@ -144,6 +187,11 @@ std::vector<PurchaseHistory> PurchaseHistoryCollection::getMemberHistoriesWithin
 	return histList;
 }
 
+/** @brief Gets all purchase histories before a particular date.
+ * @details Given a date, get the purchase histories of all members before said date.
+ * @param date Reference date to check purchase histories before.
+ * @return A vector of purchase histories from the database created before given date.
+ */
 std::vector<PurchaseHistory> PurchaseHistoryCollection::getAllHistoriesBefore(time_t date) {
 	std::vector<PurchaseHistory> histList;
 	for(std::unordered_map<int, std::vector<PurchaseHistory>>::iterator it = historyCollection.begin(); it != historyCollection.end(); it++) {

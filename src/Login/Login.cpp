@@ -1,13 +1,19 @@
-/**
- * This class may be removed depending on how security for the passwords will be handled
- * A class to provide the login functions, dealing with the raw passwords
+/** \file Login.h
+ * \brief A class to provide the login functions, dealing with the raw passwords
+ * \details This class may be removed depending on how security for the passwords will be handled.
  */
 #include "Login.h"
 
+/** Default constructor.
+ * @return None.
+ */
 Login::Login()
 {
 }
 
+/** Default destructor.
+ * @return None.
+ */
 Login::~Login() {
 
 }

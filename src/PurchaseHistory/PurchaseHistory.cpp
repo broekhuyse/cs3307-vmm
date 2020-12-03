@@ -1,7 +1,6 @@
 /** \file PurchaseHistory.h
  * \brief Functionality for purchase histories.
- * \details Creates a purchase history for a particular member. Also provides functionality
- * for purchase history to be displayed in the application.
+ * \details Creates a purchase history for a particular member. Also provides functionality for purchase history to be displayed in the application.
  */
 
 #include <sstream>
@@ -88,6 +87,10 @@ std::string PurchaseHistory::getTime() {
 	return std::string(asctime(timeInfo));
 }
 
+/** Adds an order to this purchase history.
+ * @param order Order to be added to this purchase history.
+ * @return None.
+ */
 void PurchaseHistory::addOrder(Order order) {
 	for(std::list<Order>::iterator i = history.begin(); i != history.end(); ++i) {
 		if(order.getProduct() == i->getProduct()) {
@@ -99,10 +102,17 @@ void PurchaseHistory::addOrder(Order order) {
 	history.push_back(order);
 }
 
+/** Removes an order to this purchase history.
+ * @param order Order to be removed from this purchase history.
+ * @return None.
+ */
 void PurchaseHistory::removeOrder(Order order) {
 	history.remove(order);
 }
 
+/** Prints a purchase history to the application.
+ * @return A string containing this purchase history.
+ */
 std::string PurchaseHistory::printHistory() {
 	std::ostringstream output;
 	for(std::list<Order>::iterator i = history.begin(); i != history.end(); ++i) {
@@ -112,10 +122,16 @@ std::string PurchaseHistory::printHistory() {
 	return output.str();
 }
 
+/** Gets the amount of orders in this purchase history.
+ * @return An integer amount of orders in this purchase history.
+ */
 int PurchaseHistory::length() {
 	return history.size();
 }
 
+/** Checks if this purchase history is empty
+ * @return True if this purchase history is empty. False if this purchase history has at least one entry.
+ */
 bool PurchaseHistory::isEmpty() {
 	return history.empty();
 }

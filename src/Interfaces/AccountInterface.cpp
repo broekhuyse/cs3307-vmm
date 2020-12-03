@@ -2,6 +2,7 @@
  * @brief Class that provides an interface to manage a user's account
  * @details Class provides an interface to the user to add currency or print account details of the currently logged in member 
  * @author Justin Woo
+ * \interface AccountInterface AccountInterface.h
  */
 #include "AccountInterface.h"
 #include "AccountInterface.h"

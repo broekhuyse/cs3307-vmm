@@ -1,3 +1,9 @@
+/** \file DiscountCollection.h
+ * \brief Functionality for maintaining the discount database.
+ * \details Class that handles the processing of the discount database.
+ * \author Justin Woo
+ */
+
 #include <iostream>
 #include <fstream>
 #include <sstream>

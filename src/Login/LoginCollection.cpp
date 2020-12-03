@@ -1,5 +1,6 @@
-/**
- * Class that stores the login information of the members of the vending machine system
+/** \file LoginCollection.h
+ * Class that stores the login information of the members of the vending machine system.
+ * \author Justin Woo
  */
 
 #include "LoginCollection.h"
@@ -11,8 +12,11 @@ LoginCollection::LoginCollection()
     currentHighestMemberID = 0;
 }
 
-LoginCollection::~LoginCollection() {
-
+/** Default destructor.
+ * @return None.
+ */
+LoginCollection::~LoginCollection() 
+{
 }
 
 /**
