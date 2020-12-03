@@ -47,7 +47,7 @@ PurchaseHistoryCollection::PurchaseHistoryCollection() {
 			getline(nestIss, key, ',');
 			int oQty = std::stoi(key);
 			getline(nestIss, key, ',');
-			float tCost = std::stof(key);
+			//float tCost = std::stof(key);
 			getline(nestIss, key, ',');
 			
 			// New line
@@ -91,7 +91,7 @@ PurchaseHistoryCollection::PurchaseHistoryCollection() {
  */
 PurchaseHistoryCollection::~PurchaseHistoryCollection() {}
 
-/** Gets the purchase history for a particular member.
+/** Gets a single PurchaseHistory for a particular member.
  * @param memberID Unique member ID of the member.
  * @param date Timestamp of the purchase history
  * @return A PurchaseHistory for the specified member.
@@ -207,6 +207,11 @@ std::vector<PurchaseHistory> PurchaseHistoryCollection::getAllHistoriesBefore(ti
 	return histList;
 }
 
+/**
+* Gets all PurchaseHistory objects in the collection that occur after the provided time.
+* @param date time_t raw time in seconds.
+* @return vector<PurchaseHistory> All PurchaseHistory objects that occur after date.
+*/
 std::vector<PurchaseHistory> PurchaseHistoryCollection::getAllHistoriesAfter(time_t date) {
 	std::vector<PurchaseHistory> histList;
 	for(std::unordered_map<int, std::vector<PurchaseHistory>>::iterator it = historyCollection.begin(); it != historyCollection.end(); it++) {
@@ -222,6 +227,11 @@ std::vector<PurchaseHistory> PurchaseHistoryCollection::getAllHistoriesAfter(tim
 	return histList;
 }
 
+/**
+* Gets all PurchaseHistory objects in the collection within 24 hours of the provided time.
+* @param date time_t raw time in seconds.
+* @return vector<PurchaseHistory> All PurchaseHistory objects that occur within 24 hours of date.
+*/
 std::vector<PurchaseHistory> PurchaseHistoryCollection::getAllHistoriesWithinDay(time_t date) {
 	std::vector<PurchaseHistory> histList;
 	for(std::unordered_map<int, std::vector<PurchaseHistory>>::iterator it = historyCollection.begin(); it != historyCollection.end(); it++) {
@@ -238,6 +248,11 @@ std::vector<PurchaseHistory> PurchaseHistoryCollection::getAllHistoriesWithinDay
 	return histList;
 }
 
+/**
+* Adds a PurchaseHistory object to the collection.
+* @param history PurchaseHistory object to be added.
+* @return None.
+*/
 void PurchaseHistoryCollection::addPurchaseHistory(PurchaseHistory history) {
 	int memberID = history.getMemberID();
 	
@@ -253,20 +268,32 @@ void PurchaseHistoryCollection::addPurchaseHistory(PurchaseHistory history) {
 	}
 }
 
+/**
+* Removes a single PurchaseHistory object from the collection. 
+* @param memberID int ID that specifies the member the PurchaseHistory belongs to.
+* @param date time_t raw time in seconds that specifies when PurchaseHistory occured.
+* @return 0 if deletion was succesful, -1 if PurchaseHistory could not be found.
+*/
 int PurchaseHistoryCollection::deletePurchaseHistory(int memberID, time_t date) {
 	if(historyCollection.find(memberID) != historyCollection.end()) {
 		std::vector<PurchaseHistory> histories = historyCollection.at(memberID);
 		
 		for(std::vector<PurchaseHistory>::iterator i = histories.begin(); i != histories.end(); i++) {
-			if(i->getRawTime() == date)
+			if(i->getRawTime() == date) {
 				histories.erase(i, i);
 				return 0;
+			}
 		}
 	}
 	
 	return -1;
 }
 
+/**
+* Removes all PurchaseHistory objects associaed with a Member from the collection. 
+* @param memberID int ID that specifies the member the PurchaseHistory objects belong to.
+* @return 0 if deletion was succesful, -1 if no PurchaseHistory could not be found.
+*/
 int PurchaseHistoryCollection::deleteAllHistoriesByMember(int memberID) {
 	if(historyCollection.find(memberID) != historyCollection.end()) {
 		historyCollection.erase(memberID);
@@ -276,6 +303,10 @@ int PurchaseHistoryCollection::deleteAllHistoriesByMember(int memberID) {
 	return -1;
 }
 
+/**
+* Saves all PurchaseHistory objects in the collection to file in .csv format.
+* @return None.
+*/
 void PurchaseHistoryCollection::saveToDatabase() {
 	// Clears csv file
 	std::ofstream ofs;

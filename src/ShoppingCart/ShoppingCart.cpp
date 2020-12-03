@@ -84,12 +84,15 @@ void ShoppingCart::updateCosts()
 	}
 }
 
-/** Processes cart for issues, (not enough funds, not enough stock). If no issues are found, 
- * 			   checkouts items in cart by removing their quantity from stock and subtracts the total price from 
- *			   the provided member's balance. Then empties the cart - Recommended to create invoice BEFORE calling this function.
- * @param buyer: Member* who is making the purchase.
- * @return 0 on failure, 1 or higher on success.
- */
+/**
+* Processes cart for issues, (not enough funds, not enough stock). If no issues are found, 
+* 				checkouts items in cart by removing their quantity from stock and subtracts the total price from 
+*			   the provided member's balance. 
+* @param buyer Member* who is making the purchase.
+* @param productC ProductCollection to apply changes to.
+* @param histC PurchaseHistoryCollection that records cart upon succesful purchase.
+* @return 0 on failure, 1 or higher on success.
+*/
 int ShoppingCart::processCart(Member *buyer, ProductCollection &productC, PurchaseHistoryCollection &histC)
 {
 	float grandPrice = 0.0;
