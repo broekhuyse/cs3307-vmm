@@ -1,6 +1,7 @@
 /** \file Login.h
  * \brief A class to provide the login functions, dealing with the raw passwords
  * \details This class may be removed depending on how security for the passwords will be handled.
+ * \author Justin Woo
  */
 #include "Login.h"
 
@@ -51,11 +52,19 @@ Member *Login::checkLogin(std::string username, std::string password)
     // Directly add user to login collection (update to encrypt password)
     return loginCollection.findMember(username, password);
 }
-
+/**
+ * Sets the login collction attached to the login system
+ * @param collection the login collection
+ * @return None.
+ */
 void Login::setLoginCollection(LoginCollection *collection)
 {
     loginCollection = *collection;
 }
+/**
+ * Returns the login collection attached to the login system
+ * @return the login collection
+ */
 LoginCollection Login::getLoginCollection() {
 	return loginCollection;
 }

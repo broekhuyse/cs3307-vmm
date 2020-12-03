@@ -1,6 +1,7 @@
 /** \file Member.h
- *  \brief Class that contains the data for a member in the vending machine system.
- *  \details Contains the name, member status, ID, member type and currency of the member.
+ * \brief Class that contains the data for a member in the vending machine system.
+ * \details Contains the name, member status, ID, member type and currency of the member.
+ * \author Justin Woo
  */
 //#include <iostream> // TEMP FOR DEBUGGING
 #include <ctime>

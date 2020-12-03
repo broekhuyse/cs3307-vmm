@@ -1,6 +1,7 @@
 /// Driver code and menu functionality.
 /** Driver class that provides the interface for the main menu, login, shopping car and account creation.
  *  Also provides access to admin menu functionality.
+ * \authors Alexander Broekhuyse , Shahryar Iqbal , Matthew Mombourquette , Michael Schmittat , Justin Woo 
 */
 
 #include <iostream>
