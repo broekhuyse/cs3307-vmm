@@ -1,3 +1,10 @@
+CS3307A | Object-Oriented Design and Analysis | Group Project
+"Virtual Vending Machine"
+
+Wrote code mostly for Product & ProductCollection classes, and for credit card functionality. 
+
+Compiling Notes:
+
 "make" will compile the code and place the executable in a bin folder
 "make clean" will remove the executable and objects used for compilation
 
